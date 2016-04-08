@@ -1,2 +1,2 @@
-# TextMaster-ClientBundle
-A Symfony2 bundle providing a client to TextMaster API
+# TextmasterBundle
+A Symfony2 bundle integrating [php-textmaster-api](https://github.com/cdaguerre/php-textmaster-api).
