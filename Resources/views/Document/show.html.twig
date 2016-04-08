@@ -1,0 +1,12 @@
+{% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
+
+{% block content %}
+    {{ document.title }}
+    {{ document.status }}
+    {{ document.instructions }}
+    {{ document.originalContent }}
+    {{ document.translatedContent }}
+    {{ document.wordCount }}
+    {{ document.callback }}
+    {{ document.customData }}
+{% endblock %}
