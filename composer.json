@@ -10,7 +10,9 @@
     "require": {
         "php": ">=5.4.0",
         "symfony/framework-bundle": "^2.7",
-        "cdaguerre/php-textmaster-api": "^1.0"
+        "symfony/console": "^2.7",
+        "cdaguerre/php-textmaster-api": "^1.0",
+        "white-october/pagerfanta-bundle": "^1.0"
     },
     "repositories": [
         {
