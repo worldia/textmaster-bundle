@@ -6,13 +6,19 @@
                                http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
+        <parameter key="worldia.textmaster.api.httpclient.class">Textmaster\HttpClient\HttpClient</parameter>
         <parameter key="worldia.textmaster.api.client.class">Textmaster\Client</parameter>
         <parameter key="worldia.textmaster.api.manager.class">Textmaster\Manager</parameter>
         <parameter key="worldia.textmaster.api.handler.class">Textmaster\Handler</parameter>
     </parameters>
 
     <services>
+        <service id="worldia.textmaster.api.httpclient" class="%worldia.textmaster.api.httpclient.class%">
+            <argument>%worldia.textmaster.httpclient.options%</argument>
+        </service>
+
         <service id="worldia.textmaster.api.client" class="%worldia.textmaster.api.client.class%">
+            <argument type="service" id="worldia.textmaster.api.httpclient"/>
             <call method="authenticate">
                 <argument>%worldia.textmaster.credentials.api_key%</argument>
                 <argument>%worldia.textmaster.credentials.api_secret%</argument>

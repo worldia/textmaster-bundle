@@ -13,7 +13,7 @@ class DocumentController extends AbstractController
      */
     protected function getResources(Request $request)
     {
-        return $this->getManager()->getProject($request->query->get('projectId'))->getDocuments();
+        return $this->getManager()->getProject($request->get('projectId'))->getDocuments();
     }
 
     /**
@@ -21,6 +21,6 @@ class DocumentController extends AbstractController
      */
     protected function getResource(Request $request)
     {
-        return $this->getManager()->getDocument($request->query->get('projectId'), $request->query->get('id'));
+        return $this->getManager()->getDocument($request->get('projectId'), $request->get('id'));
     }
 }
