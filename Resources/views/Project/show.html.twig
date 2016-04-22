@@ -1,0 +1,14 @@
+{% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
+
+{% block content %}
+    {{ project.name }}
+    {{ project.status }}
+    {{ project.activity }}
+    {{ project.category }}
+    {{ project.languageFrom }}
+    {{ project.languageTo }}
+    {{ project.briefing }}
+    {% for option, value in project.options %}
+        {{ option : value }}
+    {% endfor %}
+{% endblock %}
