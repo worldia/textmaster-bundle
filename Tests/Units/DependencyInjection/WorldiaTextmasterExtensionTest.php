@@ -1,9 +1,9 @@
 <?php
 
-namespace Worldia\TextmasterBundle\Tests\Units\DependencyInjection;
+namespace Worldia\Bundle\TextmasterBundle\Tests\Units\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Worldia\TextmasterBundle\DependencyInjection\WorldiaTextmasterExtension;
+use Worldia\Bundle\TextmasterBundle\DependencyInjection\WorldiaTextmasterExtension;
 
 class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
 {

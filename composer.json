@@ -33,7 +33,7 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Worldia\\TextmasterBundle\\": "" }
+        "psr-4": { "Worldia\\Bundle\\TextmasterBundle\\": "" }
     },
     "extra": {
         "branch-alias": {
