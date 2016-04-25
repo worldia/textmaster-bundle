@@ -1,0 +1,18 @@
+default:
+  autoload:
+        '': %paths.base%/Features/Context
+  suites:
+    default:
+      type: symfony_bundle
+      bundle: WorldiaTextmasterBundle
+      contexts:
+        - Worldia\Bundle\TextmasterBundle\Features\Context\FeatureContext
+  formatters:
+    pretty: true
+  extensions:
+    Behat\Symfony2Extension:
+      kernel:
+        env: dev
+        debug: false
+        path: Tests/Fixtures/Project/app/AppKernel.php
+        bootstrap: Tests/Fixtures/Project/app/bootstrap.php
