@@ -1,0 +1,64 @@
+{% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'document.title'|trans }}</th>
+                <th>{{ 'document.status'|trans }}</th>
+                <th>{{ 'document.instructions'|trans }}</th>
+                <th>{{ 'document.original_content'|trans }}</th>
+                <th>{{ 'document.translated_content'|trans }}</th>
+                <th>{{ 'document.word_count'|trans }}</th>
+                <th>{{ 'document.callback'|trans }}</th>
+                <th>{{ 'document.custom_data'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for document in pager.currentPageResults %}
+            <tr>
+                <td>{{ document.title }}</td>
+                <td>{{ document.status }}</td>
+                <td>{{ document.instructions }}</td>
+                <td>
+                    {% if document.originalContent is iterable %}
+                        {% for key, value in document.originalContent %}
+                            {{ key }}: {{ value.orignial_phrase }}
+                        {% endfor %}
+                    {% else %}
+                        {{ document.originalContent }}
+                    {% endif %}
+                </td>
+                <td>{{ document.translatedContent }}</td>
+                <td>{{ document.wordCount }}</td>
+                <td>
+                    {% if document.callback is iterable %}
+                        {% for key, value in document.callback %}
+                            {{ key }}: {{ value.url }}
+                        {% endfor %}
+                    {% else %}
+                        {{ document.callback }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if document.customData is iterable %}
+                        {% for key, value in document.customData %}
+                            {{ key }}: {{ value }}
+                        {% endfor %}
+                    {% else %}
+                        {{ document.customData }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagerfanta">
+        {{ pagerfanta(pager) }}
+    </div>
+{% endblock %}

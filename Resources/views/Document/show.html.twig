@@ -1,12 +1,38 @@
 {% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
 
 {% block content %}
-    {{ document.title }}
-    {{ document.status }}
-    {{ document.instructions }}
-    {{ document.originalContent }}
-    {{ document.translatedContent }}
-    {{ document.wordCount }}
-    {{ document.callback }}
-    {{ document.customData }}
+<ul>
+    <li>{{ document.title }}</li>
+    <li>{{ document.status }}</li>
+    <li>{{ document.instructions }}</li>
+    <li>
+        {% if document.originalContent is iterable %}
+            {% for key, value in document.originalContent %}
+                {{ key }}: {{ value.orignial_phrase }}
+            {% endfor %}
+        {% else %}
+            {{ document.originalContent }}
+        {% endif %}
+    </li>
+    <li>{{ document.translatedContent }}</li>
+    <li>{{ document.wordCount }}</li>
+    <li>
+        {% if document.callback is iterable %}
+            {% for key, value in document.callback %}
+                {{ key }}: {{ value.url }}
+            {% endfor %}
+        {% else %}
+            {{ document.callback }}
+        {% endif %}
+    </li>
+    <li>
+        {% if document.customData is iterable %}
+            {% for key, value in document.customData %}
+                {{ key }}: {{ value }}
+            {% endfor %}
+        {% else %}
+            {{ document.customData }}
+        {% endif %}
+    </li>
+</ul>
 {% endblock %}
