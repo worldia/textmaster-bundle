@@ -1,0 +1,21 @@
+document:
+    title: Titre
+    status: Statut
+    instructions: Instructions
+    original_content: Contenu d'origine
+    translated_content: Contenu traduit
+    word_count: Nombre de mots
+    callback: Callback
+    custom_data: Données internes
+
+project:
+    name: Nom
+    status: Statut
+    activity: Activité
+    category: Catégorie
+    language_from: Language d'origine
+    language_to: Language de destination
+    briefing: Briefing
+    options: Options
+    actions: Actions
+    documents: Documents
