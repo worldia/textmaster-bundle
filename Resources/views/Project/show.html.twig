@@ -1,14 +1,20 @@
 {% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
 
 {% block content %}
-    {{ project.name }}
-    {{ project.status }}
-    {{ project.activity }}
-    {{ project.category }}
-    {{ project.languageFrom }}
-    {{ project.languageTo }}
-    {{ project.briefing }}
-    {% for option, value in project.options %}
-        {{ option : value }}
-    {% endfor %}
+<ul>
+    <li>{{ project.name }}</li>
+    <li>{{ project.status }}</li>
+    <li>{{ project.activity }}</li>
+    <li>{{ project.category }}</li>
+    <li>{{ project.languageFrom }}</li>
+    <li>{{ project.languageTo }}</li>
+    <li>{{ project.briefing }}</li>
+    <li>
+        <ul>
+        {% for option, value in project.options %}
+            <li>{{ option }}: {{ value }}</li>
+        {% endfor %}
+        </ul>
+    </li>
+</ul>
 {% endblock %}

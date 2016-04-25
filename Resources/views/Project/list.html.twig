@@ -1,0 +1,48 @@
+{% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'project.name'|trans }}</th>
+                <th>{{ 'project.status'|trans }}</th>
+                <th>{{ 'project.activity'|trans }}</th>
+                <th>{{ 'project.category'|trans }}</th>
+                <th>{{ 'project.language_from'|trans }}</th>
+                <th>{{ 'project.language_to'|trans }}</th>
+                <th>{{ 'project.briefing'|trans }}</th>
+                <th>{{ 'project.options'|trans }}</th>
+                <th>{{ 'project.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project in pager.currentPageResults %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.status }}</td>
+                <td>{{ project.activity }}</td>
+                <td>{{ project.category }}</td>
+                <td>{{ project.languageFrom }}</td>
+                <td>{{ project.languageTo }}</td>
+                <td>{{ project.briefing }}</td>
+                <td>
+                    <ul>
+                    {% for option, value in project.options %}
+                        <li>{{ option }}: {{ value }}</li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td><a href="{{ path('worldia_textmaster_document_index', {'projectId': project.id}) }}">{{ 'project.documents'|trans }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagerfanta">
+        {{ pagerfanta(pager) }}
+    </div>
+{% endblock %}

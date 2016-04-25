@@ -21,6 +21,6 @@ class ProjectController extends AbstractController
      */
     protected function getResource(Request $request)
     {
-        return $this->getManager()->getProject($request->query->get('id'));
+        return $this->getManager()->getProject($request->get('id'));
     }
 }

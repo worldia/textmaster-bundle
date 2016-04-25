@@ -3,13 +3,14 @@
 namespace Worldia\TextmasterBundle\Controller;
 
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Textmaster\Handler;
 use Textmaster\Manager;
 
-abstract class AbstractController
+abstract class AbstractController implements ContainerAwareInterface
 {
     use ContainerAwareTrait;
 
@@ -24,7 +25,10 @@ abstract class AbstractController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('index', ['pager' => $this->getResources($request)]);
+        $pager = $this->getResources($request);
+        $pager->setCurrentPage($request->get('page', 1));
+
+        return $this->render('index', ['pager' => $pager]);
     }
 
     /**
