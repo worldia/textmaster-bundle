@@ -1,6 +1,6 @@
 <?php
 
-namespace Worldia\TextmasterBundle\DependencyInjection;
+namespace Worldia\Bundle\TextmasterBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
