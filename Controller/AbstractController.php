@@ -1,6 +1,6 @@
 <?php
 
-namespace Worldia\TextmasterBundle\Controller;
+namespace Worldia\Bundle\TextmasterBundle\Controller;
 
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
