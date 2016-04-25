@@ -1,6 +1,6 @@
 <?php
 
-namespace Worldia\TextmasterBundle\Controller;
+namespace Worldia\Bundle\TextmasterBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 

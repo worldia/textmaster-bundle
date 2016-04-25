@@ -1,9 +1,9 @@
 <?php
 
-namespace Worldia\TextmasterBundle\Tests\Units\DependencyInjection;
+namespace Worldia\Bundle\TextmasterBundle\Tests\Units\DependencyInjection;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
-use Worldia\TextmasterBundle\DependencyInjection\Configuration;
+use Worldia\Bundle\TextmasterBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
