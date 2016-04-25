@@ -31,5 +31,7 @@ class WorldiaTextmasterExtension extends Extension
         $container->setParameter('worldia.textmaster.templates.project.show', $config['templates']['project']['show']);
         $container->setParameter('worldia.textmaster.templates.document.index', $config['templates']['document']['index']);
         $container->setParameter('worldia.textmaster.templates.document.show', $config['templates']['document']['show']);
+
+        $container->setParameter('worldia.textmaster.mapping.properties', $config['mapping_properties']);
     }
 }
