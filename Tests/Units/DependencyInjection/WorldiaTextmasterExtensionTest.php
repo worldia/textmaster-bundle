@@ -35,7 +35,10 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
      */
     public function assertParameters()
     {
-        $this->load();
+        $mapping = [
+            'Worldia\Bundle\ProductTestBundle\Entity\Product' => ['title', 'description'],
+        ];
+        $this->load(['mapping_properties' => $mapping]);
 
         $this->assertContainerBuilderHasParameter('worldia.textmaster.credentials.api_key', 'My API key');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.credentials.api_secret', 'My API secret');
@@ -44,6 +47,8 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.document.index', 'WorldiaTextmasterBundle:Document:list.html.twig');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.project.show', 'WorldiaTextmasterBundle:Project:show.html.twig');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.project.index', 'WorldiaTextmasterBundle:Project:list.html.twig');
+
+        $this->assertContainerBuilderHasParameter('worldia.textmaster.mapping.properties', $mapping);
     }
 
     /**
@@ -74,5 +79,12 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('worldia.textmaster.api.client', 'Textmaster\Client');
         $this->assertContainerBuilderHasService('worldia.textmaster.api.manager', 'Textmaster\Manager');
         $this->assertContainerBuilderHasService('worldia.textmaster.api.handler', 'Textmaster\Handler');
+        $this->assertContainerBuilderHasService('worldia.textmaster.api.translator', 'Textmaster\Translator\Translator');
+        $this->assertContainerBuilderHasService('worldia.textmaster.api.mapping_provider', 'Textmaster\Translator\Provider\ArrayBasedMappingProvider');
+
+        $this->assertContainerBuilderHasService('worldia.textmaster.manager.job', 'Worldia\Bundle\TextmasterBundle\Manager\JobManager');
+        $this->assertContainerBuilderHasService('worldia.textmaster.translation.engine', 'Worldia\Bundle\TextmasterBundle\Translation\Engine');
+        $this->assertContainerBuilderHasService('worldia.listener.document.in_review', 'Worldia\Bundle\TextmasterBundle\EventListener\DocumentInReviewListener');
+        $this->assertContainerBuilderHasService('worldia.listener.job', 'Worldia\Bundle\TextmasterBundle\EventListener\JobListener');
     }
 }

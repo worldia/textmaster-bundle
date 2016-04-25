@@ -77,6 +77,13 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('mapping_properties')
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->requiresAtLeastOneElement()
+                        ->prototype('scalar')->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
