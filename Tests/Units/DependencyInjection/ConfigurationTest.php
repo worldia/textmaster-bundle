@@ -34,6 +34,9 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                         'api_key' => 'My API key',
                         'api_secret' => 'My API secret',
                     ],
+                    'mapping_properties' => [
+                        'Worldia\Bundle\ProductTestBundle\Entity\Product' => ['title', 'description'],
+                    ],
                 ],
             ]
         );
