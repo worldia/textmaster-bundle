@@ -14,7 +14,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
     {
         $jobManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface');
         $clientMock = $this->getMock('Textmaster\Client', ['projects']);
-        $routerMock = $this->getMockBuilder('Symfony\Bundle\FrameworkBundle\Routing\Router')->disableOriginalConstructor()->getMock();
+        $routerMock = $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
         $translatorMock = $this->getMockBuilder('Textmaster\Translator\Translator')->setMethods(['create'])->disableOriginalConstructor()->getMock();
 
         $translatableMock = $this->getMock('TranslatableInterface', ['getId']);
