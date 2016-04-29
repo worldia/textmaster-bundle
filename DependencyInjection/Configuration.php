@@ -17,39 +17,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('templates')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('document')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('show')
-                                    ->defaultValue('WorldiaTextmasterBundle:Document:show.html.twig')
-                                ->end()
-                            ->end()
-                            ->children()
-                                ->scalarNode('index')
-                                    ->defaultValue('WorldiaTextmasterBundle:Document:list.html.twig')
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                    ->children()
-                        ->arrayNode('project')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->scalarNode('show')
-                                    ->defaultValue('WorldiaTextmasterBundle:Project:show.html.twig')
-                                ->end()
-                            ->end()
-                            ->children()
-                                ->scalarNode('index')
-                                    ->defaultValue('WorldiaTextmasterBundle:Project:list.html.twig')
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
+                ->append($this->addTemplatesNode())
                 ->arrayNode('credentials')
                     ->children()
                         ->scalarNode('api_key')
@@ -88,5 +56,47 @@ class Configuration implements ConfigurationInterface
         ;
 
         return $treeBuilder;
+    }
+
+    private function addTemplatesNode()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('templates');
+
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->arrayNode('document')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('show')
+                            ->defaultValue('WorldiaTextmasterBundle:Document:show.html.twig')
+                        ->end()
+                    ->end()
+                    ->children()
+                        ->scalarNode('index')
+                            ->defaultValue('WorldiaTextmasterBundle:Document:list.html.twig')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+            ->children()
+                ->arrayNode('project')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('show')
+                            ->defaultValue('WorldiaTextmasterBundle:Project:show.html.twig')
+                        ->end()
+                    ->end()
+                    ->children()
+                        ->scalarNode('index')
+                            ->defaultValue('WorldiaTextmasterBundle:Project:list.html.twig')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
+        return $node;
     }
 }

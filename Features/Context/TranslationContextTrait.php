@@ -34,7 +34,7 @@ trait TranslationContextTrait
     {
         $repository = $this->getEntityManager()->getRepository('WorldiaTextmasterBundle:Job');
 
-        return $repository->findOneById($id);
+        return $repository->find($id);
     }
 
     /**
