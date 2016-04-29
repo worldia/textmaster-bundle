@@ -3,12 +3,26 @@
 namespace Worldia\Bundle\TextmasterBundle\Features\Context;
 
 use Behat\Gherkin\Node\TableNode;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit_Framework_Assert;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
-use Worldia\Bundle\TextmasterBundle\Translation\Engine;
+use Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface;
 
 trait TranslationContextTrait
 {
+    /**
+     * @return EntityManagerInterface
+     */
+    abstract public function getEntityManager();
+
+    /**
+     * Returns HttpKernel instance.
+     *
+     * @return KernelInterface
+     */
+    abstract public function getKernel();
+
     /**
      * @Transform :job
      *
@@ -26,11 +40,11 @@ trait TranslationContextTrait
     /**
      * Return the translation engine.
      *
-     * @return Engine
+     * @return TranslationManagerInterface
      */
     public function getTranslationEngine()
     {
-        return $this->kernel->getContainer()->get('worldia.textmaster.manager.translation');
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.manager.translation');
     }
 
     /**
