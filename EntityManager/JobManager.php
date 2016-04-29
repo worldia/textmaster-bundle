@@ -1,8 +1,8 @@
 <?php
 
-namespace Worldia\Bundle\TextmasterBundle\Manager;
+namespace Worldia\Bundle\TextmasterBundle\EntityManager;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Textmaster\Manager;
 use Textmaster\Model\DocumentInterface;
@@ -13,7 +13,7 @@ use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
 class JobManager implements JobManagerInterface
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     protected $entityManager;
 
@@ -25,11 +25,11 @@ class JobManager implements JobManagerInterface
     /**
      * Translator constructor.
      *
-     * @param EntityManager $entityManager
-     * @param Manager       $textmasterManager
+     * @param EntityManagerInterface $entityManager
+     * @param Manager                $textmasterManager
      */
     public function __construct(
-        EntityManager $entityManager,
+        EntityManagerInterface $entityManager,
         Manager $textmasterManager
     ) {
         $this->entityManager = $entityManager;

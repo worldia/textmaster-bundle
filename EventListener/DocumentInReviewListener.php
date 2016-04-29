@@ -2,8 +2,8 @@
 
 namespace Worldia\Bundle\TextmasterBundle\EventListener;
 
-use Textmaster\Event\DocumentEvent;
-use Worldia\Bundle\TextmasterBundle\Manager\JobManagerInterface;
+use Textmaster\Event\CallbackEvent;
+use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
 
 class DocumentInReviewListener
 {
@@ -25,11 +25,11 @@ class DocumentInReviewListener
     /**
      * Mark document's related job as 'finished'.
      *
-     * @param DocumentEvent $event
+     * @param CallbackEvent $event
      */
-    public function onTextmasterDocumentInReview(DocumentEvent $event)
+    public function onTextmasterDocumentInReview(CallbackEvent $event)
     {
-        $job = $this->jobManager->getFromDocument($event->getDocument());
+        $job = $this->jobManager->getFromDocument($event->getSubject());
         $this->jobManager->finish($job);
     }
 }

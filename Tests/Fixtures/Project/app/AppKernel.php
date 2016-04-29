@@ -5,7 +5,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
-    private $mainBundle = 'WorldiaTranslationBundle';
+    private $mainBundle = 'WorldiaTextmasterBundle';
 
     /**
      * @return array

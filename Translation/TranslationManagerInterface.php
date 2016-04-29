@@ -5,7 +5,7 @@ namespace Worldia\Bundle\TextmasterBundle\Translation;
 use Textmaster\Model\ProjectInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
 
-interface EngineInterface
+interface TranslationManagerInterface
 {
     /**
      * Create a project with the given parameters.

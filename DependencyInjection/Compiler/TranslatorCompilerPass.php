@@ -5,8 +5,7 @@ namespace Worldia\Bundle\TextmasterBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Worldia\Bundle\TextmasterBundle\Exception\NoAdapterException;
-use Worldia\Bundle\TextmasterBundle\Exception\TooManyFactoryException;
+use Symfony\Component\DependencyInjection\Exception\LogicException;
 
 class TranslatorCompilerPass implements CompilerPassInterface
 {
@@ -27,7 +26,7 @@ class TranslatorCompilerPass implements CompilerPassInterface
      * @param ContainerBuilder $container
      * @param Definition       $translator
      *
-     * @throws NoAdapterException
+     * @throws LogicException
      */
     private function addAdapters(ContainerBuilder $container, Definition $translator)
     {
@@ -37,7 +36,7 @@ class TranslatorCompilerPass implements CompilerPassInterface
         }
 
         if (0 === count($adapters)) {
-            throw new NoAdapterException('You need at least one textmaster_translator_adapter.');
+            throw new LogicException('You need at least one textmaster_translator_adapter.');
         }
 
         $translator->replaceArgument(0, $adapters);
@@ -49,7 +48,7 @@ class TranslatorCompilerPass implements CompilerPassInterface
      * @param ContainerBuilder $container
      * @param Definition       $translator
      *
-     * @throws TooManyFactoryException
+     * @throws LogicException
      */
     private function addFactory(ContainerBuilder $container, Definition $translator)
     {
@@ -59,7 +58,7 @@ class TranslatorCompilerPass implements CompilerPassInterface
         }
 
         if (1 < count($factoryServices)) {
-            throw new TooManyFactoryException('You cannot have more than one textmaster_translator_factory.');
+            throw new LogicException('You cannot have more than one textmaster_translator_factory.');
         }
 
         foreach ($factoryServices as $id => $service) {
