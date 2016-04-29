@@ -2,7 +2,7 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Translation;
 
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Textmaster\Client;
 use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\Project;
@@ -24,7 +24,7 @@ class TranslationManager implements TranslationManagerInterface
     protected $client;
 
     /**
-     * @var Router
+     * @var UrlGeneratorInterface
      */
     protected $router;
 
@@ -36,15 +36,15 @@ class TranslationManager implements TranslationManagerInterface
     /**
      * Engine constructor.
      *
-     * @param JobManagerInterface $jobManager
-     * @param Client              $client
-     * @param Router              $router
-     * @param TranslatorInterface $translator
+     * @param JobManagerInterface   $jobManager
+     * @param Client                $client
+     * @param UrlGeneratorInterface $router
+     * @param TranslatorInterface   $translator
      */
     public function __construct(
         JobManagerInterface $jobManager,
         Client $client,
-        Router $router,
+        UrlGeneratorInterface $router,
         TranslatorInterface $translator
     ) {
         $this->jobManager = $jobManager;
