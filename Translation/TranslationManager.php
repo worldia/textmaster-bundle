@@ -4,15 +4,14 @@ namespace Worldia\Bundle\TextmasterBundle\Translation;
 
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Textmaster\Client;
-use Textmaster\Model\Document;
 use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\Project;
 use Textmaster\Model\ProjectInterface;
 use Textmaster\Translator\TranslatorInterface;
-use Worldia\Bundle\TextmasterBundle\Manager\JobManagerInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
+use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
 
-class Engine
+class TranslationManager implements TranslationManagerInterface
 {
     /**
      * @var JobManagerInterface

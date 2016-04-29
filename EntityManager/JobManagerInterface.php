@@ -1,6 +1,6 @@
 <?php
 
-namespace Worldia\Bundle\TextmasterBundle\Manager;
+namespace Worldia\Bundle\TextmasterBundle\EntityManager;
 
 use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\ProjectInterface;

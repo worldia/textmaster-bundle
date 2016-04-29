@@ -30,7 +30,7 @@ trait TranslationContextTrait
      */
     public function getTranslationEngine()
     {
-        return $this->kernel->getContainer()->get('worldia.textmaster.translation.engine');
+        return $this->kernel->getContainer()->get('worldia.textmaster.manager.translation');
     }
 
     /**
