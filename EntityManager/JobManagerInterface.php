@@ -48,12 +48,10 @@ interface JobManagerInterface
      * Set given job status to 'validated'.
      *
      * @param JobInterface $job
-     * @param string       $satisfaction
-     * @param string       $message
      *
      * @return JobInterface
      */
-    public function validate(JobInterface $job, $satisfaction = null, $message = null);
+    public function validate(JobInterface $job);
 
     /**
      * Get job related to the given document.

@@ -12,7 +12,6 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldCreateProject()
     {
-        $jobManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface');
         $clientMock = $this->getMock('Textmaster\Client', ['projects']);
         $routerMock = $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
         $translatorMock = $this->getMockBuilder('Textmaster\Translator\Translator')->setMethods(['create'])->disableOriginalConstructor()->getMock();
@@ -32,7 +31,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
         ];
         $documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
 
-        $clientMock->expects($this->once())
+        $clientMock->expects($this->exactly(2))
             ->method('projects')
             ->willReturn($apiMock);
 
@@ -40,7 +39,11 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->willReturn($showValues);
 
-        $routerMock->expects($this->once())
+        $apiMock->expects($this->once())
+            ->method('launch')
+            ->willReturn($showValues);
+
+        $routerMock->expects($this->exactly(2))
             ->method('generate')
             ->willReturn('http://callback.url');
 
@@ -52,7 +55,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->willReturn($documentMock);
 
-        $translationManager = new TranslationManager($jobManagerMock, $clientMock, $routerMock, $translatorMock);
+        $translationManager = new TranslationManager($clientMock, $translatorMock, $routerMock);
         $project = $translationManager->create([$translatableMock], 'Project 1', 'en', 'fr', 'CO21', 'Lorem ipsum...', ['language_level' => 'premium']);
 
         $this->assertTrue(in_array('Textmaster\Model\ProjectInterface', class_implements($project)));

@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit_Framework_Assert;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
+use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
 use Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface;
 
 trait TranslationContextTrait
@@ -22,6 +23,14 @@ trait TranslationContextTrait
      * @return KernelInterface
      */
     abstract public function getKernel();
+
+    /**
+     * @return JobManagerInterface
+     */
+    public function getJobManager()
+    {
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.manager.job');
+    }
 
     /**
      * @Transform :job
@@ -69,7 +78,7 @@ trait TranslationContextTrait
     {
         $products = $this->getEntityManager()->getRepository('WorldiaProductTestBundle:Product')->findAll();
         foreach ($table->getHash() as $data) {
-            $project = $this->getTranslationEngine()->create(
+            $this->getTranslationEngine()->create(
                 $products,
                 $data['name'],
                 $data['languageFrom'],
@@ -78,7 +87,6 @@ trait TranslationContextTrait
                 $data['projectBriefing'],
                 json_decode($data['options'], true)
             );
-            $this->getTranslationEngine()->launch($project);
         }
     }
 
@@ -95,6 +103,7 @@ trait TranslationContextTrait
      */
     public function translateJob(JobInterface $job)
     {
-        $this->getTranslationEngine()->translate($job);
+        $document = $this->getJobManager()->getDocument($job);
+        $this->getTranslationEngine()->translate($document);
     }
 }

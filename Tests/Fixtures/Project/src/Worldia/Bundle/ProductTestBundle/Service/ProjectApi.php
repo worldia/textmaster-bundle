@@ -49,4 +49,9 @@ class ProjectApi
     {
         return $this->projects[$id];
     }
+
+    public function updateProject(array $params)
+    {
+        $this->projects[$params['id']] = array_merge($this->projects[$params['id']], $params);
+    }
 }

@@ -4,6 +4,7 @@ namespace Worldia\Bundle\ProductTestBundle\Service;
 
 use Textmaster\Client;
 use Textmaster\Model\Document;
+use Textmaster\Model\DocumentInterface;
 
 class DocumentApi
 {
@@ -30,8 +31,12 @@ class DocumentApi
         return $params;
     }
 
-    public function complete()
+    public function complete($id)
     {
+        $document = $this->documents[$id];
+        $document['status'] = DocumentInterface::STATUS_COMPLETED;
+
+        return $document;
     }
 
     public function show($id)

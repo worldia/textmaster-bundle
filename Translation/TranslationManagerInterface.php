@@ -2,8 +2,8 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Translation;
 
+use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\ProjectInterface;
-use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
 
 interface TranslationManagerInterface
 {
@@ -31,22 +31,13 @@ interface TranslationManagerInterface
     );
 
     /**
-     * Launch the given project.
-     *
-     * @param ProjectInterface $project
-     *
-     * @return ProjectInterface
-     */
-    public function launch(ProjectInterface $project);
-
-    /**
      * Execute the given job translation process and validate it.
      *
-     * @param JobInterface $job
-     * @param string       $satisfaction
-     * @param string       $message
+     * @param DocumentInterface $document
+     * @param string            $satisfaction
+     * @param string            $message
      *
-     * @return JobInterface
+     * @return DocumentInterface
      */
-    public function translate(JobInterface $job, $satisfaction = null, $message = null);
+    public function translate(DocumentInterface $document, $satisfaction = null, $message = null);
 }

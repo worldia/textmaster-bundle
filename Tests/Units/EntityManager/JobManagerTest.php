@@ -70,11 +70,6 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldValidateJob()
     {
-        $documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
-        $this->textmasterManagerMock->expects($this->once())
-            ->method('getDocument')
-            ->willReturn($documentMock);
-
         $job = new Job($this->translatableMock, 'projectId', 'documentId');
         $this->jobManager->validate($job);
 

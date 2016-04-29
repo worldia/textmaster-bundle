@@ -23,7 +23,7 @@ doctrine:
 services:
     worldia.textmaster.api.client:
         class:  Worldia\Bundle\ProductTestBundle\Service\FakeClient
-        arguments: ['@worldia.textmaster.api.httpclient', '@service_container']
+        arguments: ['@worldia.textmaster.api.httpclient', '@event_dispatcher', '@service_container']
 
     worldia.textmaster.project.api:
         class:  Worldia\Bundle\ProductTestBundle\Service\ProjectApi

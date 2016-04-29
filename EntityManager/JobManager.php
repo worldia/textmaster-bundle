@@ -82,11 +82,8 @@ class JobManager implements JobManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function validate(JobInterface $job, $satisfaction = null, $message = null)
+    public function validate(JobInterface $job)
     {
-        $document = $this->getDocument($job);
-        $document->complete($satisfaction, $message);
-
         return $this->updateStatus($job, JobInterface::STATUS_VALIDATED);
     }
 

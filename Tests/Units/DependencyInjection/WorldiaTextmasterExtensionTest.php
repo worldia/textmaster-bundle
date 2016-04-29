@@ -84,7 +84,8 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasService('worldia.textmaster.manager.job', 'Worldia\Bundle\TextmasterBundle\EntityManager\JobManager');
         $this->assertContainerBuilderHasService('worldia.textmaster.manager.translation', 'Worldia\Bundle\TextmasterBundle\Translation\TranslationManager');
-        $this->assertContainerBuilderHasService('worldia.textmaster.listener.document.in_review', 'Worldia\Bundle\TextmasterBundle\EventListener\DocumentInReviewListener');
+        $this->assertContainerBuilderHasService('worldia.textmaster.listener.document', 'Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener');
+        $this->assertContainerBuilderHasService('worldia.textmaster.listener.project', 'Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener');
         $this->assertContainerBuilderHasService('worldia.textmaster.listener.job', 'Worldia\Bundle\TextmasterBundle\EventListener\JobListener');
     }
 }

@@ -33,9 +33,20 @@ trait TextmasterContextTrait
     }
 
     /**
-     * @Given I receive the request :content
+     * @Given I receive the project request :content
      */
-    public function receiveDocumentInReviewEvent($content)
+    public function receiveProjectRequest($content)
+    {
+        $this->getProjectApi()->updateProject(json_decode($content, true));
+
+        $request = new Request([], [], [], [], [], [], $content);
+        $this->getHandler()->handleWebHook($request);
+    }
+
+    /**
+     * @Given I receive the document request :content
+     */
+    public function receiveDocumentRequest($content)
     {
         $this->getProjectApi()->documents()->updateDocument(json_decode($content, true));
 

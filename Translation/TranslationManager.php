@@ -8,25 +8,13 @@ use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\Project;
 use Textmaster\Model\ProjectInterface;
 use Textmaster\Translator\TranslatorInterface;
-use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
-use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
 
 class TranslationManager implements TranslationManagerInterface
 {
     /**
-     * @var JobManagerInterface
-     */
-    protected $jobManager;
-
-    /**
      * @var Client
      */
     protected $client;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
-    protected $router;
 
     /**
      * @var TranslatorInterface
@@ -34,23 +22,25 @@ class TranslationManager implements TranslationManagerInterface
     protected $translator;
 
     /**
+     * @var UrlGeneratorInterface
+     */
+    protected $router;
+
+    /**
      * Engine constructor.
      *
-     * @param JobManagerInterface   $jobManager
      * @param Client                $client
-     * @param UrlGeneratorInterface $router
      * @param TranslatorInterface   $translator
+     * @param UrlGeneratorInterface $router
      */
     public function __construct(
-        JobManagerInterface $jobManager,
         Client $client,
-        UrlGeneratorInterface $router,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        UrlGeneratorInterface $router
     ) {
-        $this->jobManager = $jobManager;
         $this->client = $client;
-        $this->router = $router;
         $this->translator = $translator;
+        $this->router = $router;
     }
 
     /**
@@ -74,21 +64,12 @@ class TranslationManager implements TranslationManagerInterface
             ->setCategory($category)
             ->setBriefing($projectBriefing)
             ->setOptions($options)
+            ->setCallback($this->generateProjectCallback())
         ;
 
         $project->save();
         $this->generateDocuments($project, $translatable);
-
-        return $project;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function launch(ProjectInterface $project)
-    {
         $project->launch();
-        $this->jobManager->startJobs($project);
 
         return $project;
     }
@@ -96,17 +77,9 @@ class TranslationManager implements TranslationManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function translate(JobInterface $job, $satisfaction = null, $message = null)
+    public function translate(DocumentInterface $document, $satisfaction = null, $message = null)
     {
-        if (JobInterface::STATUS_FINISHED !== $job->getStatus()) {
-            throw new \BadMethodCallException(sprintf(
-                'Can only translate a finished job. Status is "%s".',
-                $job->getStatus()
-            ));
-        }
-
-        $this->translator->complete($this->jobManager->getDocument($job));
-        $this->jobManager->validate($job, $satisfaction, $message);
+        $this->translator->complete($document, $satisfaction = null, $message = null);
     }
 
     /**
@@ -117,8 +90,7 @@ class TranslationManager implements TranslationManagerInterface
      */
     protected function generateDocuments(ProjectInterface $project, array $translatableList)
     {
-        $projectId = $project->getId();
-        $callback = $this->generateCallback($project);
+        $callback = $this->generateDocumentCallback($project);
 
         foreach ($translatableList as $translatable) {
             $params = [];
@@ -127,8 +99,7 @@ class TranslationManager implements TranslationManagerInterface
                 'title' => $this->generateTitle($project, $translatable),
                 'callback' => $callback,
             ];
-            $document = $this->translator->create($translatable, $params);
-            $this->jobManager->create($translatable, $projectId, $document->getId());
+            $this->translator->create($translatable, $params);
         }
     }
 
@@ -152,7 +123,7 @@ class TranslationManager implements TranslationManagerInterface
      *
      * @return array
      */
-    protected function generateCallback(ProjectInterface $project)
+    protected function generateDocumentCallback(ProjectInterface $project)
     {
         return [
             DocumentInterface::STATUS_IN_REVIEW => [
@@ -160,6 +131,20 @@ class TranslationManager implements TranslationManagerInterface
                     'worldia_textmaster_document_update',
                     ['projectId' => $project->getId()]
                 ),
+            ],
+        ];
+    }
+
+    /**
+     * Generate a default callback for project in progress.
+     *
+     * @return array
+     */
+    protected function generateProjectCallback()
+    {
+        return [
+            ProjectInterface::STATUS_IN_PROGRESS => [
+                'url' => $this->router->generate('worldia_textmaster_project_update'),
             ],
         ];
     }
