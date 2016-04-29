@@ -1,14 +1,14 @@
 worldia_textmaster_project_index:
     methods:  [GET]
-    pattern:  /projects
+    path:     /projects
     defaults: { _controller: WorldiaTextmasterBundle:Project:index }
 
 worldia_textmaster_project_show:
     methods:  [GET]
-    pattern:  /projects/{id}
+    path:     /projects/{id}
     defaults: { _controller: WorldiaTextmasterBundle:Project:show }
 
 worldia_textmaster_project_update:
     methods:  [POST]
-    pattern:  /projects/
+    path:     /projects
     defaults: { _controller: WorldiaTextmasterBundle:Project:callback }
