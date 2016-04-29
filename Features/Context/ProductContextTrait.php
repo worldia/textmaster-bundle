@@ -25,7 +25,7 @@ trait ProductContextTrait
     {
         $repository = $this->getEntityManager()->getRepository('WorldiaProductTestBundle:Product');
 
-        return $repository->findOneById($id);
+        return $repository->find($id);
     }
 
     /**
