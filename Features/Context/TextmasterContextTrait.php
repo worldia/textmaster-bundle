@@ -3,25 +3,33 @@
 namespace Worldia\Bundle\TextmasterBundle\Features\Context;
 
 use Symfony\Component\HttpFoundation\Request;
-use Textmaster\Handler;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Textmaster\CallbackHandler;
 use Worldia\Bundle\ProductTestBundle\Service\ProjectApi;
 
 trait TextmasterContextTrait
 {
     /**
+     * Returns HttpKernel instance.
+     *
+     * @return KernelInterface
+     */
+    abstract public function getKernel();
+
+    /**
      * @return ProjectApi
      */
     public function getProjectApi()
     {
-        return $this->kernel->getContainer()->get('worldia.textmaster.project.api');
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.project.api');
     }
 
     /**
-     * @return Handler
+     * @return CallbackHandler
      */
     public function getHandler()
     {
-        return $this->kernel->getContainer()->get('worldia.textmaster.api.handler');
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.api.handler');
     }
 
     /**

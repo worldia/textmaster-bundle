@@ -3,7 +3,6 @@
 namespace Worldia\Bundle\TextmasterBundle\Features\Context;
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\SchemaTool;
 
@@ -12,7 +11,6 @@ use Doctrine\ORM\Tools\SchemaTool;
  */
 class FeatureContext implements Context
 {
-    // provides getKernel() and getContainer() methods
     use \Behat\Symfony2Extension\Context\KernelDictionary;
 
     use ProductContextTrait;
@@ -22,7 +20,7 @@ class FeatureContext implements Context
     /**
      * @BeforeScenario
      */
-    public function buildSchema(BeforeScenarioScope $scope)
+    public function buildSchema()
     {
         $entityManager = $this->getEntityManager();
         $metadata = $entityManager->getMetadataFactory()->getAllMetadata();

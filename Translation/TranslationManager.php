@@ -121,6 +121,7 @@ class TranslationManager implements TranslationManagerInterface
         $callback = $this->generateCallback($project);
 
         foreach ($translatableList as $translatable) {
+            $params = [];
             $params['project'] = $project;
             $params['document'] = [
                 'title' => $this->generateTitle($project, $translatable),

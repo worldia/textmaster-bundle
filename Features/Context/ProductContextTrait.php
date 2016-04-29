@@ -3,11 +3,17 @@
 namespace Worldia\Bundle\TextmasterBundle\Features\Context;
 
 use Behat\Gherkin\Node\TableNode;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit_Framework_Assert;
 use Worldia\Bundle\ProductTestBundle\Entity\Product;
 
 trait ProductContextTrait
 {
+    /**
+     * @return EntityManagerInterface
+     */
+    abstract public function getEntityManager();
+
     /**
      * @Transform :product
      *
