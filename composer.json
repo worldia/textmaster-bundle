@@ -29,7 +29,7 @@
     "repositories": [
         {
           "type": "git",
-          "url":  "https://worldia-ci:Yz2-zpg-wwt-mXz@github.com/worldia/php-textmaster-api"
+          "url":  "https://worldia-ci:Yz2-zpg-wwt-mXz@github.com/worldia/textmaster-api"
         }
     ],
     "autoload": {
