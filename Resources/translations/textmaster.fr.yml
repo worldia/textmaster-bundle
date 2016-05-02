@@ -19,3 +19,11 @@ project:
     options: Options
     actions: Actions
     documents: Documents
+
+job:
+    id: Id
+    status: Statut
+    translatable: Elément à traduire
+    project: Projet
+    document: Document
+    show: Voir
