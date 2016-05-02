@@ -95,6 +95,21 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
             ->end()
+            ->children()
+                ->arrayNode('job')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('show')
+                            ->defaultValue('WorldiaTextmasterBundle:Job:show.html.twig')
+                        ->end()
+                    ->end()
+                    ->children()
+                        ->scalarNode('index')
+                            ->defaultValue('WorldiaTextmasterBundle:Job:list.html.twig')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
         ;
 
         return $node;

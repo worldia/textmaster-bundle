@@ -1,0 +1,11 @@
+{% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
+
+{% block content %}
+<ul>
+    <li>{{ resource.id }}</li>
+    <li>{{ resource.status }}</li>
+    <li>{{ resource.translatable }}</li>
+    <li>{{ resource.projectId }}</li>
+    <li>{{ resource.documentId }}</li>
+</ul>
+{% endblock %}
