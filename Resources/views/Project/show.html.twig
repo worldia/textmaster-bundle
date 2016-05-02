@@ -2,16 +2,16 @@
 
 {% block content %}
 <ul>
-    <li>{{ project.name }}</li>
-    <li>{{ project.status }}</li>
-    <li>{{ project.activity }}</li>
-    <li>{{ project.category }}</li>
-    <li>{{ project.languageFrom }}</li>
-    <li>{{ project.languageTo }}</li>
-    <li>{{ project.briefing }}</li>
+    <li>{{ resource.name }}</li>
+    <li>{{ resource.status }}</li>
+    <li>{{ resource.activity }}</li>
+    <li>{{ resource.category }}</li>
+    <li>{{ resource.languageFrom }}</li>
+    <li>{{ resource.languageTo }}</li>
+    <li>{{ resource.briefing }}</li>
     <li>
         <ul>
-        {% for option, value in project.options %}
+        {% for option, value in resource.options %}
             <li>{{ option }}: {{ value }}</li>
         {% endfor %}
         </ul>

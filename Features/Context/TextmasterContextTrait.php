@@ -33,22 +33,16 @@ trait TextmasterContextTrait
     }
 
     /**
-     * @Given I receive the project request :content
+     * @Given I receive the request :content
      */
     public function receiveProjectRequest($content)
     {
-        $this->getProjectApi()->updateProject(json_decode($content, true));
-
-        $request = new Request([], [], [], [], [], [], $content);
-        $this->getHandler()->handleWebHook($request);
-    }
-
-    /**
-     * @Given I receive the document request :content
-     */
-    public function receiveDocumentRequest($content)
-    {
-        $this->getProjectApi()->documents()->updateDocument(json_decode($content, true));
+        $data = json_decode($content, true);
+        if (array_key_exists('name', $data)) {
+            $this->getProjectApi()->updateProject(json_decode($content, true));
+        } elseif (array_key_exists('original_content', $data)) {
+            $this->getProjectApi()->documents()->updateDocument(json_decode($content, true));
+        }
 
         $request = new Request([], [], [], [], [], [], $content);
         $this->getHandler()->handleWebHook($request);

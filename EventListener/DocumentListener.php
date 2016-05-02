@@ -9,6 +9,7 @@ use Textmaster\Events;
 use Textmaster\Model\DocumentInterface;
 use Textmaster\Translator\Adapter\AdapterInterface;
 use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
+use Worldia\Bundle\TextmasterBundle\Exception\NoResultException;
 
 class DocumentListener implements EventSubscriberInterface
 {
@@ -39,11 +40,11 @@ class DocumentListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::DOCUMENT_IN_CREATION => 'onTextmasterDocumentInCreation',
             Events::DOCUMENT_IN_REVIEW => 'onTextmasterDocumentInReview',
             Events::DOCUMENT_COMPLETED => 'onTextmasterDocumentCompleted',
-        );
+        ];
     }
 
     /**
@@ -58,13 +59,6 @@ class DocumentListener implements EventSubscriberInterface
         /** @var DocumentInterface $document */
         $document = $event->getSubject();
         $translatable = $this->getSubjectFromDocument($document);
-        if (null === $translatable) {
-            throw new \Exception(sprintf(
-                'No subject for document "%s"',
-                $document->getId()
-            ));
-        }
-
         $this->jobManager->create($translatable, $document->getProject()->getId(), $document->getId());
     }
 
@@ -73,7 +67,7 @@ class DocumentListener implements EventSubscriberInterface
      *
      * @param CallbackEvent $event
      */
-    public function onTextmasterDocumentInReview(GenericEvent $event)
+    public function onTextmasterDocumentInReview(CallbackEvent $event)
     {
         /** @var DocumentInterface $document */
         $document = $event->getSubject();
@@ -100,6 +94,8 @@ class DocumentListener implements EventSubscriberInterface
      * @param DocumentInterface $document
      *
      * @return mixed
+     *
+     * @throws \Exception
      */
     protected function getSubjectFromDocument(DocumentInterface $document)
     {
@@ -114,6 +110,9 @@ class DocumentListener implements EventSubscriberInterface
             }
         }
 
-        return;
+        throw new NoResultException(sprintf(
+            'No subject for document "%s"',
+            $document->getId()
+        ));
     }
 }

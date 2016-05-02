@@ -109,7 +109,7 @@ class TranslationManager implements TranslationManagerInterface
      * @param ProjectInterface $project
      * @param object           $translatable
      *
-     * @return array
+     * @return string
      */
     protected function generateTitle(ProjectInterface $project, $translatable)
     {

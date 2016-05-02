@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Textmaster\Handler;
+use Textmaster\CallbackHandler;
 use Textmaster\Manager;
 
 abstract class AbstractController implements ContainerAwareInterface
@@ -40,7 +40,7 @@ abstract class AbstractController implements ContainerAwareInterface
      */
     public function showAction(Request $request)
     {
-        return $this->render('show', ['project' => $this->getResource($request)]);
+        return $this->render('show', ['resource' => $this->getResource($request)]);
     }
 
     /**
@@ -66,7 +66,7 @@ abstract class AbstractController implements ContainerAwareInterface
     /**
      * Get textmaster handler.
      *
-     * @return Handler
+     * @return CallbackHandler
      */
     protected function getHandler()
     {

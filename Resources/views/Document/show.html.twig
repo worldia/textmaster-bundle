@@ -2,36 +2,36 @@
 
 {% block content %}
 <ul>
-    <li>{{ document.title }}</li>
-    <li>{{ document.status }}</li>
-    <li>{{ document.instructions }}</li>
+    <li>{{ resource.title }}</li>
+    <li>{{ resource.status }}</li>
+    <li>{{ resource.instructions }}</li>
     <li>
-        {% if document.originalContent is iterable %}
-            {% for key, value in document.originalContent %}
+        {% if resource.originalContent is iterable %}
+            {% for key, value in resource.originalContent %}
                 {{ key }}: {{ value.orignial_phrase }}
             {% endfor %}
         {% else %}
-            {{ document.originalContent }}
+            {{ resource.originalContent }}
         {% endif %}
     </li>
-    <li>{{ document.translatedContent }}</li>
-    <li>{{ document.wordCount }}</li>
+    <li>{{ resource.translatedContent }}</li>
+    <li>{{ resource.wordCount }}</li>
     <li>
-        {% if document.callback is iterable %}
-            {% for key, value in document.callback %}
+        {% if resource.callback is iterable %}
+            {% for key, value in resource.callback %}
                 {{ key }}: {{ value.url }}
             {% endfor %}
         {% else %}
-            {{ document.callback }}
+            {{ resource.callback }}
         {% endif %}
     </li>
     <li>
-        {% if document.customData is iterable %}
-            {% for key, value in document.customData %}
+        {% if resource.customData is iterable %}
+            {% for key, value in resource.customData %}
                 {{ key }}: {{ value }}
             {% endfor %}
         {% else %}
-            {{ document.customData }}
+            {{ resource.customData }}
         {% endif %}
     </li>
 </ul>

@@ -15,10 +15,9 @@
         <parameter key="worldia.textmaster.api.document_factory.class">Textmaster\Translator\Factory\DefaultDocumentFactory</parameter>
         <parameter key="worldia.textmaster.manager.job.class">Worldia\Bundle\TextmasterBundle\EntityManager\JobManager</parameter>
         <parameter key="worldia.textmaster.manager.translation.class">Worldia\Bundle\TextmasterBundle\Translation\TranslationManager</parameter>
-        <parameter key="worldia.listener.document.class">Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener</parameter>
-        <parameter key="worldia.listener.project.class">Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener</parameter>
-        <parameter key="worldia.listener.translatable.class">Worldia\Bundle\TextmasterBundle\EventListener\TranslatableListener</parameter>
-        <parameter key="worldia.listener.job.class">Worldia\Bundle\TextmasterBundle\EventListener\JobListener</parameter>
+        <parameter key="worldia.textmaster.listener.document.class">Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener</parameter>
+        <parameter key="worldia.textmaster.listener.project.class">Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener</parameter>
+        <parameter key="worldia.textmaster.listener.job.class">Worldia\Bundle\TextmasterBundle\EventListener\JobListener</parameter>
     </parameters>
 
     <services>
@@ -64,18 +63,18 @@
             <argument type="service" id="router" />
         </service>
 
-        <service id="worldia.textmaster.listener.document" class="%worldia.listener.document.class%">
+        <service id="worldia.textmaster.listener.document" class="%worldia.textmaster.listener.document.class%">
             <argument type="service" id="worldia.textmaster.manager.job" />
             <argument type="collection" />
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="worldia.textmaster.listener.project" class="%worldia.listener.project.class%">
+        <service id="worldia.textmaster.listener.project" class="%worldia.textmaster.listener.project.class%">
             <argument type="service" id="worldia.textmaster.manager.job" />
             <tag name="kernel.event_subscriber" />
         </service>
 
-        <service id="worldia.textmaster.listener.job" class="%worldia.listener.job.class%">
+        <service id="worldia.textmaster.listener.job" class="%worldia.textmaster.listener.job.class%">
             <tag name="doctrine.event_subscriber" connection="default" priority="50" />
         </service>
 

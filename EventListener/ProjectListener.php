@@ -30,9 +30,9 @@ class ProjectListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::PROJECT_IN_PROGRESS => 'onTextmasterProjectInProgress',
-        );
+        ];
     }
 
     /**
