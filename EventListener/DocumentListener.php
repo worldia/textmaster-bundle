@@ -7,9 +7,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Textmaster\Event\CallbackEvent;
 use Textmaster\Events;
 use Textmaster\Model\DocumentInterface;
-use Textmaster\Translator\Adapter\AdapterInterface;
+use Textmaster\Translator\TranslatorInterface;
 use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
-use Worldia\Bundle\TextmasterBundle\Exception\NoResultException;
 
 class DocumentListener implements EventSubscriberInterface
 {
@@ -19,20 +18,20 @@ class DocumentListener implements EventSubscriberInterface
     protected $jobManager;
 
     /**
-     * @var AdapterInterface[]
+     * @var TranslatorInterface
      */
-    protected $adapters;
+    protected $translator;
 
     /**
      * DocumentListener constructor.
      *
      * @param JobManagerInterface $jobManager
-     * @param AdapterInterface[]  $adapters
+     * @param TranslatorInterface $translator
      */
-    public function __construct(JobManagerInterface $jobManager, array $adapters)
+    public function __construct(JobManagerInterface $jobManager, TranslatorInterface $translator)
     {
         $this->jobManager = $jobManager;
-        $this->adapters = $adapters;
+        $this->translator = $translator;
     }
 
     /**
@@ -51,14 +50,12 @@ class DocumentListener implements EventSubscriberInterface
      * Create a job for the document.
      *
      * @param GenericEvent $event
-     *
-     * @throws \Exception
      */
     public function onTextmasterDocumentInCreation(GenericEvent $event)
     {
         /** @var DocumentInterface $document */
         $document = $event->getSubject();
-        $translatable = $this->getSubjectFromDocument($document);
+        $translatable = $this->translator->getSubjectFromDocument($document);
         $this->jobManager->create($translatable, $document->getProject()->getId(), $document->getId());
     }
 
@@ -86,33 +83,5 @@ class DocumentListener implements EventSubscriberInterface
         $document = $event->getSubject();
         $job = $this->jobManager->getFromDocument($document);
         $this->jobManager->validate($job);
-    }
-
-    /**
-     * Get through adapters to retrieve the subject from the given document.
-     *
-     * @param DocumentInterface $document
-     *
-     * @return mixed
-     *
-     * @throws \Exception
-     */
-    protected function getSubjectFromDocument(DocumentInterface $document)
-    {
-        foreach ($this->adapters as $adapter) {
-            try {
-                $translatable = $adapter->getSubjectFromDocument($document);
-                if (null !== $translatable) {
-                    return $translatable;
-                }
-            } catch (\Exception $e) {
-                continue;
-            }
-        }
-
-        throw new NoResultException(sprintf(
-            'No subject for document "%s"',
-            $document->getId()
-        ));
     }
 }

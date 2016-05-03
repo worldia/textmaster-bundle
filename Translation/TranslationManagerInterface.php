@@ -15,7 +15,7 @@ interface TranslationManagerInterface
      * @param string   $languageFrom
      * @param string   $languageTo
      * @param string   $category
-     * @param string   $projectBriefing
+     * @param string   $briefing
      * @param array    $options
      *
      * @return ProjectInterface
@@ -26,7 +26,7 @@ interface TranslationManagerInterface
         $languageFrom,
         $languageTo,
         $category,
-        $projectBriefing,
+        $briefing,
         array $options = []
     );
 

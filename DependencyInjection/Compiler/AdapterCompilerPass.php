@@ -14,7 +14,6 @@ class AdapterCompilerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $translator = $container->getDefinition('worldia.textmaster.api.translator');
-        $documentListener = $container->getDefinition('worldia.textmaster.listener.document');
 
         $adapters = [];
         foreach ($container->findTaggedServiceIds('textmaster_translator_adapter') as $id => $service) {
@@ -26,6 +25,5 @@ class AdapterCompilerPass implements CompilerPassInterface
         }
 
         $translator->replaceArgument(0, $adapters);
-        $documentListener->replaceArgument(1, $adapters);
     }
 }

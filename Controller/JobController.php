@@ -46,10 +46,6 @@ class JobController extends AbstractController
      */
     protected function getEntityManager()
     {
-        return $this
-            ->container
-            ->get('doctrine')
-            ->getManager()
-        ;
+        return $this->container->get('doctrine')->getManager();
     }
 }

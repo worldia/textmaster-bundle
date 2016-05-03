@@ -35,10 +35,7 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
      */
     public function assertParameters()
     {
-        $mapping = [
-            'Worldia\Bundle\ProductTestBundle\Entity\Product' => ['title', 'description'],
-        ];
-        $this->load(['mapping_properties' => $mapping]);
+        $this->load();
 
         $this->assertContainerBuilderHasParameter('worldia.textmaster.credentials.api_key', 'My API key');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.credentials.api_secret', 'My API secret');
@@ -47,6 +44,19 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.document.index', 'WorldiaTextmasterBundle:Document:list.html.twig');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.project.show', 'WorldiaTextmasterBundle:Project:show.html.twig');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.project.index', 'WorldiaTextmasterBundle:Project:list.html.twig');
+        $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.job.show', 'WorldiaTextmasterBundle:Job:show.html.twig');
+        $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.job.index', 'WorldiaTextmasterBundle:Job:list.html.twig');
+    }
+
+    /**
+     * @test
+     */
+    public function assertMappingPropertiesParameters()
+    {
+        $mapping = [
+            'Worldia\Bundle\ProductTestBundle\Entity\Product' => ['title', 'description'],
+        ];
+        $this->load(['mapping_properties' => $mapping]);
 
         $this->assertContainerBuilderHasParameter('worldia.textmaster.mapping.properties', $mapping);
     }
@@ -81,6 +91,7 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('worldia.textmaster.api.handler', 'Textmaster\CallbackHandler');
         $this->assertContainerBuilderHasService('worldia.textmaster.api.translator', 'Textmaster\Translator\Translator');
         $this->assertContainerBuilderHasService('worldia.textmaster.api.mapping_provider', 'Textmaster\Translator\Provider\ArrayBasedMappingProvider');
+        $this->assertContainerBuilderHasService('worldia.textmaster.api.document_factory', 'Textmaster\Translator\Factory\DefaultDocumentFactory');
 
         $this->assertContainerBuilderHasService('worldia.textmaster.manager.job', 'Worldia\Bundle\TextmasterBundle\EntityManager\JobManager');
         $this->assertContainerBuilderHasService('worldia.textmaster.manager.translation', 'Worldia\Bundle\TextmasterBundle\Translation\TranslationManager');

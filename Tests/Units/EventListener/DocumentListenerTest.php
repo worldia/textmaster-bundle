@@ -13,19 +13,19 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
     protected $listener;
 
     protected $jobManagerMock;
-    protected $adapterMock;
+    protected $translatorMock;
     protected $eventMock;
     protected $documentMock;
 
     public function setUp()
     {
         $this->jobManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface');
-        $this->adapterMock = $this->getMock('Textmaster\Translator\Adapter\AdapterInterface');
+        $this->translatorMock = $this->getMock('Textmaster\Translator\TranslatorInterface');
 
         $this->eventMock = $this->getMock('Symfony\Component\EventDispatcher\GenericEvent');
         $this->documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
 
-        $this->listener = new DocumentListener($this->jobManagerMock, [$this->adapterMock]);
+        $this->listener = new DocumentListener($this->jobManagerMock, $this->translatorMock);
     }
 
     /**
@@ -54,7 +54,7 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
             ->method('getSubject')
             ->willReturn($this->documentMock);
 
-        $this->adapterMock->expects($this->once())
+        $this->translatorMock->expects($this->once())
             ->method('getSubjectFromDocument')
             ->willReturn($objectMock);
 
@@ -109,22 +109,5 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
             ->method('validate');
 
         $this->listener->onTextmasterDocumentCompleted($this->eventMock);
-    }
-
-    /**
-     * @test
-     * @expectedException \Worldia\Bundle\TextmasterBundle\Exception\NoResultException
-     */
-    public function shouldNotCreateJobWhenDocumentInCreationHasNoSubject()
-    {
-        $this->eventMock->expects($this->once())
-            ->method('getSubject')
-            ->willReturn($this->documentMock);
-
-        $this->adapterMock->expects($this->once())
-            ->method('getSubjectFromDocument')
-            ->willReturn(null);
-
-        $this->listener->onTextmasterDocumentInCreation($this->eventMock);
     }
 }

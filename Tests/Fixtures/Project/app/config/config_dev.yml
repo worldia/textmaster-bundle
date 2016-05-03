@@ -39,11 +39,6 @@ services:
         tags:
             - { name: 'textmaster_translator_adapter' }
 
-    test.document.factory:
-        class:  Textmaster\Translator\Factory\DefaultDocumentFactory
-        tags:
-            - { name: 'textmaster_translator_factory' }
-
 worldia_textmaster:
     credentials:
         api_key: textmaster_api_key
