@@ -1,0 +1,9 @@
+worldia_textmaster_callback_document:
+    methods:  [POST]
+    path:     /projects/{projectId}/documents
+    defaults: { _controller: WorldiaTextmasterBundle:Callback:callback }
+
+worldia_textmaster_callback_project:
+    methods:  [POST]
+    path:     /projects
+    defaults: { _controller: WorldiaTextmasterBundle:Callback:callback }

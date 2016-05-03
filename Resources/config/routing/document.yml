@@ -7,8 +7,3 @@ worldia_textmaster_document_show:
     methods:  [GET]
     path:     /projects/{projectId}/documents/{id}
     defaults: { _controller: WorldiaTextmasterBundle:Document:show }
-
-worldia_textmaster_document_update:
-    methods:  [POST]
-    path:     /projects/{projectId}/documents
-    defaults: { _controller: WorldiaTextmasterBundle:Document:callback }

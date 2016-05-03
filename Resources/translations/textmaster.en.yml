@@ -27,3 +27,4 @@ job:
     project: Project
     document: Document
     show: Show
+    actions: Actions
