@@ -53,7 +53,7 @@ abstract class AbstractController implements ContainerAwareInterface
     }
 
     /**
-     * @param $action
+     * @param string $action
      *
      * @return string
      */
@@ -63,8 +63,8 @@ abstract class AbstractController implements ContainerAwareInterface
     }
 
     /**
-     * @param $action
-     * @param array $params
+     * @param string $action
+     * @param array  $params
      *
      * @return Response
      */
