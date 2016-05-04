@@ -1,0 +1,37 @@
+{
+    "name": "worldia/textmaster-bundle",
+    "type": "symfony-bundle",
+    "description": "A Symfony2 bundle integrating php-textmaster-api",
+    "homepage": "https://github.com/worldia/textmaster-bundle",
+    "keywords": ["textmaster", "translation", "api", "bundle"],
+    "license": "UNLICENSED",
+    "authors": [
+        {
+            "name": "Pierre Ducoudray",
+            "email": "pducoudray@worldia.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=5.4.0",
+        "symfony/framework-bundle": "^2.7",
+        "worldia/textmaster-api": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "matthiasnoback/symfony-config-test": "^1.4",
+        "matthiasnoback/symfony-dependency-injection-test": "0.*"
+    },
+    "suggest": {
+        "white-october/pagerfanta-bundle": "Needed to display pager on list template if you add routing."
+    },
+    "autoload": {
+        "psr-4": { "Worldia\\Bundle\\TextmasterBundle\\": "" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
