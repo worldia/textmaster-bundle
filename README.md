@@ -1,4 +1,7 @@
 # TextmasterBundle
+
+[![Build Status](https://travis-ci.org/worldia/textmaster-bundle.svg?branch=master)](https://travis-ci.org/worldia/textmaster-bundle) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/badges/quality-score.png?b=master&s=9eb65ec3ad399ec652d0f8deab4968d1201608cc)](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/badges/coverage.png?b=master&s=27adaf2cde1d45ab9ffabe86d24ada544e51207f)](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/?branch=master)
+
 A Symfony2 bundle integrating [php-textmaster-api](https://github.com/worldia/php-textmaster-api).
 
 ## Installation
