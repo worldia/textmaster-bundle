@@ -26,12 +26,6 @@
     "suggest": {
         "white-october/pagerfanta-bundle": "Needed to display pager on list template if you add routing."
     },
-    "repositories": [
-        {
-          "type": "git",
-          "url":  "https://worldia-ci:Yz2-zpg-wwt-mXz@github.com/worldia/textmaster-api"
-        }
-    ],
     "autoload": {
         "psr-4": { "Worldia\\Bundle\\TextmasterBundle\\": "" }
     },
