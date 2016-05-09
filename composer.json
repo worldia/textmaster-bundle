@@ -11,12 +11,10 @@
             "email": "pducoudray@worldia.com"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
         "php": ">=5.4.0",
         "symfony/framework-bundle": "^2.7",
-        "worldia/textmaster-api": "^1.0",
+        "worldia/textmaster-api": "^0.1",
         "symfony/property-access": "^2.7",
         "symfony/validator": "^2.7",
         "doctrine/orm": "^2.3",
