@@ -7,7 +7,6 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Textmaster\Handler;
 use Textmaster\Manager;
 
 abstract class AbstractController implements ContainerAwareInterface
@@ -40,17 +39,7 @@ abstract class AbstractController implements ContainerAwareInterface
      */
     public function showAction(Request $request)
     {
-        return $this->render('show', ['project' => $this->getResource($request)]);
-    }
-
-    /**
-     * Endpoint for Textmaster API callback.
-     *
-     * @param Request $request
-     */
-    public function callbackAction(Request $request)
-    {
-        $this->getHandler()->handleWebHook($request);
+        return $this->render('show', ['resource' => $this->getResource($request)]);
     }
 
     /**
@@ -64,17 +53,7 @@ abstract class AbstractController implements ContainerAwareInterface
     }
 
     /**
-     * Get textmaster handler.
-     *
-     * @return Handler
-     */
-    protected function getHandler()
-    {
-        return $this->container->get('worldia.textmaster.api.handler');
-    }
-
-    /**
-     * @param $action
+     * @param string $action
      *
      * @return string
      */
@@ -84,8 +63,8 @@ abstract class AbstractController implements ContainerAwareInterface
     }
 
     /**
-     * @param $action
-     * @param array $params
+     * @param string $action
+     * @param array  $params
      *
      * @return Response
      */

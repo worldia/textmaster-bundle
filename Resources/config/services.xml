@@ -9,7 +9,15 @@
         <parameter key="worldia.textmaster.api.httpclient.class">Textmaster\HttpClient\HttpClient</parameter>
         <parameter key="worldia.textmaster.api.client.class">Textmaster\Client</parameter>
         <parameter key="worldia.textmaster.api.manager.class">Textmaster\Manager</parameter>
-        <parameter key="worldia.textmaster.api.handler.class">Textmaster\Handler</parameter>
+        <parameter key="worldia.textmaster.api.handler.class">Textmaster\CallbackHandler</parameter>
+        <parameter key="worldia.textmaster.api.mapping_provider.class">Textmaster\Translator\Provider\ArrayBasedMappingProvider</parameter>
+        <parameter key="worldia.textmaster.api.translator.class">Textmaster\Translator\Translator</parameter>
+        <parameter key="worldia.textmaster.api.document_factory.class">Textmaster\Translator\Factory\DefaultDocumentFactory</parameter>
+        <parameter key="worldia.textmaster.manager.job.class">Worldia\Bundle\TextmasterBundle\EntityManager\JobManager</parameter>
+        <parameter key="worldia.textmaster.manager.translation.class">Worldia\Bundle\TextmasterBundle\Translation\TranslationManager</parameter>
+        <parameter key="worldia.textmaster.listener.document.class">Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener</parameter>
+        <parameter key="worldia.textmaster.listener.project.class">Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener</parameter>
+        <parameter key="worldia.textmaster.listener.job.class">Worldia\Bundle\TextmasterBundle\EventListener\JobListener</parameter>
     </parameters>
 
     <services>
@@ -18,7 +26,8 @@
         </service>
 
         <service id="worldia.textmaster.api.client" class="%worldia.textmaster.api.client.class%">
-            <argument type="service" id="worldia.textmaster.api.httpclient"/>
+            <argument type="service" id="worldia.textmaster.api.httpclient" />
+            <argument type="service" id="event_dispatcher" />
             <call method="authenticate">
                 <argument>%worldia.textmaster.credentials.api_key%</argument>
                 <argument>%worldia.textmaster.credentials.api_secret%</argument>
@@ -26,13 +35,53 @@
         </service>
 
         <service id="worldia.textmaster.api.manager" class="%worldia.textmaster.api.manager.class%">
-            <argument type="service" id="worldia.textmaster.api.client"/>
+            <argument type="service" id="worldia.textmaster.api.client" />
         </service>
 
         <service id="worldia.textmaster.api.handler" class="%worldia.textmaster.api.handler.class%">
-            <argument type="service" id="event_dispatcher"/>
-            <argument type="service" id="worldia.textmaster.api.client"/>
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="worldia.textmaster.api.client" />
         </service>
+
+        <service id="worldia.textmaster.api.mapping_provider" class="%worldia.textmaster.api.mapping_provider.class%">
+            <argument>%worldia.textmaster.mapping.properties%</argument>
+        </service>
+
+        <service id="worldia.textmaster.api.translator" class="%worldia.textmaster.api.translator.class%">
+            <argument type="collection" />
+            <argument type="service" id="worldia.textmaster.api.mapping_provider" />
+        </service>
+
+        <service id="worldia.textmaster.api.document_factory" class="%worldia.textmaster.api.document_factory.class%">
+            <tag name="textmaster_translator_factory" />
+        </service>
+
+        <service id="worldia.textmaster.manager.job" class="%worldia.textmaster.manager.job.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="worldia.textmaster.api.manager" />
+        </service>
+
+        <service id="worldia.textmaster.manager.translation" class="%worldia.textmaster.manager.translation.class%">
+            <argument type="service" id="worldia.textmaster.api.manager" />
+            <argument type="service" id="worldia.textmaster.api.translator" />
+            <argument type="service" id="router" />
+        </service>
+
+        <service id="worldia.textmaster.listener.document" class="%worldia.textmaster.listener.document.class%">
+            <argument type="service" id="worldia.textmaster.manager.job" />
+            <argument type="service" id="worldia.textmaster.api.translator" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="worldia.textmaster.listener.project" class="%worldia.textmaster.listener.project.class%">
+            <argument type="service" id="worldia.textmaster.manager.job" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+
+        <service id="worldia.textmaster.listener.job" class="%worldia.textmaster.listener.job.class%">
+            <tag name="doctrine.event_subscriber" connection="default" priority="50" />
+        </service>
+
     </services>
 
 </container>

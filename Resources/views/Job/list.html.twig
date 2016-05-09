@@ -1,0 +1,38 @@
+{% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
+
+{% trans_default_domain "textmaster" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/whiteoctoberpagerfanta/css/pagerfantaDefault.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'job.id'|trans }}</th>
+                <th>{{ 'job.status'|trans }}</th>
+                <th>{{ 'job.translatable'|trans }}</th>
+                <th>{{ 'job.project'|trans }}</th>
+                <th>{{ 'job.document'|trans }}</th>
+                <th>{{ 'job.actions'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for job in pager.currentPageResults %}
+            <tr>
+                <td>{{ job.id }}</td>
+                <td>{{ job.status }}</td>
+                <td>{{ job.translatable }}</td>
+                <td>{{ job.projectId }}</td>
+                <td>{{ job.documentId }}</td>
+                <td><a href="{{ path('worldia_textmaster_job_show', {'id': job.id}) }}">{{ 'job.show'|trans }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagerfanta">
+        {{ pagerfanta(pager) }}
+    </div>
+{% endblock %}

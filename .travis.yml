@@ -19,3 +19,4 @@ before_script:
 
 script:
   - vendor/bin/phpunit --verbose --coverage-text
+  - vendor/bin/behat -c behat.yml
