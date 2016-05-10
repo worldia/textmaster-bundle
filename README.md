@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/worldia/textmaster-bundle.svg?branch=master)](https://travis-ci.org/worldia/textmaster-bundle) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/badges/quality-score.png?b=master&s=9eb65ec3ad399ec652d0f8deab4968d1201608cc)](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/badges/coverage.png?b=master&s=27adaf2cde1d45ab9ffabe86d24ada544e51207f)](https://scrutinizer-ci.com/g/worldia/textmaster-bundle/?branch=master)
 
-A Symfony2 bundle integrating [php-textmaster-api](https://github.com/worldia/php-textmaster-api).
+A Symfony2 bundle integrating [textmaster-api](https://github.com/worldia/textmaster-api).
 
 ## Installation
 
@@ -26,7 +26,7 @@ Enable the bundle in the kernel:
     {
         $bundles = array(
             // ...
-            new Worldia\TextmasterBundle\WordliaTextmasterBundle(),
+            new Worldia\Bundle\TextmasterBundle\WorldiaTextmasterBundle(),
             // ...
         );
     }
@@ -36,6 +36,7 @@ Enable the bundle in the kernel:
 
 ```yml
 // in app/config/config.yml
+  
 worldia_textmaster:
     credentials:
         api_key: your_api_key
@@ -44,8 +45,47 @@ worldia_textmaster:
 
 ### Step 4: Add route
 
-You can optionally add routing files.  
-If you do add project.yml or document.yml you will need [white-october/pagerfanta-bundle](https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle#installation) to display pager on list page.
+The translation manager is using the callback routes.
+
+```yml
+// in app/config/routing.yml
+  
+worldia_textmaster_callback:
+    resource: @WorldiaTextmasterBundle/Resources/config/routing/callback.yml
+```
+
+## Additional installation
+
+### Configuration
+
+By default, the translator provider used is the ArrayBasedMappingProvider. You can easily configure it as followed:
+
+```yml
+// in app/config/config.yml
+  
+worldia_textmaster:
+    mapping_properties:
+        AppBundle\Entity\FirstEntity: ['property1', 'property2', 'property3', ...]
+        AppBundle\Entity\SecondEntity: ['propertyA', 'propertyB', 'propertyC', ...]
+        ...
+```
+
+There is a template provided for each route. You can override it easily with configuration:
+
+```yml
+// in app/config/config.yml
+  
+worldia_textmaster:
+    templates:
+        project:
+            show: 'MyTemplate:Project:show.html.twig'
+            list: 'MyTemplate:Project:list.html.twig'
+```
+
+### Route
+
+You can optionally add object routing files.  
+If you do you will need [white-october/pagerfanta-bundle](https://github.com/whiteoctober/WhiteOctoberPagerfantaBundle#installation) to display pager on list page.
 
 ```yml
 // in app/config/routing.yml
@@ -54,72 +94,44 @@ worldia_textmaster_project:
   
 worldia_textmaster_document:
     resource: @WorldiaTextmasterBundle/Resources/config/routing/document.yml
+  
+worldia_textmaster_job:
+    resource: @WorldiaTextmasterBundle/Resources/config/routing/job.yml
 ```
 
-## Usage examples
+## Usage example
 
 Create a project with documents:
 ```php
 <?php
-// src/AppBundle/Controller/MyController.php
-namespace AppBundle\Controller;
+// src/AppBundle/MyService/MyService.php
   
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Textmaster\Model\DocumentInterface;
-use Textmaster\Model\ProjectInterface;
+namespace AppBundle\MyService;
   
-class MyController extends Controller
+use Worldia\Bundle\TextmasterBundle\Translation\TranslationManager;
+  
+class MyService
 {
-    public function createProjectAction()
+    /**
+     * @var TranslationManager
+     */
+    protected $translationManager;
+  
+    public function createProject()
     {
-        // ...
+        // retrieve all entities to translate in array $translatable.
   
-        $manager = $this->get('worldia.textmaster.api.manager');
-  
-        // generate an empty Project
-        $project = $manager->getProject();
-  
-        // set values
-        $project
-            ->setName('Project name')
-            ->setLanguageFrom('en')
-            ->setLanguageTo('fr')
-            ->setActivity(ProjectInterface::ACTIVITY_TRANSLATION)
-            ->setBriefing('My poject briefing')
-            ->setCategory('CO21')
-            ->setOptions(array('language_level' => 'premium'))
-        ;
-  
-        // save project on textmaster
-        $project->save();
-  
-        // prepare callback url
-        $callback = array(
-            DocumentInterface::STATUS_IN_REVIEW => array(
-                'url' => $this->generateUrl('worldia_textmaster_document_update', ['projectId' => $project->getId()]),
-            ),
+        $project = $this->translationManager->create(
+            $translatable,
+            'Project name',
+            'en',
+            'fr',
+            'CO21',
+            'My poject briefing',
+            array('language_level' => 'premium')
         );
   
-        // add documents
-        $document1 = $project->createDocument();
-        $document1->setOriginalContent('My first content to translate');
-        $document1->setCallback($callback);
-        $document1->save();
-  
-        $document2 = $project->createDocument();
-        $document2->setOriginalContent('My other content to translate');
-        $document2->setCallback($callback);
-        $document2->save();
-  
-        $document3 = $project->createDocument();
-        $document3->setOriginalContent('My last content to translate');
-        $document3->setCallback($callback);
-        $document3->save();
-  
-        // start project on textmaster
-        $project->launch();
-  
-        // ...
+        // the project is sent to TextMaster and launched.
     }
 }
 ```
@@ -127,50 +139,6 @@ class MyController extends Controller
 ## API callback
 
 The bundle provide a controller with a route to catch API callback.  
-This will simply call php-textmaster-api Handler to raise en event corresponding to the right object depending on its status.  
-You can simply add a listener to any of these events.
-
-```php
-<?php
-// src/AppBundle/EventListener/DocumentInReviewListener.php
-namespace AppBundle\EventListener;
-  
-use Textmaster\Event\DocumentEvent;
-  
-class DocumentInReviewListener
-{
-    public function onTextmasterDocumentInReview(DocumentEvent $event)
-    {
-        $document = $event->getDocument();
-        // do your stuff here
-    }
-}
-```
-
-Service definition in yml:
-```yml
-# app/config/services.yml
-services:
-    app.document_in_review_listener:
-        class: AppBundle\EventListener\DocumentInReviewListener
-        tags:
-            - { name: kernel.event_listener, event: textmaster.document.in_review }
-```
-
-Service definition in xml:
-```xml
-<!-- app/config/services.xml -->
-<?xml version="1.0" encoding="UTF-8" ?>
-<container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-    <services>
-        <service id="app.document_in_review_listener"
-            class="AppBundle\EventListener\DocumentInReviewListener">
-
-            <tag name="kernel.event_listener" event="textmaster.document.in_review" />
-        </service>
-    </services>
-</container>
-```
+This will call textmaster-api Handler to raise en event corresponding to the right object depending on its status.  
+Then a listener (DocumentListener or ProjectListener) will catch this event and act accordingly.  
+For example, an event for 'textmaster.document.in_review' will get the job related to the document and finish it.
