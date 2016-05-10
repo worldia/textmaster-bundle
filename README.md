@@ -26,7 +26,7 @@ Enable the bundle in the kernel:
     {
         $bundles = array(
             // ...
-            new Worldia\Bundle\TextmasterBundle\WordliaTextmasterBundle(),
+            new Worldia\Bundle\TextmasterBundle\WorldiaTextmasterBundle(),
             // ...
         );
     }
