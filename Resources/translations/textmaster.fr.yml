@@ -13,8 +13,8 @@ project:
     status: Statut
     activity: Activité
     category: Catégorie
-    language_from: Langage d'origine
-    language_to: Langage de destination
+    language_from: Langue d'origine
+    language_to: Langue de destination
     briefing: Briefing
     options: Options
     actions: Actions
