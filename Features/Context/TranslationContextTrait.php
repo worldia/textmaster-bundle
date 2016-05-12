@@ -8,6 +8,7 @@ use PHPUnit_Framework_Assert;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
 use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
+use Worldia\Bundle\TextmasterBundle\Translation\TranslationGeneratorInterface;
 use Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface;
 
 trait TranslationContextTrait
@@ -33,6 +34,26 @@ trait TranslationContextTrait
     }
 
     /**
+     * Return the translation manager.
+     *
+     * @return TranslationManagerInterface
+     */
+    public function getTranslationManager()
+    {
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.manager.translation');
+    }
+
+    /**
+     * Return the translation generator.
+     *
+     * @return TranslationGeneratorInterface
+     */
+    public function getTranslationGenerator()
+    {
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.generator.translation');
+    }
+
+    /**
      * @Transform :job
      *
      * @param string $id
@@ -44,16 +65,6 @@ trait TranslationContextTrait
         $repository = $this->getEntityManager()->getRepository('WorldiaTextmasterBundle:Job');
 
         return $repository->find($id);
-    }
-
-    /**
-     * Return the translation engine.
-     *
-     * @return TranslationManagerInterface
-     */
-    public function getTranslationEngine()
-    {
-        return $this->getKernel()->getContainer()->get('worldia.textmaster.manager.translation');
     }
 
     /**
@@ -72,19 +83,19 @@ trait TranslationContextTrait
     }
 
     /**
-     * @Given I create a translation project for products with the following parameters:
+     * @Given I generate a translation batch with the following parameters:
      */
     public function createTranslationProject(TableNode $table)
     {
-        $products = $this->getEntityManager()->getRepository('WorldiaProductTestBundle:Product')->findAll();
         foreach ($table->getHash() as $data) {
-            $this->getTranslationEngine()->create(
-                $products,
-                $data['name'],
+            $this->getTranslationGenerator()->generate(
+                $data['finder'],
+                [],
                 $data['languageFrom'],
                 $data['languageTo'],
+                $data['name'],
                 $data['category'],
-                $data['projectBriefing'],
+                $data['briefing'],
                 json_decode($data['options'], true)
             );
         }
@@ -104,6 +115,6 @@ trait TranslationContextTrait
     public function translateJob(JobInterface $job)
     {
         $document = $this->getJobManager()->getDocument($job);
-        $this->getTranslationEngine()->translate($document);
+        $this->getTranslationManager()->translate($document);
     }
 }
