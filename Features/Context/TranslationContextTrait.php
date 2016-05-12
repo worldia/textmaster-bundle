@@ -90,7 +90,7 @@ trait TranslationContextTrait
         foreach ($table->getHash() as $data) {
             $this->getTranslationGenerator()->generate(
                 $data['finder'],
-                [],
+                json_decode($data['filter'], true),
                 $data['languageFrom'],
                 $data['languageTo'],
                 $data['name'],
