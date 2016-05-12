@@ -110,6 +110,16 @@ trait TranslationContextTrait
     }
 
     /**
+     * @Then I should have :number translatables with job for class :class
+     */
+    public function assertTranslatablesWithJob($number, $class)
+    {
+        $count = count($this->getJobManager()->getTranslatablesWithJob($class));
+
+        PHPUnit_Framework_Assert::assertSame((int) $number, $count);
+    }
+
+    /**
      * @Given I translate job :job
      */
     public function translateJob(JobInterface $job)
