@@ -10,9 +10,9 @@ Feature: Translation management
       And I have the following translations for product "2":
         | title     | description          | locale |
         | Hello NYC | NYC is the big apple | en     |
-      And I create a translation project for products with the following parameters:
-        | name      | languageFrom | languageTo | category | projectBriefing | options                       |
-        | PROJECT-1 | en           | fr         | C054     | Nothing         | {"language_level": "premium"} |
+      And I generate a translation batch with the following parameters:
+        | finder  | name      | languageFrom | languageTo | category | briefing | options                       |
+        | product | PROJECT-1 | en           | fr         | C054     | Nothing         | {"language_level": "premium"} |
     When I receive the request '{ "id": "PROJECT-1", "name": "PROJECT-1", "status": "in_progress"}'
     Then I should have the following jobs:
         | id | translatable | project   | document | status  |
