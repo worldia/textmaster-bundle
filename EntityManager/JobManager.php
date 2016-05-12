@@ -125,6 +125,29 @@ class JobManager implements JobManagerInterface
     }
 
     /**
+     * Get ids for objects of the given class which have a job.
+     *
+     * @param string $class
+     *
+     * @return array
+     */
+    public function getTranslatablesWithJob($class)
+    {
+        $result = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('j.translatableId')
+            ->from('WorldiaTextmasterBundle:Job', 'j')
+            ->where('j.translatableClass = :class')
+            ->setParameter('class', $class)
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return array_map(function ($value) { return $value['translatableId']; }, $result);
+    }
+
+    /**
      * Update job status.
      *
      * @param JobInterface $job
