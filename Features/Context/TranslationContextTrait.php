@@ -75,7 +75,7 @@ trait TranslationContextTrait
         foreach ($table->getHash() as $data) {
             $job = $this->findJob($data['id']);
 
-            PHPUnit_Framework_Assert::assertSame(JobInterface::STATUS_STARTED, $job->getStatus());
+            PHPUnit_Framework_Assert::assertSame($data['status'], $job->getStatus());
             PHPUnit_Framework_Assert::assertSame((int) $data['translatable'], $job->getTranslatable()->getId());
             PHPUnit_Framework_Assert::assertSame($data['project'], $job->getProjectId());
             PHPUnit_Framework_Assert::assertSame($data['document'], $job->getDocumentId());
