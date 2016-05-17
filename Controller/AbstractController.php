@@ -74,6 +74,18 @@ abstract class AbstractController implements ContainerAwareInterface
     }
 
     /**
+     * Extract 'criteria' parameter from the request.
+     *
+     * @param Request $request
+     *
+     * @return array
+     */
+    protected function getCriteria(Request $request)
+    {
+        return $request->query->get('criteria', []);
+    }
+
+    /**
      * @param Request $request
      *
      * @return Pagerfanta

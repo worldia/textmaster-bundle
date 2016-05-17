@@ -18,8 +18,9 @@
         <parameter key="worldia.textmaster.listener.document.class">Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener</parameter>
         <parameter key="worldia.textmaster.listener.project.class">Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener</parameter>
         <parameter key="worldia.textmaster.listener.job.class">Worldia\Bundle\TextmasterBundle\EventListener\JobListener</parameter>
-        <parameter key="worldia.textmaster.repository.job.class">Doctrine\ORM\EntityRepository</parameter>
+        <parameter key="worldia.textmaster.repository.job.class">Worldia\Bundle\TextmasterBundle\Repository\JobRepository</parameter>
         <parameter key="worldia.textmaster.job.class">Worldia\Bundle\TextmasterBundle\Entity\Job</parameter>
+        <parameter key="worldia.textmaster.form.type.job_filter.class">Worldia\Bundle\TextmasterBundle\Form\Filter\JobFilterType</parameter>
     </parameters>
 
     <services>
@@ -85,8 +86,12 @@
         </service>
 
         <service id="worldia.textmaster.repository.job" class="%worldia.textmaster.repository.job.class%">
-            <factory service="doctrine.orm.entity_manager" method="getRepository"/>
+            <factory service="doctrine" method="getRepository"/>
             <argument>%worldia.textmaster.job.class%</argument>
+        </service>
+
+        <service id="worldia.textmaster.form.type.job_filter" class="%worldia.textmaster.form.type.job_filter.class%">
+            <tag name="form.type" alias="textmaster_job_filter" />
         </service>
     </services>
 

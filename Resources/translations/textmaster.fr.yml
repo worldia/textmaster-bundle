@@ -22,9 +22,16 @@ project:
 
 job:
     id: Id
-    status: Statut
     translatable: Elément à traduire
     project: Projet
     document: Document
     show: Voir
     actions: Actions
+    filter: Filtrer
+    status:
+        title: Statut
+        all: tous
+        created: créé
+        started: démarré
+        finished: terminé
+        validated: validé
