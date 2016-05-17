@@ -43,6 +43,24 @@ abstract class AbstractController implements ContainerAwareInterface
     }
 
     /**
+     * Render filter form.
+     *
+     * @param string $type
+     *
+     * @return Response
+     */
+    public function filterAction($type)
+    {
+        $request = $this->container->get('request_stack')->getMasterRequest();
+
+        $form = $this->container->get('form.factory')->createNamed('criteria', $type, null, ['method' => 'GET']);
+
+        $form->handleRequest($request);
+
+        return $this->render('filter', ['form' => $form->createView()]);
+    }
+
+    /**
      * Get textmaster manager.
      *
      * @return Manager
@@ -82,7 +100,10 @@ abstract class AbstractController implements ContainerAwareInterface
      */
     protected function getCriteria(Request $request)
     {
-        return $request->query->get('criteria', []);
+        $criteria = $request->query->get('criteria', []);
+        unset($criteria['_token'], $criteria['filter']);
+
+        return $criteria;
     }
 
     /**
