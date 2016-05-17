@@ -63,6 +63,7 @@
         <service id="worldia.textmaster.manager.job" class="%worldia.textmaster.manager.job.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="worldia.textmaster.api.manager" />
+            <argument type="service" id="worldia.textmaster.repository.job" />
         </service>
 
         <service id="worldia.textmaster.manager.translation" class="%worldia.textmaster.manager.translation.class%">
