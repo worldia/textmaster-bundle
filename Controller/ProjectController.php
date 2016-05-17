@@ -13,7 +13,7 @@ class ProjectController extends AbstractController
      */
     protected function getResources(Request $request)
     {
-        return $this->getManager()->getProjects();
+        return $this->getManager()->getProjects($this->getCriteria($request));
     }
 
     /**

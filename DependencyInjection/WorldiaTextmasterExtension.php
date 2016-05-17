@@ -29,10 +29,13 @@ class WorldiaTextmasterExtension extends Extension
 
         $container->setParameter('worldia.textmaster.templates.project.index', $config['templates']['project']['index']);
         $container->setParameter('worldia.textmaster.templates.project.show', $config['templates']['project']['show']);
+        $container->setParameter('worldia.textmaster.templates.project.filter', $config['templates']['project']['filter']);
         $container->setParameter('worldia.textmaster.templates.document.index', $config['templates']['document']['index']);
         $container->setParameter('worldia.textmaster.templates.document.show', $config['templates']['document']['show']);
+        $container->setParameter('worldia.textmaster.templates.document.filter', $config['templates']['document']['filter']);
         $container->setParameter('worldia.textmaster.templates.job.index', $config['templates']['job']['index']);
         $container->setParameter('worldia.textmaster.templates.job.show', $config['templates']['job']['show']);
+        $container->setParameter('worldia.textmaster.templates.job.filter', $config['templates']['job']['filter']);
 
         $container->setParameter('worldia.textmaster.mapping.properties', $config['mapping_properties']);
     }

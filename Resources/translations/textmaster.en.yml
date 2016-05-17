@@ -22,9 +22,16 @@ project:
 
 job:
     id: Id
-    status: Status
     translatable: Translatable
     project: Project
     document: Document
     show: Show
     actions: Actions
+    filter: Filter
+    status:
+        title: Status
+        all: all
+        created: created
+        started: started
+        finished: finished
+        validated: validated
