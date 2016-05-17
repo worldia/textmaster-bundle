@@ -8,6 +8,7 @@ use PHPUnit_Framework_Assert;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
 use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
+use Worldia\Bundle\TextmasterBundle\Translation\TranslationGeneratorInterface;
 use Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface;
 
 trait TranslationContextTrait
@@ -33,6 +34,26 @@ trait TranslationContextTrait
     }
 
     /**
+     * Return the translation manager.
+     *
+     * @return TranslationManagerInterface
+     */
+    public function getTranslationManager()
+    {
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.manager.translation');
+    }
+
+    /**
+     * Return the translation generator.
+     *
+     * @return TranslationGeneratorInterface
+     */
+    public function getTranslationGenerator()
+    {
+        return $this->getKernel()->getContainer()->get('worldia.textmaster.generator.translation');
+    }
+
+    /**
      * @Transform :job
      *
      * @param string $id
@@ -47,16 +68,6 @@ trait TranslationContextTrait
     }
 
     /**
-     * Return the translation engine.
-     *
-     * @return TranslationManagerInterface
-     */
-    public function getTranslationEngine()
-    {
-        return $this->getKernel()->getContainer()->get('worldia.textmaster.manager.translation');
-    }
-
-    /**
      * @Given I should have the following jobs:
      */
     public function assertJobs(TableNode $table)
@@ -64,7 +75,7 @@ trait TranslationContextTrait
         foreach ($table->getHash() as $data) {
             $job = $this->findJob($data['id']);
 
-            PHPUnit_Framework_Assert::assertSame(JobInterface::STATUS_STARTED, $job->getStatus());
+            PHPUnit_Framework_Assert::assertSame($data['status'], $job->getStatus());
             PHPUnit_Framework_Assert::assertSame((int) $data['translatable'], $job->getTranslatable()->getId());
             PHPUnit_Framework_Assert::assertSame($data['project'], $job->getProjectId());
             PHPUnit_Framework_Assert::assertSame($data['document'], $job->getDocumentId());
@@ -72,19 +83,19 @@ trait TranslationContextTrait
     }
 
     /**
-     * @Given I create a translation project for products with the following parameters:
+     * @Given I generate a translation batch with the following parameters:
      */
     public function createTranslationProject(TableNode $table)
     {
-        $products = $this->getEntityManager()->getRepository('WorldiaProductTestBundle:Product')->findAll();
         foreach ($table->getHash() as $data) {
-            $this->getTranslationEngine()->create(
-                $products,
-                $data['name'],
+            $this->getTranslationGenerator()->generate(
+                $data['finder'],
+                json_decode($data['filter'], true),
                 $data['languageFrom'],
                 $data['languageTo'],
+                $data['name'],
                 $data['category'],
-                $data['projectBriefing'],
+                $data['briefing'],
                 json_decode($data['options'], true)
             );
         }
@@ -99,11 +110,21 @@ trait TranslationContextTrait
     }
 
     /**
+     * @Then I should have :number translatables with job for class :class
+     */
+    public function assertTranslatablesWithJob($number, $class)
+    {
+        $count = count($this->getJobManager()->getTranslatablesWithJob($class));
+
+        PHPUnit_Framework_Assert::assertSame((int) $number, $count);
+    }
+
+    /**
      * @Given I translate job :job
      */
     public function translateJob(JobInterface $job)
     {
         $document = $this->getJobManager()->getDocument($job);
-        $this->getTranslationEngine()->translate($document);
+        $this->getTranslationManager()->translate($document);
     }
 }

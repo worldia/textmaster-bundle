@@ -26,7 +26,7 @@ class TranslationManager implements TranslationManagerInterface
     protected $router;
 
     /**
-     * Engine constructor.
+     * TranslationManager constructor.
      *
      * @param Manager               $textmasterManager
      * @param TranslatorInterface   $translator
@@ -68,7 +68,6 @@ class TranslationManager implements TranslationManagerInterface
 
         $project->save();
         $this->generateDocuments($project, $translatable);
-        $project->launch();
 
         return $project;
     }
