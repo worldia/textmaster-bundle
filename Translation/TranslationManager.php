@@ -65,7 +65,7 @@ class TranslationManager implements TranslationManagerInterface
             ->setOptions($options)
             ->setCallback($this->generateProjectCallback())
         ;
-
+        die();
         $project->save();
         $this->generateDocuments($project, $translatable);
 
@@ -127,7 +127,8 @@ class TranslationManager implements TranslationManagerInterface
             DocumentInterface::STATUS_IN_REVIEW => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_document',
-                    ['projectId' => $project->getId()]
+                    ['projectId' => $project->getId()],
+                    UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
         ];
@@ -142,7 +143,11 @@ class TranslationManager implements TranslationManagerInterface
     {
         return [
             ProjectInterface::CALLBACK_KEY => [
-                'url' => $this->router->generate('worldia_textmaster_callback_project'),
+                'url' => $this->router->generate(
+                    'worldia_textmaster_callback_project',
+                    [],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                ),
             ],
         ];
     }
