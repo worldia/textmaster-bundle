@@ -65,7 +65,7 @@ class TranslationManager implements TranslationManagerInterface
             ->setOptions($options)
             ->setCallback($this->generateProjectCallback())
         ;
-        die();
+
         $project->save();
         $this->generateDocuments($project, $translatable);
 
