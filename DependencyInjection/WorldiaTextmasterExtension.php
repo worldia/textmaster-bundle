@@ -36,6 +36,7 @@ class WorldiaTextmasterExtension extends Extension
         $container->setParameter('worldia.textmaster.templates.job.index', $config['templates']['job']['index']);
         $container->setParameter('worldia.textmaster.templates.job.show', $config['templates']['job']['show']);
         $container->setParameter('worldia.textmaster.templates.job.filter', $config['templates']['job']['filter']);
+        $container->setParameter('worldia.textmaster.templates.job.compare', $config['templates']['job']['compare']);
 
         $container->setParameter('worldia.textmaster.mapping.properties', $config['mapping_properties']);
     }

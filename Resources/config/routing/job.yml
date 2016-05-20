@@ -7,3 +7,8 @@ worldia_textmaster_job_show:
     methods:  [GET]
     path:     /jobs/{id}
     defaults: { _controller: WorldiaTextmasterBundle:Job:show }
+
+worldia_textmaster_job_compare:
+    methods:  [GET]
+    path:     /jobs/{id}/compare
+    defaults: { _controller: WorldiaTextmasterBundle:Job:compare }
