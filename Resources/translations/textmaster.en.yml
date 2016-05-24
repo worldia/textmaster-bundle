@@ -35,3 +35,8 @@ job:
         started: started
         finished: finished
         validated: validated
+    compare:
+        title: Content comparison
+        content:
+            original: Orignial content
+            translated: Translated content
