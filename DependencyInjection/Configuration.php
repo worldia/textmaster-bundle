@@ -123,6 +123,11 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue('WorldiaTextmasterBundle:Job:filter.html.twig')
                         ->end()
                     ->end()
+                    ->children()
+                        ->scalarNode('compare')
+                            ->defaultValue('WorldiaTextmasterBundle:Job:compare.html.twig')
+                        ->end()
+                    ->end()
                 ->end()
             ->end()
         ;

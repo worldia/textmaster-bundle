@@ -35,3 +35,8 @@ job:
         started: démarré
         finished: terminé
         validated: validé
+    compare:
+        title: Comparaison de contenu
+        content:
+            original: Contenu d'origine
+            translated: Contenu après traduction

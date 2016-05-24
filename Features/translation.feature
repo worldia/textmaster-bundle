@@ -13,8 +13,8 @@ Feature: Translation management
       And I create a translation project for products with the following parameters:
         | name      | languageFrom | languageTo | category | projectBriefing | options                       |
         | PROJECT-1 | en           | fr         | C054     | Nothing         | {"language_level": "premium"} |
-    When I receive the request '{ "id": "PROJECT-1", "name": "PROJECT-1", "status": "in_progress"}'
-    Then I should have the following jobs:
+     When I receive the request '{ "id": "PROJECT-1", "name": "PROJECT-1", "status": "in_progress"}'
+     Then I should have the following jobs:
         | id | translatable | project   | document | status  |
         | 1  | 1            | PROJECT-1 | en-fr-1  | started |
         | 2  | 2            | PROJECT-1 | en-fr-2  | started |

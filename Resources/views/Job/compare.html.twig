@@ -1,0 +1,24 @@
+{% extends 'WorldiaTextmasterBundle::layout.html.twig' %}
+
+{% trans_default_domain 'textmaster' %}
+
+{% block content %}
+    <h2>{{ 'job.compare.title'|trans }}</h2>
+
+    <div>
+        <h3>{{ 'job.compare.content.original'|trans }}</h3>
+        {% for key, diff in diffs.original %}
+            {% if '' != diff %}
+                <h4>{{ key }}</h4>
+                {{ diff|raw }}
+            {% endif %}
+        {% endfor %}
+        <h3>{{ 'job.compare.content.translated'|trans }}</h3>
+        {% for key, diff in diffs.translated %}
+            {% if '' != diff %}
+                <h4>{{ key }}</h4>
+                {{ diff|raw }}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
