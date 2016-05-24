@@ -79,4 +79,13 @@ interface JobManagerInterface
      * @return ProjectInterface
      */
     public function getProject(JobInterface $job);
+
+    /**
+     * Get ids for objects of the given class which have a job.
+     *
+     * @param string $class
+     *
+     * @return array
+     */
+    public function getTranslatablesWithJob($class);
 }

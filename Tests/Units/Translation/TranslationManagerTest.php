@@ -50,9 +50,6 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
         $projectMock->expects($this->once())
             ->method('save')
             ->willReturn($projectMock);
-        $projectMock->expects($this->once())
-            ->method('launch')
-            ->willReturn($projectMock);
 
         $routerMock->expects($this->exactly(2))
             ->method('generate')

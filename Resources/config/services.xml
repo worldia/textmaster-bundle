@@ -15,6 +15,7 @@
         <parameter key="worldia.textmaster.api.document_factory.class">Textmaster\Translator\Factory\DefaultDocumentFactory</parameter>
         <parameter key="worldia.textmaster.manager.job.class">Worldia\Bundle\TextmasterBundle\EntityManager\JobManager</parameter>
         <parameter key="worldia.textmaster.manager.translation.class">Worldia\Bundle\TextmasterBundle\Translation\TranslationManager</parameter>
+        <parameter key="worldia.textmaster.generator.translation.class">Worldia\Bundle\TextmasterBundle\Translation\TranslationGenerator</parameter>
         <parameter key="worldia.textmaster.listener.document.class">Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener</parameter>
         <parameter key="worldia.textmaster.listener.project.class">Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener</parameter>
         <parameter key="worldia.textmaster.listener.job.class">Worldia\Bundle\TextmasterBundle\EventListener\JobListener</parameter>
@@ -62,12 +63,17 @@
         <service id="worldia.textmaster.manager.job" class="%worldia.textmaster.manager.job.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="worldia.textmaster.api.manager" />
+            <argument type="service" id="worldia.textmaster.repository.job" />
         </service>
 
         <service id="worldia.textmaster.manager.translation" class="%worldia.textmaster.manager.translation.class%">
             <argument type="service" id="worldia.textmaster.api.manager" />
             <argument type="service" id="worldia.textmaster.api.translator" />
             <argument type="service" id="router" />
+        </service>
+
+        <service id="worldia.textmaster.generator.translation" class="%worldia.textmaster.generator.translation.class%">
+            <argument type="service" id="worldia.textmaster.manager.translation" />
         </service>
 
         <service id="worldia.textmaster.listener.document" class="%worldia.textmaster.listener.document.class%">

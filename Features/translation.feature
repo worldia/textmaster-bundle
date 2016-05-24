@@ -10,15 +10,17 @@ Feature: Translation management
       And I have the following translations for product "2":
         | title     | description          | locale |
         | Hello NYC | NYC is the big apple | en     |
-      And I create a translation project for products with the following parameters:
-        | name      | languageFrom | languageTo | category | projectBriefing | options                       |
-        | PROJECT-1 | en           | fr         | C054     | Nothing         | {"language_level": "premium"} |
+     Then I should have "0" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product"
+     When I generate a translation batch with the following parameters:
+        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       |
+        | product | {}     | PROJECT-1 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} |
+     Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product"
      When I receive the request '{ "id": "PROJECT-1", "name": "PROJECT-1", "status": "in_progress"}'
      Then I should have the following jobs:
         | id | translatable | project   | document | status  |
         | 1  | 1            | PROJECT-1 | en-fr-1  | started |
         | 2  | 2            | PROJECT-1 | en-fr-2  | started |
-     When I receive the request '{ "id": "en-fr-1", "title": "en-fr-1", "status": "in_review", "project_id": "PROJECT-1", "original_content": { "title": { "original_phrase": "Hello Paris"}, "description": { "original_phrase": "Paris is the city of lights"}}, "author_work": { "title": "Bonjour Paris", "description": "Paris est la ville lumière"}}'
+     When I receive the request '{ "id": "en-fr-1", "title": "en-fr-1", "status": "in_review", "project_id": "PROJECT-1", "original_content": { "title": { "original_phrase": "Hello Paris", "completed_phrase": "Bonjour Paris"}, "description": { "original_phrase": "Paris is the city of lights", "completed_phrase": "Paris est la ville lumière"}}}'
      Then the job "1" should have status "finished"
      When I translate job "1"
      Then the job "1" should have status "validated"
@@ -26,7 +28,7 @@ Feature: Translation management
         | title         | description                 | locale |
         | Hello Paris   | Paris is the city of lights | en     |
         | Bonjour Paris | Paris est la ville lumière  | fr     |
-     When I receive the request '{ "id": "en-fr-2", "title": "en-fr-2", "status": "in_review", "project_id": "PROJECT-1", "original_content": { "title": { "original_phrase": "Hello NYC"}, "description": { "original_phrase": "NYC is the big apple"}}, "author_work": { "title": "Bonjour NYC", "description": "NYC est la grosse pomme"}}'
+     When I receive the request '{ "id": "en-fr-2", "title": "en-fr-2", "status": "in_review", "project_id": "PROJECT-1", "original_content": { "title": { "original_phrase": "Hello NYC", "completed_phrase": "Bonjour NYC"}, "description": { "original_phrase": "NYC is the big apple", "completed_phrase": "NYC est la grosse pomme"}}}'
      Then the job "2" should have status "finished"
      When I translate job "2"
      Then the job "2" should have status "validated"

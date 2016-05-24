@@ -12,6 +12,7 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
     protected $textmasterManagerMock;
     protected $jobManager;
     protected $translatableMock;
+    protected $repositoryMock;
 
     public function setUp()
     {
@@ -22,12 +23,17 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
+        $this->repositoryMock = $this
+            ->getMockBuilder('Worldia\Bundle\TextmasterBundle\Repository\JobRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $this->translatableMock = $this->getMock('TranslatableInterface', array('getId'));
         $this->translatableMock->expects($this->once())
             ->method('getId')
             ->willReturn(1);
 
-        $this->jobManager = new JobManager($this->entityManagerMock, $this->textmasterManagerMock);
+        $this->jobManager = new JobManager($this->entityManagerMock, $this->textmasterManagerMock, $this->repositoryMock);
     }
 
     /**

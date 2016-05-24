@@ -39,6 +39,12 @@ services:
         tags:
             - { name: 'textmaster_translator_adapter' }
 
+    test.product.finder:
+        class:  Worldia\Bundle\ProductTestBundle\Service\ProductFinder
+        arguments: ['@doctrine']
+        tags:
+            - { name: 'textmaster_translatable_finder' }
+
 worldia_textmaster:
     credentials:
         api_key: textmaster_api_key

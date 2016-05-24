@@ -9,6 +9,7 @@ use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\ProjectInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\Job;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
+use Worldia\Bundle\TextmasterBundle\Repository\JobRepository;
 
 class JobManager implements JobManagerInterface
 {
@@ -23,17 +24,25 @@ class JobManager implements JobManagerInterface
     protected $textmasterManager;
 
     /**
+     * @var JobRepository
+     */
+    protected $jobRepository;
+
+    /**
      * Translator constructor.
      *
      * @param EntityManagerInterface $entityManager
      * @param Manager                $textmasterManager
+     * @param JobRepository          $jobRepository
      */
     public function __construct(
         EntityManagerInterface $entityManager,
-        Manager $textmasterManager
+        Manager $textmasterManager,
+        JobRepository $jobRepository
     ) {
         $this->entityManager = $entityManager;
         $this->textmasterManager = $textmasterManager;
+        $this->jobRepository = $jobRepository;
     }
 
     /**
@@ -92,11 +101,7 @@ class JobManager implements JobManagerInterface
      */
     public function getFromDocument(DocumentInterface $document)
     {
-        $job = $this
-            ->entityManager
-            ->getRepository('WorldiaTextmasterBundle:Job')
-            ->findOneBy(['documentId' => $document->getId()])
-        ;
+        $job = $this->jobRepository->findOneBy(['documentId' => $document->getId()]);
 
         if (null === $job) {
             throw new NotFoundResourceException(sprintf(
@@ -122,6 +127,27 @@ class JobManager implements JobManagerInterface
     public function getProject(JobInterface $job)
     {
         return $this->textmasterManager->getProject($job->getProjectId());
+    }
+
+    /**
+     * Get ids for objects of the given class which have a job.
+     *
+     * @param string $class
+     *
+     * @return array
+     */
+    public function getTranslatablesWithJob($class)
+    {
+        $result = $this->jobRepository
+            ->createQueryBuilder('j')
+            ->select('j.translatableId')
+            ->where('j.translatableClass = :class')
+            ->setParameter('class', $class)
+            ->getQuery()
+            ->getArrayResult()
+        ;
+
+        return array_map(function ($value) { return $value['translatableId']; }, $result);
     }
 
     /**
