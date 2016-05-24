@@ -142,7 +142,7 @@ class TranslationManager implements TranslationManagerInterface
     protected function generateProjectCallback()
     {
         return [
-            ProjectInterface::STATUS_IN_PROGRESS => [
+            ProjectInterface::CALLBACK_KEY => [
                 'url' => $this->router->generate('worldia_textmaster_callback_project'),
             ],
         ];
