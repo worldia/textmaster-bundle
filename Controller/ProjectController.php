@@ -13,6 +13,10 @@ class ProjectController extends AbstractController
      */
     protected function getResources(Request $request)
     {
+        $defaults = ['archived' => false];
+        $criteria = array_merge($defaults, $request->query->get('criteria', []));
+        $request->query->set('criteria', $criteria);
+
         return $this->getManager()->getProjects($this->getCriteria($request));
     }
 
