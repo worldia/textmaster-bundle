@@ -26,16 +26,14 @@
 
     <services>
         <service id="worldia.textmaster.api.httpclient" class="%worldia.textmaster.api.httpclient.class%">
+            <argument>%worldia.textmaster.credentials.api_key%</argument>
+            <argument>%worldia.textmaster.credentials.api_secret%</argument>
             <argument>%worldia.textmaster.httpclient.options%</argument>
         </service>
 
         <service id="worldia.textmaster.api.client" class="%worldia.textmaster.api.client.class%">
             <argument type="service" id="worldia.textmaster.api.httpclient" />
             <argument type="service" id="event_dispatcher" />
-            <call method="authenticate">
-                <argument>%worldia.textmaster.credentials.api_key%</argument>
-                <argument>%worldia.textmaster.credentials.api_secret%</argument>
-            </call>
         </service>
 
         <service id="worldia.textmaster.api.manager" class="%worldia.textmaster.api.manager.class%">
