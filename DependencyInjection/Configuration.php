@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('httpclient_options')
                     ->canBeEnabled()
                     ->children()
-                        ->scalarNode('base_url')
+                        ->scalarNode('base_uri')
                         ->end()
                     ->end()
                     ->children()

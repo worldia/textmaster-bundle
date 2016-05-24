@@ -67,7 +67,7 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
     public function assertHttpClientOptionsParameters()
     {
         $options = [
-            'base_url' => 'http://my.base.url',
+            'base_uri' => 'http://my.base.uri',
             'api_version' => '1',
         ];
         $this->load(['httpclient_options' => $options]);
