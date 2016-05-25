@@ -13,10 +13,12 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return array(
-            new Worldia\Bundle\TextmasterBundle\WorldiaTextmasterBundle(),
-            new Worldia\Bundle\ProductTestBundle\WorldiaProductTestBundle(),
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+            new Symfony\Bundle\TwigBundle\TwigBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Worldia\Bundle\ProductTestBundle\WorldiaProductTestBundle(),
+            new Worldia\Bundle\TextmasterBundle\WorldiaTextmasterBundle(),
         );
     }
 

@@ -12,7 +12,7 @@ default:
   extensions:
     Behat\Symfony2Extension:
       kernel:
-        env: dev
+        env: test
         debug: false
         path: Tests/Fixtures/Project/app/AppKernel.php
         bootstrap: Tests/Fixtures/Project/app/bootstrap.php

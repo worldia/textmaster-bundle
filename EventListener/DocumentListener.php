@@ -74,7 +74,7 @@ class DocumentListener implements EventSubscriberInterface
     }
 
     /**
-     * Mark document's related job as 'finished'.
+     * Mark document's related job as 'validated'.
      *
      * @param GenericEvent $event
      */
