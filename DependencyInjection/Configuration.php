@@ -133,6 +133,11 @@ class Configuration implements ConfigurationInterface
                             ->defaultValue('WorldiaTextmasterBundle:Job:accept.html.twig')
                         ->end()
                     ->end()
+                    ->children()
+                        ->scalarNode('reject')
+                            ->defaultValue('WorldiaTextmasterBundle:Job:reject.html.twig')
+                        ->end()
+                    ->end()
                 ->end()
             ->end()
         ;

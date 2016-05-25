@@ -14,22 +14,27 @@ class JobValidationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        if ($options['accept']) {
+            $builder
+                ->add('satisfaction', 'choice', [
+                    'required' => true,
+                    'label' => 'job.validation.satisfaction.label',
+                    'data' => DocumentInterface::SATISFACTION_NEUTRAL,
+                    'choices' => [
+                        DocumentInterface::SATISFACTION_NEGATIVE => 'job.validation.satisfaction.negative',
+                        DocumentInterface::SATISFACTION_NEUTRAL => 'job.validation.satisfaction.neutral',
+                        DocumentInterface::SATISFACTION_POSITIVE => 'job.validation.satisfaction.positive',
+                    ],
+                ])
+            ;
+        }
+
         $builder
-            ->add('satisfaction', 'choice', [
-                'required' => true,
-                'label' => 'job.validation.satisfaction.label',
-                'data' => DocumentInterface::SATISFACTION_NEUTRAL,
-                'choices' => [
-                    DocumentInterface::SATISFACTION_NEGATIVE => 'job.validation.satisfaction.negative',
-                    DocumentInterface::SATISFACTION_NEUTRAL => 'job.validation.satisfaction.neutral',
-                    DocumentInterface::SATISFACTION_POSITIVE => 'job.validation.satisfaction.positive',
-                ],
-            ])
             ->add('message', 'textarea', [
-                'required' => false,
+                'required' => !$options['accept'],
                 'label' => 'job.validation.message.label',
             ])
-            ->add('accept', 'submit', ['label' => 'job.validation.accept'])
+            ->add('validate', 'submit', ['label' => 'job.validation.validate'])
         ;
     }
 
@@ -39,6 +44,7 @@ class JobValidationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefault('translation_domain', 'textmaster');
+        $resolver->setDefault('accept', true);
     }
 
     /**

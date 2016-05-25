@@ -41,7 +41,9 @@ job:
             original: Orignial content
             translated: Translated content
     validation:
+        validate: Validate
         accept: Accept
+        reject: Reject
         satisfaction:
             label: Satisfaction
             negative: Negative

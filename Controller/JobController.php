@@ -66,11 +66,50 @@ class JobController extends AbstractController
     }
 
     /**
+     * Reject the given job's document.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function rejectAction(Request $request)
+    {
+        $job = $this->getResource($request);
+        $document = $this->getJobManager()->getDocument($job);
+
+        $form = $this->container->get('form.factory')->create('textmaster_job_validation', null, ['accept' => false]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $document->reject($data['message']);
+
+            return $this->redirectAfterReject($job);
+        }
+
+        return $this->render('reject', [
+            'job' => $job,
+            'document' => $document,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * Redirect after accepting a job.
      *
      * @param JobInterface $job
      */
     protected function redirectAfterAccept(JobInterface $job)
+    {
+        $this->redirect('worldia_textmaster_job_compare', ['id' => $job->getId()]);
+    }
+
+    /**
+     * Redirect after rejecting a job.
+     *
+     * @param JobInterface $job
+     */
+    protected function redirectAfterReject(JobInterface $job)
     {
         $this->redirect('worldia_textmaster_job_compare', ['id' => $job->getId()]);
     }

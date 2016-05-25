@@ -38,6 +38,7 @@ class WorldiaTextmasterExtension extends Extension
         $container->setParameter('worldia.textmaster.templates.job.filter', $config['templates']['job']['filter']);
         $container->setParameter('worldia.textmaster.templates.job.compare', $config['templates']['job']['compare']);
         $container->setParameter('worldia.textmaster.templates.job.accept', $config['templates']['job']['accept']);
+        $container->setParameter('worldia.textmaster.templates.job.reject', $config['templates']['job']['reject']);
 
         $container->setParameter('worldia.textmaster.mapping.properties', $config['mapping_properties']);
     }

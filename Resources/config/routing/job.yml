@@ -17,3 +17,8 @@ worldia_textmaster_job_accept:
     methods:  [GET, POST]
     path:     /jobs/{id}/accept
     defaults: { _controller: 'WorldiaTextmasterBundle:Job:accept' }
+
+worldia_textmaster_job_reject:
+    methods:  [GET, POST]
+    path:     /jobs/{id}/reject
+    defaults: { _controller: 'WorldiaTextmasterBundle:Job:reject' }
