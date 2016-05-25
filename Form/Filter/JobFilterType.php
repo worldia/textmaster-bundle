@@ -18,7 +18,7 @@ class JobFilterType extends AbstractType
             ->add('status', 'choice', [
                 'required' => false,
                 'label' => 'job.status.title',
-                'empty_value' => 'job.status.title',
+                'empty_value' => 'job.status.all',
                 'choices' => [
                     JobInterface::STATUS_CREATED => 'job.status.created',
                     JobInterface::STATUS_STARTED => 'job.status.started',

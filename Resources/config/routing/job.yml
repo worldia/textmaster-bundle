@@ -13,12 +13,9 @@ worldia_textmaster_job_compare:
     path:     /jobs/{id}/compare
     defaults: { _controller: 'WorldiaTextmasterBundle:Job:compare' }
 
-worldia_textmaster_job_accept:
+worldia_textmaster_job_validate:
     methods:  [GET, POST]
-    path:     /jobs/{id}/accept
-    defaults: { _controller: 'WorldiaTextmasterBundle:Job:accept' }
-
-worldia_textmaster_job_reject:
-    methods:  [GET, POST]
-    path:     /jobs/{id}/reject
-    defaults: { _controller: 'WorldiaTextmasterBundle:Job:reject' }
+    path:     /jobs/{id}/validate/{action}
+    defaults: { _controller: 'WorldiaTextmasterBundle:Job:validate', action: accept }
+    requirements:
+        action:  accept|reject

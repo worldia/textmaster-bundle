@@ -37,57 +37,36 @@ class JobController extends AbstractController
     }
 
     /**
-     * Use textmaster translator to accept the given job's document.
+     * Accept or reject the given job's document.
      *
      * @param Request $request
+     * @param string  $action
      *
      * @return Response
      */
-    public function acceptAction(Request $request)
+    public function validateAction(Request $request, $action)
     {
         $job = $this->getResource($request);
         $document = $this->getJobManager()->getDocument($job);
 
-        $form = $this->container->get('form.factory')->create('textmaster_job_validation');
+        $accept = 'accept' === $action;
+        $form = $this->container->get('form.factory')->create('textmaster_job_validation', null, ['accept' => $accept]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $this->getTranslator()->complete($document, $data['satisfaction'], $data['message']);
+            if ($accept) {
+                $this->getTranslator()->complete($document, $data['satisfaction'], $data['message']);
 
-            return $this->redirectAfterAccept($job);
-        }
+                return $this->redirectAfterAccept($job);
+            }
 
-        return $this->render('accept', [
-            'job' => $job,
-            'document' => $document,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * Reject the given job's document.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function rejectAction(Request $request)
-    {
-        $job = $this->getResource($request);
-        $document = $this->getJobManager()->getDocument($job);
-
-        $form = $this->container->get('form.factory')->create('textmaster_job_validation', null, ['accept' => false]);
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
             $document->reject($data['message']);
 
             return $this->redirectAfterReject($job);
         }
 
-        return $this->render('reject', [
+        return $this->render($action, [
             'job' => $job,
             'document' => $document,
             'form' => $form->createView(),
