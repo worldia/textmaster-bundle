@@ -17,6 +17,7 @@
         "worldia/textmaster-api": "^0.2",
         "symfony/property-access": "^2.7",
         "symfony/validator": "^2.7",
+        "symfony/form": "^2.7",
         "doctrine/orm": "^2.3",
         "doctrine/doctrine-bundle": "^1.5"
     },

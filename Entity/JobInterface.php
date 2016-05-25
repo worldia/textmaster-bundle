@@ -10,6 +10,13 @@ interface JobInterface
     const STATUS_VALIDATED = 'validated';
 
     /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId();
+
+    /**
      * Get translatable.
      *
      * @return object

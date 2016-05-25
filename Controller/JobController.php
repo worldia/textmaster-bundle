@@ -37,6 +37,45 @@ class JobController extends AbstractController
     }
 
     /**
+     * Use textmaster translator to accept the given job's document.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function acceptAction(Request $request)
+    {
+        $job = $this->getResource($request);
+        $document = $this->getJobManager()->getDocument($job);
+
+        $form = $this->container->get('form.factory')->create('textmaster_job_validation');
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $this->getTranslator()->complete($document, $data['satisfaction'], $data['message']);
+
+            return $this->redirectAfterAccept($job);
+        }
+
+        return $this->render('accept', [
+            'job' => $job,
+            'document' => $document,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Redirect after accepting a job.
+     *
+     * @param JobInterface $job
+     */
+    protected function redirectAfterAccept(JobInterface $job)
+    {
+        $this->redirect('worldia_textmaster_job_compare', ['id' => $job->getId()]);
+    }
+
+    /**
      * @param Request $request
      *
      * @return Pagerfanta

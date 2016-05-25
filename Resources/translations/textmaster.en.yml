@@ -40,3 +40,12 @@ job:
         content:
             original: Orignial content
             translated: Translated content
+    validation:
+        accept: Accept
+        satisfaction:
+            label: Satisfaction
+            negative: Negative
+            neutral: Neutral
+            positive: Positive
+        message:
+            label: Message
