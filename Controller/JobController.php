@@ -37,6 +37,63 @@ class JobController extends AbstractController
     }
 
     /**
+     * Accept or reject the given job's document.
+     *
+     * @param Request $request
+     * @param string  $action
+     *
+     * @return Response
+     */
+    public function validateAction(Request $request, $action)
+    {
+        $job = $this->getResource($request);
+        $document = $this->getJobManager()->getDocument($job);
+
+        $accept = 'accept' === $action;
+        $form = $this->container->get('form.factory')->create('textmaster_job_validation', null, ['accept' => $accept]);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            if ($accept) {
+                $this->getTranslator()->complete($document, $data['satisfaction'], $data['message']);
+
+                return $this->redirectAfterAccept($job);
+            }
+
+            $document->reject($data['message']);
+
+            return $this->redirectAfterReject($job);
+        }
+
+        return $this->render($action, [
+            'job' => $job,
+            'document' => $document,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * Redirect after accepting a job.
+     *
+     * @param JobInterface $job
+     */
+    protected function redirectAfterAccept(JobInterface $job)
+    {
+        $this->redirect('worldia_textmaster_job_compare', ['id' => $job->getId()]);
+    }
+
+    /**
+     * Redirect after rejecting a job.
+     *
+     * @param JobInterface $job
+     */
+    protected function redirectAfterReject(JobInterface $job)
+    {
+        $this->redirect('worldia_textmaster_job_compare', ['id' => $job->getId()]);
+    }
+
+    /**
      * @param Request $request
      *
      * @return Pagerfanta

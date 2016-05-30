@@ -43,6 +43,7 @@ class DocumentListener implements EventSubscriberInterface
             Events::DOCUMENT_IN_CREATION => 'onTextmasterDocumentInCreation',
             Events::DOCUMENT_IN_REVIEW => 'onTextmasterDocumentInReview',
             Events::DOCUMENT_COMPLETED => 'onTextmasterDocumentCompleted',
+            Events::DOCUMENT_INCOMPLETE => 'onTextmasterDocumentIncomplete',
         ];
     }
 
@@ -83,5 +84,18 @@ class DocumentListener implements EventSubscriberInterface
         $document = $event->getSubject();
         $job = $this->jobManager->getFromDocument($document);
         $this->jobManager->validate($job);
+    }
+
+    /**
+     * Mark document's related job as 'started'.
+     *
+     * @param GenericEvent $event
+     */
+    public function onTextmasterDocumentIncomplete(GenericEvent $event)
+    {
+        /** @var DocumentInterface $document */
+        $document = $event->getSubject();
+        $job = $this->jobManager->getFromDocument($document);
+        $this->jobManager->start($job);
     }
 }

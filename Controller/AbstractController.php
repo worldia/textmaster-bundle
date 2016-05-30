@@ -5,6 +5,7 @@ namespace Worldia\Bundle\TextmasterBundle\Controller;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Textmaster\Manager;
@@ -89,6 +90,17 @@ abstract class AbstractController implements ContainerAwareInterface
     protected function render($action, array $params = [])
     {
         return new Response($this->container->get('templating')->render($this->getTemplate($action), $params));
+    }
+
+    /**
+     * @param string $route
+     * @param array  $params
+     *
+     * @return Response
+     */
+    protected function redirect($route, array $params = [])
+    {
+        return new RedirectResponse($this->container->get('router')->generate($route, $params));
     }
 
     /**

@@ -37,6 +37,7 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
             Events::DOCUMENT_IN_CREATION => 'onTextmasterDocumentInCreation',
             Events::DOCUMENT_IN_REVIEW => 'onTextmasterDocumentInReview',
             Events::DOCUMENT_COMPLETED => 'onTextmasterDocumentCompleted',
+            Events::DOCUMENT_INCOMPLETE => 'onTextmasterDocumentIncomplete',
         ];
 
         $this->assertSame(DocumentListener::getSubscribedEvents(), $events);

@@ -22,6 +22,7 @@
         <parameter key="worldia.textmaster.repository.job.class">Worldia\Bundle\TextmasterBundle\Repository\JobRepository</parameter>
         <parameter key="worldia.textmaster.job.class">Worldia\Bundle\TextmasterBundle\Entity\Job</parameter>
         <parameter key="worldia.textmaster.form.type.job_filter.class">Worldia\Bundle\TextmasterBundle\Form\Filter\JobFilterType</parameter>
+        <parameter key="worldia.textmaster.form.type.job_validation.class">Worldia\Bundle\TextmasterBundle\Form\JobValidationType</parameter>
     </parameters>
 
     <services>
@@ -96,6 +97,10 @@
 
         <service id="worldia.textmaster.form.type.job_filter" class="%worldia.textmaster.form.type.job_filter.class%">
             <tag name="form.type" alias="textmaster_job_filter" />
+        </service>
+
+        <service id="worldia.textmaster.form.type.job_validation" class="%worldia.textmaster.form.type.job_validation.class%">
+            <tag name="form.type" alias="textmaster_job_validation" />
         </service>
     </services>
 
