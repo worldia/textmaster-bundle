@@ -1,8 +1,11 @@
 worldia_textmaster_project:
-  resource: "@WorldiaTextmasterBundle/Resources/config/routing/project.yml"
+  resource: '@WorldiaTextmasterBundle/Resources/config/routing/project.yml'
 
 worldia_textmaster_document:
-  resource: "@WorldiaTextmasterBundle/Resources/config/routing/document.yml"
+  resource: '@WorldiaTextmasterBundle/Resources/config/routing/document.yml'
 
 worldia_textmaster_callback:
-  resource: "@WorldiaTextmasterBundle/Resources/config/routing/callback.yml"
+  resource: '@WorldiaTextmasterBundle/Resources/config/routing/callback.yml'
+
+worldia_textmaster_job:
+  resource: '@WorldiaTextmasterBundle/Resources/config/routing/job.yml'

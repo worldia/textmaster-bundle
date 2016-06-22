@@ -24,6 +24,11 @@ class Product implements TranslatableInterface
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return 'id: '.$this->id;
+    }
+
     /**
      * Translation method.
      *

@@ -111,4 +111,25 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
 
         $this->listener->onTextmasterDocumentCompleted($this->eventMock);
     }
+
+    /**
+     * @test
+     */
+    public function shouldStartJobWhenDocumentIncomplete()
+    {
+        $jobMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
+
+        $this->eventMock->expects($this->once())
+            ->method('getSubject')
+            ->willReturn($this->documentMock);
+
+        $this->jobManagerMock->expects($this->once())
+            ->method('getFromDocument')
+            ->willReturn($jobMock);
+
+        $this->jobManagerMock->expects($this->once())
+            ->method('start');
+
+        $this->listener->onTextmasterDocumentIncomplete($this->eventMock);
+    }
 }

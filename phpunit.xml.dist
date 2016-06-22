@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="./Tests/Units/bootstrap.php" colors="true">
+<phpunit bootstrap="./Tests/Fixtures/Project/app/bootstrap.php" colors="true">
 
     <testsuites>
         <testsuite name="WorldiaTextmasterBundle test suite">
@@ -8,13 +8,17 @@
         </testsuite>
     </testsuites>
 
+    <php>
+        <server name="KERNEL_DIR" value="/Tests/Fixtures/Project/app/" />
+    </php>
+
     <filter>
         <whitelist>
             <directory>./</directory>
             <exclude>
+                <directory>./Features</directory>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
-                <directory>./Features</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>
