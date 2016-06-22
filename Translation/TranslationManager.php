@@ -67,7 +67,7 @@ class TranslationManager implements TranslationManagerInterface
         ;
 
         $project->save();
-        $this->generateDocuments($project, $translatable);
+        $project->addDocuments($this->generateDocuments($project, $translatable));
 
         return $project;
     }
@@ -85,10 +85,13 @@ class TranslationManager implements TranslationManagerInterface
      *
      * @param ProjectInterface $project
      * @param object[]         $translatableList
+     *
+     * @return array|DocumentInterface[]
      */
     protected function generateDocuments(ProjectInterface $project, array $translatableList)
     {
         $callback = $this->generateDocumentCallback($project);
+        $documents = [];
 
         foreach ($translatableList as $translatable) {
             $params = [];
@@ -97,8 +100,10 @@ class TranslationManager implements TranslationManagerInterface
                 'title' => $this->generateTitle($project, $translatable),
                 'callback' => $callback,
             ];
-            $this->translator->create($translatable, $params);
+            $documents[] = $this->translator->create($translatable, $params, false);
         }
+
+        return $documents;
     }
 
     /**

@@ -53,4 +53,14 @@ class DocumentApi
     {
         $this->documents[$params['id']] = array_merge($this->documents[$params['id']], $params);
     }
+
+    public function batchCreate(array $documents)
+    {
+        foreach ($documents as &$document) {
+            $document['id'] = $document['title'];
+            $this->documents[$document['id']] = $document;
+        }
+
+        return $documents;
+    }
 }
