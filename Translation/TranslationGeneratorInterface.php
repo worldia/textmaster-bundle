@@ -18,7 +18,7 @@ interface TranslationGeneratorInterface
      * @param string $briefing     textmaster project briefing
      * @param array  $options      textmaster project options
      *
-     * @return ProjectInterface
+     * @return ProjectInterface|null
      */
     public function generate(
         $finderCode,

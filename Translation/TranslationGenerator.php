@@ -50,7 +50,7 @@ class TranslationGenerator implements TranslationGeneratorInterface
         $translatables = $this->translatableFinders[$finderCode]->find($languageTo, $filter);
 
         if (!count($translatables)) {
-            return false;
+            return;
         }
 
         $project = $this->translationManager->create($translatables, $name, $languageFrom, $languageTo, $category, $briefing, $options);

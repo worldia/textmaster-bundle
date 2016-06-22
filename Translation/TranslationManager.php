@@ -86,7 +86,7 @@ class TranslationManager implements TranslationManagerInterface
      * @param ProjectInterface $project
      * @param object[]         $translatableList
      *
-     * @return  array|DocumentInterface[]
+     * @return array|DocumentInterface[]
      */
     protected function generateDocuments(ProjectInterface $project, array $translatableList)
     {
