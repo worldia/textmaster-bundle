@@ -52,12 +52,13 @@ class TranslationManager implements TranslationManagerInterface
         $languageTo,
         $category,
         $briefing,
-        array $options = []
+        array $options = [],
+        $activity = ProjectInterface::ACTIVITY_TRANSLATION
     ) {
         $project = $this->textmasterManager->getProject();
         $project
             ->setName($name)
-            ->setActivity(ProjectInterface::ACTIVITY_TRANSLATION)
+            ->setActivity($activity)
             ->setLanguageFrom($languageFrom)
             ->setLanguageTo($languageTo)
             ->setCategory($category)
