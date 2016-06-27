@@ -27,7 +27,8 @@ interface TranslationManagerInterface
         $languageTo,
         $category,
         $briefing,
-        array $options = []
+        array $options = [],
+        $activity = ProjectInterface::ACTIVITY_TRANSLATION
     );
 
     /**
