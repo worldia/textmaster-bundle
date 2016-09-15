@@ -92,6 +92,7 @@ class TranslationManager implements TranslationManagerInterface
     protected function generateDocuments(ProjectInterface $project, array $translatableList)
     {
         $callback = $this->generateDocumentCallback($project);
+        $activity = $project->getActivity();
         $documents = [];
 
         foreach ($translatableList as $translatable) {
@@ -99,7 +100,7 @@ class TranslationManager implements TranslationManagerInterface
             $params['project'] = $project;
             $params['document'] = [
                 'title' => $this->generateTitle($project, $translatable),
-                'instructions' => $this->generateInstructions($translatable),
+                'instructions' => $this->generateInstructions($translatable, $activity),
                 'callback' => $callback,
             ];
             $documents[] = $this->translator->create($translatable, $params, false);
@@ -130,10 +131,11 @@ class TranslationManager implements TranslationManagerInterface
      * Generate instructions for a document.
      *
      * @param object $translatable
+     * @param string $activity
      *
      * @return string
      */
-    protected function generateInstructions($translatable)
+    protected function generateInstructions($translatable, $activity)
     {
         return '';
     }
