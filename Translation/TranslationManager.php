@@ -49,9 +49,9 @@ class TranslationManager implements TranslationManagerInterface
         array $translatable,
         $name,
         $languageFrom,
-        $languageTo,
         $category,
         $briefing,
+        $languageTo = null,
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION
     ) {
@@ -92,6 +92,7 @@ class TranslationManager implements TranslationManagerInterface
     protected function generateDocuments(ProjectInterface $project, array $translatableList)
     {
         $callback = $this->generateDocumentCallback($project);
+        $activity = $project->getActivity();
         $documents = [];
 
         foreach ($translatableList as $translatable) {
@@ -99,6 +100,7 @@ class TranslationManager implements TranslationManagerInterface
             $params['project'] = $project;
             $params['document'] = [
                 'title' => $this->generateTitle($project, $translatable),
+                'instructions' => $this->generateInstructions($translatable, $activity),
                 'callback' => $callback,
             ];
             $documents[] = $this->translator->create($translatable, $params, false);
@@ -117,7 +119,25 @@ class TranslationManager implements TranslationManagerInterface
      */
     protected function generateTitle(ProjectInterface $project, $translatable)
     {
-        return implode('-', [$project->getLanguageFrom(), $project->getLanguageTo(), $translatable->getId()]);
+        $middle = $project->getActivity();
+        if ($project->getLanguageTo()) {
+            $middle = $project->getLanguageTo();
+        }
+
+        return implode('-', [$project->getLanguageFrom(), $middle, $translatable->getId()]);
+    }
+
+    /**
+     * Generate instructions for a document.
+     *
+     * @param object $translatable
+     * @param string $activity
+     *
+     * @return string
+     */
+    protected function generateInstructions($translatable, $activity)
+    {
+        return '';
     }
 
     /**

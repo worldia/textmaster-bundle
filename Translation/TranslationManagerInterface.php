@@ -13,10 +13,11 @@ interface TranslationManagerInterface
      * @param object[] $translatable
      * @param string   $name
      * @param string   $languageFrom
-     * @param string   $languageTo
      * @param string   $category
      * @param string   $briefing
+     * @param string   $languageTo
      * @param array    $options
+     * @param string   $activity
      *
      * @return ProjectInterface
      */
@@ -24,9 +25,9 @@ interface TranslationManagerInterface
         array $translatable,
         $name,
         $languageFrom,
-        $languageTo,
         $category,
         $briefing,
+        $languageTo = null,
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION
     );

@@ -92,11 +92,12 @@ trait TranslationContextTrait
                 $data['finder'],
                 json_decode($data['filter'], true),
                 $data['languageFrom'],
-                $data['languageTo'],
                 $data['name'],
                 $data['category'],
                 $data['briefing'],
-                json_decode($data['options'], true)
+                isset($data['languageTo']) ? $data['languageTo'] : null,
+                json_decode($data['options'], true),
+                isset($data['activity']) ? $data['activity'] : null
             );
         }
     }

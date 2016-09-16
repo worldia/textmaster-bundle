@@ -2,6 +2,8 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Translation;
 
+use Textmaster\Model\ProjectInterface;
+
 class TranslationGenerator implements TranslationGeneratorInterface
 {
     /**
@@ -41,19 +43,23 @@ class TranslationGenerator implements TranslationGeneratorInterface
         $finderCode,
         array $filter = [],
         $languageFrom,
-        $languageTo,
         $name,
         $category,
         $briefing,
-        array $options = []
+        $languageTo = null,
+        array $options = [],
+        $activity = ProjectInterface::ACTIVITY_TRANSLATION
     ) {
-        $translatables = $this->translatableFinders[$finderCode]->find($languageTo, $filter);
+        if (null === $locale = $languageTo) {
+            $locale = $languageFrom;
+        }
+        $translatables = $this->translatableFinders[$finderCode]->find($locale, $filter);
 
         if (!count($translatables)) {
             return;
         }
 
-        $project = $this->translationManager->create($translatables, $name, $languageFrom, $languageTo, $category, $briefing, $options);
+        $project = $this->translationManager->create($translatables, $name, $languageFrom, $category, $briefing, $languageTo, $options, $activity);
 
         return $project->launch();
     }

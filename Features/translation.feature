@@ -12,8 +12,8 @@ Feature: Translation management
         | Hello NYC | NYC is the big apple | en     |
      Then I should have "0" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product"
      When I generate a translation batch with the following parameters:
-        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       |
-        | product | {}     | PROJECT-1 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} |
+        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    |
+        | product | {}     | PROJECT-1 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} | translation |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product"
      When I receive the request '{ "id": "PROJECT-1", "name": "PROJECT-1", "status": "in_progress"}'
      Then I should have the following jobs:
