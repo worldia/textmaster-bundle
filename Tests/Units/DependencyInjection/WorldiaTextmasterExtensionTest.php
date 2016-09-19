@@ -27,6 +27,7 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
                 'api_key' => 'My API key',
                 'api_secret' => 'My API secret',
             ],
+            'copywriting_word_count' => 200,
         ];
     }
 
@@ -46,6 +47,8 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.project.index', 'WorldiaTextmasterBundle:Project:list.html.twig');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.job.show', 'WorldiaTextmasterBundle:Job:show.html.twig');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.job.index', 'WorldiaTextmasterBundle:Job:list.html.twig');
+
+        $this->assertContainerBuilderHasParameter('worldia.textmaster.copywriting_word_count', 200);
     }
 
     /**
