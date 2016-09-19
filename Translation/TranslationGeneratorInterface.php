@@ -17,8 +17,8 @@ interface TranslationGeneratorInterface
      * @param string $briefing     textmaster project briefing
      * @param string $languageTo   destination language identifier (ex: fr, en, de...)
      * @param array  $options      textmaster project options
-     * @param array  $activity     textmaster project activity
-     * @param array  $workTemplate textmaster project work template
+     * @param string $activity     textmaster project activity
+     * @param string $workTemplate textmaster project work template
      *
      * @return ProjectInterface|null
      */

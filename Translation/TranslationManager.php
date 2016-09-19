@@ -112,7 +112,7 @@ class TranslationManager implements TranslationManagerInterface
                 'title' => $this->generateTitle($project, $translatable),
                 'instructions' => $this->generateInstructions($translatable, $activity),
                 'callback' => $callback,
-                'word_count' => ProjectInterface::ACTIVITY_COPYWRITING === $activity ? $this->generateWordCount($translatable) : 0,
+                'word_count' => ProjectInterface::ACTIVITY_COPYWRITING === $activity ? $this->getWordCount($translatable) : 0,
             ];
             $documents[] = $this->translator->create($translatable, $params, false);
         }
@@ -152,13 +152,13 @@ class TranslationManager implements TranslationManagerInterface
     }
 
     /**
-     * Generate word count for a copywriting document.
+     * Get word count for a copywriting document.
      *
      * @param object $translatable
      *
      * @return string
      */
-    protected function generateWordCount($translatable)
+    protected function getWordCount($translatable)
     {
         return $this->defaultWordCount;
     }
