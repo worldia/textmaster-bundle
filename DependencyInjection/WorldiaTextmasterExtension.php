@@ -41,5 +41,6 @@ class WorldiaTextmasterExtension extends Extension
         $container->setParameter('worldia.textmaster.templates.job.reject', $config['templates']['job']['reject']);
 
         $container->setParameter('worldia.textmaster.mapping.properties', $config['mapping_properties']);
+        $container->setParameter('worldia.textmaster.copywriting_word_count', $config['copywriting_word_count']);
     }
 }

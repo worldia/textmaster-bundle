@@ -69,6 +69,7 @@
             <argument type="service" id="worldia.textmaster.api.manager" />
             <argument type="service" id="worldia.textmaster.api.translator" />
             <argument type="service" id="router" />
+            <argument>%worldia.textmaster.copywriting_word_count%</argument>
         </service>
 
         <service id="worldia.textmaster.generator.translation" class="%worldia.textmaster.generator.translation.class%">

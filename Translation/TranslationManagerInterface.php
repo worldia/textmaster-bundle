@@ -18,6 +18,7 @@ interface TranslationManagerInterface
      * @param string   $languageTo
      * @param array    $options
      * @param string   $activity
+     * @param string   $workTemplate
      *
      * @return ProjectInterface
      */
@@ -29,7 +30,8 @@ interface TranslationManagerInterface
         $briefing,
         $languageTo = null,
         array $options = [],
-        $activity = ProjectInterface::ACTIVITY_TRANSLATION
+        $activity = ProjectInterface::ACTIVITY_TRANSLATION,
+        $workTemplate = null
     );
 
     /**
