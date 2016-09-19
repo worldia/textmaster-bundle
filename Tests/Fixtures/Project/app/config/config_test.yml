@@ -54,3 +54,4 @@ worldia_textmaster:
         base_uri: textmaster_api_base_uri
     mapping_properties:
         Worldia\Bundle\ProductTestBundle\Entity\Product: ['title', 'description']
+    copywriting_word_count: 200

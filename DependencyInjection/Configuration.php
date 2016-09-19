@@ -52,6 +52,7 @@ class Configuration implements ConfigurationInterface
                         ->prototype('scalar')->end()
                     ->end()
                 ->end()
+                ->scalarNode('copywriting_word_count')->isRequired()->end()
             ->end()
         ;
 

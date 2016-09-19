@@ -48,7 +48,8 @@ class TranslationGenerator implements TranslationGeneratorInterface
         $briefing,
         $languageTo = null,
         array $options = [],
-        $activity = ProjectInterface::ACTIVITY_TRANSLATION
+        $activity = ProjectInterface::ACTIVITY_TRANSLATION,
+        $workTemplate = null
     ) {
         if (null === $locale = $languageTo) {
             $locale = $languageFrom;
@@ -59,7 +60,7 @@ class TranslationGenerator implements TranslationGeneratorInterface
             return;
         }
 
-        $project = $this->translationManager->create($translatables, $name, $languageFrom, $category, $briefing, $languageTo, $options, $activity);
+        $project = $this->translationManager->create($translatables, $name, $languageFrom, $category, $briefing, $languageTo, $options, $activity, $workTemplate);
 
         return $project->launch();
     }

@@ -26,20 +26,28 @@ class TranslationManager implements TranslationManagerInterface
     protected $router;
 
     /**
+     * @var int
+     */
+    protected $defaultWordCount;
+
+    /**
      * TranslationManager constructor.
      *
      * @param Manager               $textmasterManager
      * @param TranslatorInterface   $translator
      * @param UrlGeneratorInterface $router
+     * @param int                   $defaultWordCount
      */
     public function __construct(
         Manager $textmasterManager,
         TranslatorInterface $translator,
-        UrlGeneratorInterface $router
+        UrlGeneratorInterface $router,
+        $defaultWordCount
     ) {
         $this->textmasterManager = $textmasterManager;
         $this->translator = $translator;
         $this->router = $router;
+        $this->defaultWordCount = $defaultWordCount;
     }
 
     /**
@@ -53,7 +61,8 @@ class TranslationManager implements TranslationManagerInterface
         $briefing,
         $languageTo = null,
         array $options = [],
-        $activity = ProjectInterface::ACTIVITY_TRANSLATION
+        $activity = ProjectInterface::ACTIVITY_TRANSLATION,
+        $workTemplate = null
     ) {
         $project = $this->textmasterManager->getProject();
         $project
@@ -64,6 +73,7 @@ class TranslationManager implements TranslationManagerInterface
             ->setCategory($category)
             ->setBriefing($briefing)
             ->setOptions($options)
+            ->setWorkTemplate($workTemplate)
             ->setCallback($this->generateProjectCallback())
         ;
 
@@ -93,8 +103,8 @@ class TranslationManager implements TranslationManagerInterface
     {
         $callback = $this->generateDocumentCallback($project);
         $activity = $project->getActivity();
-        $documents = [];
 
+        $documents = [];
         foreach ($translatableList as $translatable) {
             $params = [];
             $params['project'] = $project;
@@ -102,6 +112,7 @@ class TranslationManager implements TranslationManagerInterface
                 'title' => $this->generateTitle($project, $translatable),
                 'instructions' => $this->generateInstructions($translatable, $activity),
                 'callback' => $callback,
+                'word_count' => ProjectInterface::ACTIVITY_COPYWRITING === $activity ? $this->getWordCount($translatable) : 0,
             ];
             $documents[] = $this->translator->create($translatable, $params, false);
         }
@@ -138,6 +149,18 @@ class TranslationManager implements TranslationManagerInterface
     protected function generateInstructions($translatable, $activity)
     {
         return '';
+    }
+
+    /**
+     * Get word count for a copywriting document.
+     *
+     * @param object $translatable
+     *
+     * @return string
+     */
+    protected function getWordCount($translatable)
+    {
+        return $this->defaultWordCount;
     }
 
     /**

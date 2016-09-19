@@ -48,6 +48,9 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->method('setCallback')
             ->willReturn($projectMock);
         $projectMock->expects($this->once())
+            ->method('setWorkTemplate')
+            ->willReturn($projectMock);
+        $projectMock->expects($this->once())
             ->method('save')
             ->willReturn($projectMock);
 
@@ -63,7 +66,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->willReturn($documentMock);
 
-        $translationManager = new TranslationManager($textmasterManagerMock, $translatorMock, $routerMock);
+        $translationManager = new TranslationManager($textmasterManagerMock, $translatorMock, $routerMock, 150);
         $project = $translationManager->create([$translatableMock], 'Project 1', 'en', 'fr', 'CO21', 'Lorem ipsum...', ['language_level' => 'premium']);
 
         $this->assertTrue(in_array('Textmaster\Model\ProjectInterface', class_implements($project)));

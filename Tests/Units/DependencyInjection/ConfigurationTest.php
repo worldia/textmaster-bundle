@@ -37,6 +37,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                     'mapping_properties' => [
                         'Worldia\Bundle\ProductTestBundle\Entity\Product' => ['title', 'description'],
                     ],
+                    'copywriting_word_count' => 200,
                 ],
             ]
         );
