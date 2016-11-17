@@ -13,7 +13,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
     {
         $textmasterManagerMock = $this->getMockBuilder('Textmaster\Manager')->disableOriginalConstructor()->getMock();
         $routerMock = $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
-        $translatorMock = $this->getMockBuilder('Textmaster\Translator\Translator')->setMethods(['create'])->disableOriginalConstructor()->getMock();
+        $translatorMock = $this->getMockBuilder('Textmaster\Translator\Translator')->setMethods(['push'])->disableOriginalConstructor()->getMock();
 
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
         $translatableMock = $this->getMock('TranslatableInterface', ['getId']);
@@ -54,7 +54,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->method('save')
             ->willReturn($projectMock);
 
-        $routerMock->expects($this->exactly(2))
+        $routerMock->expects($this->exactly(3))
             ->method('generate')
             ->willReturn('http://callback.url');
 
@@ -63,7 +63,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->willReturn(1);
 
         $translatorMock->expects($this->once())
-            ->method('create')
+            ->method('push')
             ->willReturn($documentMock);
 
         $translationManager = new TranslationManager($textmasterManagerMock, $translatorMock, $routerMock, 150);

@@ -14,7 +14,7 @@
     "require": {
         "php": ">=5.5.0",
         "symfony/framework-bundle": "^2.7",
-        "worldia/textmaster-api": "^0.2",
+        "worldia/textmaster-api": "^0.3",
         "symfony/property-access": "^2.7",
         "symfony/validator": "^2.7",
         "symfony/form": "^2.7",
@@ -39,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2.x-dev"
+            "dev-master": "0.3.x-dev"
         }
     }
 }

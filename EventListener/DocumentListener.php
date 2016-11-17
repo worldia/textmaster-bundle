@@ -84,6 +84,7 @@ class DocumentListener implements EventSubscriberInterface
         $document = $event->getSubject();
         $job = $this->jobManager->getFromDocument($document);
         $this->jobManager->validate($job);
+        $this->translator->pull($document);
     }
 
     /**
