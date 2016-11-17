@@ -88,7 +88,7 @@ class TranslationManager implements TranslationManagerInterface
      */
     public function translate(DocumentInterface $document, $satisfaction = null, $message = null)
     {
-        $this->translator->complete($document, $satisfaction = null, $message = null);
+        $this->translator->complete($document);
     }
 
     /**
@@ -114,7 +114,7 @@ class TranslationManager implements TranslationManagerInterface
                 'callback' => $callback,
                 'word_count' => ProjectInterface::ACTIVITY_COPYWRITING === $activity ? $this->getWordCount($translatable) : 0,
             ];
-            $documents[] = $this->translator->create($translatable, $params, false);
+            $documents[] = $this->translator->push($translatable, $params, false);
         }
 
         return $documents;
@@ -174,6 +174,13 @@ class TranslationManager implements TranslationManagerInterface
     {
         return [
             DocumentInterface::STATUS_IN_REVIEW => [
+                'url' => $this->router->generate(
+                    'worldia_textmaster_callback_document',
+                    ['projectId' => $project->getId()],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                ),
+            ],
+            DocumentInterface::STATUS_COMPLETED => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_document',
                     ['projectId' => $project->getId()],
