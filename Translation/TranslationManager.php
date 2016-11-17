@@ -180,6 +180,13 @@ class TranslationManager implements TranslationManagerInterface
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
+            DocumentInterface::STATUS_COMPLETED => [
+                'url' => $this->router->generate(
+                    'worldia_textmaster_callback_document',
+                    ['projectId' => $project->getId()],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                ),
+            ],
         ];
     }
 

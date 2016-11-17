@@ -2,8 +2,9 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\EventListener;
 
-use Textmaster\Events;
+use Textmaster\Events as TextmasterEvents;
 use Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener;
+use Worldia\Bundle\TextmasterBundle\Events;
 
 class DocumentListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -34,10 +35,11 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
     public function shouldGetSubscribedEvents()
     {
         $events = [
-            Events::DOCUMENT_IN_CREATION => 'onTextmasterDocumentInCreation',
-            Events::DOCUMENT_IN_REVIEW => 'onTextmasterDocumentInReview',
-            Events::DOCUMENT_COMPLETED => 'onTextmasterDocumentCompleted',
-            Events::DOCUMENT_INCOMPLETE => 'onTextmasterDocumentIncomplete',
+            TextmasterEvents::DOCUMENT_IN_CREATION => 'onTextmasterDocumentInCreation',
+            TextmasterEvents::DOCUMENT_COMPLETED => 'onTextmasterDocumentCompleted',
+            TextmasterEvents::DOCUMENT_INCOMPLETE => 'onTextmasterDocumentIncomplete',
+            Events::DOCUMENT_IN_REVIEW => 'onCallbackDocumentInReview',
+            Events::DOCUMENT_COMPLETED => 'onCallbackDocumentCompleted',
         ];
 
         $this->assertSame(DocumentListener::getSubscribedEvents(), $events);
@@ -88,7 +90,7 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
         $this->jobManagerMock->expects($this->once())
             ->method('finish');
 
-        $this->listener->onTextmasterDocumentInReview($eventMock);
+        $this->listener->onCallbackDocumentInReview($eventMock);
     }
 
     /**

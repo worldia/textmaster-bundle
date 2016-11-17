@@ -2,8 +2,8 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\EventListener;
 
-use Textmaster\Events;
 use Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener;
+use Worldia\Bundle\TextmasterBundle\Events;
 
 class ProjectListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,7 +26,7 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
     public function shouldGetSubscribedEvents()
     {
         $events = [
-            Events::PROJECT_IN_PROGRESS => 'onTextmasterProjectInProgress',
+            Events::PROJECT_IN_PROGRESS => 'onCallbackProjectInProgress',
         ];
 
         $this->assertSame(ProjectListener::getSubscribedEvents(), $events);
@@ -47,6 +47,6 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
         $this->jobManagerMock->expects($this->once())
             ->method('startJobs');
 
-        $this->listener->onTextmasterProjectInProgress($eventMock);
+        $this->listener->onCallbackProjectInProgress($eventMock);
     }
 }
