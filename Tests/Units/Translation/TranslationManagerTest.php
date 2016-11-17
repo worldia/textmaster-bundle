@@ -54,7 +54,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->method('save')
             ->willReturn($projectMock);
 
-        $routerMock->expects($this->exactly(2))
+        $routerMock->expects($this->exactly(3))
             ->method('generate')
             ->willReturn('http://callback.url');
 
