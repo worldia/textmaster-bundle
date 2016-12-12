@@ -64,6 +64,12 @@ class TranslationManager implements TranslationManagerInterface
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
         $workTemplate = null
     ) {
+        $translationMemory = false;
+        if (array_key_exists('translation_memory', $options)) {
+            $translationMemory = true;
+            unset($options['translation_memory']);
+        }
+
         $project = $this->textmasterManager->getProject();
         $project
             ->setName($name)
@@ -79,6 +85,12 @@ class TranslationManager implements TranslationManagerInterface
 
         $project->save();
         $project->addDocuments($this->generateDocuments($project, $translatable));
+
+        if ($translationMemory) {
+            $options['translation_memory'] = true;
+            $project->setOptions($options);
+            $project->save();
+        }
 
         return $project;
     }
@@ -198,7 +210,14 @@ class TranslationManager implements TranslationManagerInterface
     protected function generateProjectCallback()
     {
         return [
-            ProjectInterface::CALLBACK_KEY => [
+            ProjectInterface::CALLBACK_PROJECT_IN_PROGRESS => [
+                'url' => $this->router->generate(
+                    'worldia_textmaster_callback_project',
+                    [],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                ),
+            ],
+            ProjectInterface::CALLBACK_PROJECT_TM_COMPLETED => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_project',
                     [],
