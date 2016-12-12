@@ -1,7 +1,7 @@
 {
     "name": "worldia/textmaster-bundle",
     "type": "symfony-bundle",
-    "description": "A Symfony2 bundle integrating php-textmaster-api",
+    "description": "A Symfony2 bundle integrating textmaster-api",
     "homepage": "https://github.com/worldia/textmaster-bundle",
     "keywords": ["textmaster", "translation", "api", "bundle"],
     "license": "UNLICENSED",
@@ -12,9 +12,9 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=5.6.0",
+        "worldia/textmaster-api": "^0.4",
         "symfony/framework-bundle": "^2.7",
-        "worldia/textmaster-api": "^0.3",
         "symfony/property-access": "^2.7",
         "symfony/validator": "^2.7",
         "symfony/form": "^2.7",
@@ -39,7 +39,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3.x-dev"
+            "dev-master": "0.4.x-dev"
         }
     }
 }

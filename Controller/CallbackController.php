@@ -15,13 +15,14 @@ class CallbackController implements ContainerAwareInterface
     /**
      * Endpoint for Textmaster API callback.
      *
-     * @param Request $request
+     * @param Request   $request
+     * @param bool|null $translationMemory
      *
      * @return Response
      */
-    public function callbackAction(Request $request)
+    public function callbackAction(Request $request, $translationMemory = null)
     {
-        $this->getHandler()->handleWebHook($request);
+        $this->getHandler()->handleWebHook($request, $translationMemory);
 
         return new Response();
     }

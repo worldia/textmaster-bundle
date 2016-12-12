@@ -27,6 +27,7 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
     {
         $events = [
             Events::PROJECT_IN_PROGRESS => 'onTextmasterProjectInProgress',
+            Events::PROJECT_MEMORY_COMPLETED => 'onTextmasterProjectTmCompleted',
         ];
 
         $this->assertSame(ProjectListener::getSubscribedEvents(), $events);
