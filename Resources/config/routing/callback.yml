@@ -5,7 +5,5 @@ worldia_textmaster_callback_document:
 
 worldia_textmaster_callback_project:
     methods:  [POST]
-    path:     /projects/{translationMemory}
-    defaults:
-        _controller: WorldiaTextmasterBundle:Callback:callback
-        translationMemory: null
+    path:     /projects
+    defaults: { _controller: WorldiaTextmasterBundle:Callback:callback }

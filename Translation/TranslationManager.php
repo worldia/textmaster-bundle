@@ -188,14 +188,14 @@ class TranslationManager implements TranslationManagerInterface
             DocumentInterface::STATUS_IN_REVIEW => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_document',
-                    ['projectId' => $project->getId()],
+                    ['projectId' => $project->getId(), 'event' => DocumentInterface::STATUS_IN_REVIEW],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
             DocumentInterface::STATUS_COMPLETED => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_document',
-                    ['projectId' => $project->getId()],
+                    ['projectId' => $project->getId(), 'event' => DocumentInterface::STATUS_COMPLETED],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
@@ -213,14 +213,14 @@ class TranslationManager implements TranslationManagerInterface
             ProjectInterface::CALLBACK_PROJECT_IN_PROGRESS => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_project',
-                    [],
+                    ['event' => ProjectInterface::STATUS_IN_PROGRESS],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
             ProjectInterface::CALLBACK_PROJECT_MEMORY_COMPLETED => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_project',
-                    ['translationMemory' => 'translationMemory'],
+                    ['event' => ProjectInterface::STATUS_MEMORY_COMPLETED],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],

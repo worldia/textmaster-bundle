@@ -27,7 +27,7 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
     {
         $events = [
             Events::PROJECT_IN_PROGRESS => 'onTextmasterProjectInProgress',
-            Events::PROJECT_MEMORY_COMPLETED => 'onTextmasterProjectTmCompleted',
+            Events::PROJECT_MEMORY_COMPLETED => 'onTextmasterProjectMemoryCompleted',
         ];
 
         $this->assertSame(ProjectListener::getSubscribedEvents(), $events);
@@ -49,5 +49,23 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
             ->method('startJobs');
 
         $this->listener->onTextmasterProjectInProgress($eventMock);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldLaunchProjectWhenProjectMemoryCompleted()
+    {
+        $eventMock = $this->getMockBuilder('Textmaster\Event\CallbackEvent')->disableOriginalConstructor()->getMock();
+        $projectMock = $this->getMock('Textmaster\Model\ProjectInterface');
+
+        $eventMock->expects($this->once())
+            ->method('getSubject')
+            ->willReturn($projectMock);
+
+        $projectMock->expects($this->once())
+            ->method('launch');
+
+        $this->listener->onTextmasterProjectMemoryCompleted($eventMock);
     }
 }
