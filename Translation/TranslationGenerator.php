@@ -62,6 +62,10 @@ class TranslationGenerator implements TranslationGeneratorInterface
 
         $project = $this->translationManager->create($translatables, $name, $languageFrom, $category, $briefing, $languageTo, $options, $activity, $workTemplate);
 
-        return $project->launch();
+        if (!array_key_exists('translation_memory', $project->getOptions())) {
+            $project->launch();
+        }
+
+        return $project;
     }
 }

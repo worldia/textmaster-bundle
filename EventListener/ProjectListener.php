@@ -32,6 +32,7 @@ class ProjectListener implements EventSubscriberInterface
     {
         return [
             Events::PROJECT_IN_PROGRESS => 'onTextmasterProjectInProgress',
+            Events::PROJECT_MEMORY_COMPLETED => 'onTextmasterProjectMemoryCompleted',
         ];
     }
 
@@ -45,5 +46,17 @@ class ProjectListener implements EventSubscriberInterface
         /** @var ProjectInterface $project */
         $project = $event->getSubject();
         $this->jobManager->startJobs($project);
+    }
+
+    /**
+     * Launch project when translation memory is completed.
+     *
+     * @param CallbackEvent $event
+     */
+    public function onTextmasterProjectMemoryCompleted(CallbackEvent $event)
+    {
+        /** @var ProjectInterface $project */
+        $project = $event->getSubject();
+        $project->launch();
     }
 }

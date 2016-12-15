@@ -64,6 +64,12 @@ class TranslationManager implements TranslationManagerInterface
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
         $workTemplate = null
     ) {
+        $translationMemory = false;
+        if (array_key_exists('translation_memory', $options)) {
+            $translationMemory = true;
+            unset($options['translation_memory']);
+        }
+
         $project = $this->textmasterManager->getProject();
         $project
             ->setName($name)
@@ -79,6 +85,12 @@ class TranslationManager implements TranslationManagerInterface
 
         $project->save();
         $project->addDocuments($this->generateDocuments($project, $translatable));
+
+        if ($translationMemory) {
+            $options['translation_memory'] = true;
+            $project->setOptions($options);
+            $project->save();
+        }
 
         return $project;
     }
@@ -164,7 +176,7 @@ class TranslationManager implements TranslationManagerInterface
     }
 
     /**
-     * Generate a default callback for document in review.
+     * Generate a default callback for document.
      *
      * @param ProjectInterface $project
      *
@@ -176,14 +188,14 @@ class TranslationManager implements TranslationManagerInterface
             DocumentInterface::STATUS_IN_REVIEW => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_document',
-                    ['projectId' => $project->getId()],
+                    ['projectId' => $project->getId(), 'event' => DocumentInterface::STATUS_IN_REVIEW],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
             DocumentInterface::STATUS_COMPLETED => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_document',
-                    ['projectId' => $project->getId()],
+                    ['projectId' => $project->getId(), 'event' => DocumentInterface::STATUS_COMPLETED],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
@@ -191,17 +203,24 @@ class TranslationManager implements TranslationManagerInterface
     }
 
     /**
-     * Generate a default callback for project in progress.
+     * Generate a default callback for project.
      *
      * @return array
      */
     protected function generateProjectCallback()
     {
         return [
-            ProjectInterface::CALLBACK_KEY => [
+            ProjectInterface::CALLBACK_PROJECT_IN_PROGRESS => [
                 'url' => $this->router->generate(
                     'worldia_textmaster_callback_project',
-                    [],
+                    ['event' => ProjectInterface::STATUS_IN_PROGRESS],
+                    UrlGeneratorInterface::ABSOLUTE_URL
+                ),
+            ],
+            ProjectInterface::CALLBACK_PROJECT_MEMORY_COMPLETED => [
+                'url' => $this->router->generate(
+                    'worldia_textmaster_callback_project',
+                    ['event' => ProjectInterface::STATUS_MEMORY_COMPLETED],
                     UrlGeneratorInterface::ABSOLUTE_URL
                 ),
             ],
