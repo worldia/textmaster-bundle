@@ -17,8 +17,7 @@ class JobFilterTypeTest extends TypeTestCase
             'status' => JobInterface::STATUS_STARTED,
         ];
 
-        $type = new JobFilterType();
-        $form = $this->factory->create($type);
+        $form = $this->factory->create(JobFilterType::class);
 
         $form->submit($formData);
         $this->assertTrue($form->isSynchronized());
