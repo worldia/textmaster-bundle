@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block content %}
-    {% render(controller('WorldiaTextmasterBundle:Job:filter', {'type': 'textmaster_job_filter'})) %}
+    {% set class = 'Worldia\\Bundle\\TextmasterBundle\\Form\\Filter\\JobFilterType' %}
+    {{ render(controller('WorldiaTextmasterBundle:Job:filter', {'type': class })) }}
 
     <table>
         <thead>

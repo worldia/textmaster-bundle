@@ -17,8 +17,7 @@ class JobValidationTypeTest extends TypeTestCase
             'satisfaction' => DocumentInterface::SATISFACTION_NEUTRAL,
         ];
 
-        $type = new JobValidationType();
-        $form = $this->factory->create($type, null, ['accept' => true]);
+        $form = $this->factory->create(JobValidationType::class, null, ['accept' => true]);
 
         $form->submit($formData);
         $this->assertTrue($form->isSynchronized());
@@ -41,8 +40,7 @@ class JobValidationTypeTest extends TypeTestCase
             'message' => 'Rejection message',
         ];
 
-        $type = new JobValidationType();
-        $form = $this->factory->create($type, null, ['accept' => false]);
+        $form = $this->factory->create(JobValidationType::class, null, ['accept' => false]);
 
         $form->submit($formData);
         $this->assertTrue($form->isSynchronized());
