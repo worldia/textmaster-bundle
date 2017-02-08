@@ -19,6 +19,7 @@ interface TranslationGeneratorInterface
      * @param array  $options      textmaster project options
      * @param string $activity     textmaster project activity
      * @param string $workTemplate textmaster project work template
+     * @param array  $textmasters  ids of the authors
      *
      * @return ProjectInterface|null
      */
@@ -32,6 +33,7 @@ interface TranslationGeneratorInterface
         $languageTo = null,
         array $options = [],
         $activity,
-        $workTemplate = null
+        $workTemplate = null,
+        $textmasters = []
     );
 }

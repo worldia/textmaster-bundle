@@ -31,7 +31,8 @@ interface TranslationManagerInterface
         $languageTo = null,
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
-        $workTemplate = null
+        $workTemplate = null,
+        $textmasters = []
     );
 
     /**

@@ -88,7 +88,7 @@ trait TranslationContextTrait
     public function createTranslationProject(TableNode $table)
     {
         foreach ($table->getHash() as $data) {
-            $this->getTranslationGenerator()->generate(
+            $project = $this->getTranslationGenerator()->generate(
                 $data['finder'],
                 json_decode($data['filter'], true),
                 $data['languageFrom'],
@@ -97,8 +97,19 @@ trait TranslationContextTrait
                 $data['briefing'],
                 isset($data['languageTo']) ? $data['languageTo'] : null,
                 json_decode($data['options'], true),
-                isset($data['activity']) ? $data['activity'] : null
+                isset($data['activity']) ? $data['activity'] : null,
+                isset($data['workTemplate']) ? $data['workTemplate'] : null,
+                json_decode($data['textmasters'], true)
             );
+
+            PHPUnit_Framework_Assert::assertSame($data['name'], $project->getName());
+            PHPUnit_Framework_Assert::assertSame(isset($data['activity']) ? $data['activity'] : null, $project->getActivity());
+            PHPUnit_Framework_Assert::assertSame($data['languageFrom'], $project->getLanguageFrom());
+            PHPUnit_Framework_Assert::assertSame(isset($data['languageTo']) ? $data['languageTo'] : null, $project->getLanguageTo());
+            PHPUnit_Framework_Assert::assertSame($data['category'], $project->getCategory());
+            PHPUnit_Framework_Assert::assertSame($data['briefing'], $project->getBriefing());
+            PHPUnit_Framework_Assert::assertSame(json_decode($data['options'], true), $project->getOptions());
+            PHPUnit_Framework_Assert::assertSame(json_decode($data['textmasters'], true), $project->getTextmasters());
         }
     }
 

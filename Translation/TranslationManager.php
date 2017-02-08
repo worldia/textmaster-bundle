@@ -62,7 +62,8 @@ class TranslationManager implements TranslationManagerInterface
         $languageTo = null,
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
-        $workTemplate = null
+        $workTemplate = null,
+        $textmasters = []
     ) {
         $translationMemory = false;
         if (array_key_exists('translation_memory', $options)) {
@@ -81,6 +82,7 @@ class TranslationManager implements TranslationManagerInterface
             ->setOptions($options)
             ->setWorkTemplate($workTemplate)
             ->setCallback($this->generateProjectCallback())
+            ->setTextmasters($textmasters)
         ;
 
         $project->save();

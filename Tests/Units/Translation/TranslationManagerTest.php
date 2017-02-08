@@ -51,6 +51,9 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
             ->method('setWorkTemplate')
             ->willReturn($projectMock);
         $projectMock->expects($this->once())
+            ->method('setTextmasters')
+            ->willReturn($projectMock);
+        $projectMock->expects($this->once())
             ->method('save')
             ->willReturn($projectMock);
 
