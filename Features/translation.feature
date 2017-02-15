@@ -34,3 +34,10 @@ Feature: Translation management
         | title       | description             | locale |
         | Hello NYC   | NYC is the big apple    | en     |
         | Bonjour NYC | NYC est la grosse pomme | fr     |
+     When I generate a translation batch with the following parameters:
+        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | textmasters                  |
+        | product | {}     | PROJECT-2 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} | translation | ["55c3763e656462000b000027"] |
+     Then I should have the following jobs:
+        | id | translatable | project   | document | status    |
+        | 1  | 1            | PROJECT-1 | en-fr-1  | validated |
+        | 2  | 2            | PROJECT-1 | en-fr-2  | validated |

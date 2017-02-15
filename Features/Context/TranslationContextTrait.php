@@ -102,14 +102,16 @@ trait TranslationContextTrait
                 json_decode($data['textmasters'], true)
             );
 
-            PHPUnit_Framework_Assert::assertSame($data['name'], $project->getName());
-            PHPUnit_Framework_Assert::assertSame(isset($data['activity']) ? $data['activity'] : null, $project->getActivity());
-            PHPUnit_Framework_Assert::assertSame($data['languageFrom'], $project->getLanguageFrom());
-            PHPUnit_Framework_Assert::assertSame(isset($data['languageTo']) ? $data['languageTo'] : null, $project->getLanguageTo());
-            PHPUnit_Framework_Assert::assertSame($data['category'], $project->getCategory());
-            PHPUnit_Framework_Assert::assertSame($data['briefing'], $project->getBriefing());
-            PHPUnit_Framework_Assert::assertSame(json_decode($data['options'], true), $project->getOptions());
-            PHPUnit_Framework_Assert::assertSame(json_decode($data['textmasters'], true), $project->getTextmasters());
+            if (null !== $project) {
+                PHPUnit_Framework_Assert::assertSame($data['name'], $project->getName());
+                PHPUnit_Framework_Assert::assertSame(isset($data['activity']) ? $data['activity'] : null, $project->getActivity());
+                PHPUnit_Framework_Assert::assertSame($data['languageFrom'], $project->getLanguageFrom());
+                PHPUnit_Framework_Assert::assertSame(isset($data['languageTo']) ? $data['languageTo'] : null, $project->getLanguageTo());
+                PHPUnit_Framework_Assert::assertSame($data['category'], $project->getCategory());
+                PHPUnit_Framework_Assert::assertSame($data['briefing'], $project->getBriefing());
+                PHPUnit_Framework_Assert::assertSame(json_decode($data['options'], true), $project->getOptions());
+                PHPUnit_Framework_Assert::assertSame(json_decode($data['textmasters'], true), $project->getTextmasters());
+            }
         }
     }
 
