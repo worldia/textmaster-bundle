@@ -42,7 +42,7 @@ services:
 
     test.product.finder:
         class:  Worldia\Bundle\ProductTestBundle\Service\ProductFinder
-        arguments: ['@doctrine']
+        arguments: ['@doctrine.orm.entity_manager', '@worldia.textmaster.manager.job']
         tags:
             - { name: 'textmaster_translatable_finder' }
 

@@ -14,10 +14,11 @@ interface JobManagerInterface
      * @param object $translatable
      * @param string $projectId
      * @param string $documentId
+     * @param string $locale
      *
      * @return JobInterface
      */
-    public function create($translatable, $projectId, $documentId);
+    public function create($translatable, $projectId, $documentId, $locale);
 
     /**
      * Set given job status to 'started'.
@@ -84,8 +85,9 @@ interface JobManagerInterface
      * Get ids for objects of the given class which have a job.
      *
      * @param string $class
+     * @param string $locale
      *
      * @return array
      */
-    public function getTranslatablesWithJob($class);
+    public function getTranslatablesWithJobAndLocale($class, $locale);
 }

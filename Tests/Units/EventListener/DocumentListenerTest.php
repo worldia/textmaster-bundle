@@ -3,6 +3,7 @@
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\EventListener;
 
 use Textmaster\Events;
+use Textmaster\Model\Project;
 use Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener;
 
 class DocumentListenerTest extends \PHPUnit_Framework_TestCase
@@ -59,9 +60,16 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
             ->method('getSubjectFromDocument')
             ->willReturn($objectMock);
 
-        $this->documentMock->expects($this->once())
+        $this->documentMock->expects($this->exactly(3))
             ->method('getProject')
             ->willReturn($projectMock);
+
+        $projectMock->expects($this->once())
+            ->method('getLanguageFrom')
+            ->willReturn('fr');
+        $projectMock->expects($this->once())
+            ->method('getActivity')
+            ->willReturn(Project::ACTIVITY_COPYWRITING);
 
         $this->jobManagerMock->expects($this->once())
             ->method('create');

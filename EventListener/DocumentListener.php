@@ -7,6 +7,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 use Textmaster\Event\CallbackEvent;
 use Textmaster\Events;
 use Textmaster\Model\DocumentInterface;
+use Textmaster\Model\Project;
 use Textmaster\Translator\TranslatorInterface;
 use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
 
@@ -57,7 +58,12 @@ class DocumentListener implements EventSubscriberInterface
         /** @var DocumentInterface $document */
         $document = $event->getSubject();
         $translatable = $this->translator->getSubjectFromDocument($document);
-        $this->jobManager->create($translatable, $document->getProject()->getId(), $document->getId());
+        $locale = $document->getProject()->getLanguageFrom();
+        if (Project::ACTIVITY_TRANSLATION === $document->getProject()->getActivity()) {
+            $locale = $document->getProject()->getLanguageTo();
+        }
+
+        $this->jobManager->create($translatable, $document->getProject()->getId(), $document->getId(), $locale);
     }
 
     /**
