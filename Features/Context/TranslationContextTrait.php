@@ -76,6 +76,7 @@ trait TranslationContextTrait
             $job = $this->findJob($data['id']);
 
             PHPUnit_Framework_Assert::assertSame($data['status'], $job->getStatus());
+            PHPUnit_Framework_Assert::assertSame($data['locale'], $job->getLocale());
             PHPUnit_Framework_Assert::assertSame((int) $data['translatable'], $job->getTranslatable()->getId());
             PHPUnit_Framework_Assert::assertSame($data['project'], $job->getProjectId());
             PHPUnit_Framework_Assert::assertSame($data['document'], $job->getDocumentId());
@@ -124,11 +125,11 @@ trait TranslationContextTrait
     }
 
     /**
-     * @Then I should have :number translatables with job for class :class
+     * @Then I should have :number translatables with job for class :class and locale :locale
      */
-    public function assertTranslatablesWithJob($number, $class)
+    public function assertTranslatablesWithJob($number, $class, $locale)
     {
-        $count = count($this->getJobManager()->getTranslatablesWithJob($class));
+        $count = count($this->getJobManager()->getTranslatablesWithJobAndLocale($class, $locale));
 
         PHPUnit_Framework_Assert::assertSame((int) $number, $count);
     }

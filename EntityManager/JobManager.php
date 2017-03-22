@@ -48,9 +48,9 @@ class JobManager implements JobManagerInterface
     /**
      * {@inheritdoc}
      */
-    public function create($translatable, $projectId, $documentId)
+    public function create($translatable, $projectId, $documentId, $locale)
     {
-        $job = new Job($translatable, $projectId, $documentId);
+        $job = new Job($translatable, $projectId, $documentId, $locale);
 
         return $this->persistAndFlush($job);
     }
@@ -130,19 +130,17 @@ class JobManager implements JobManagerInterface
     }
 
     /**
-     * Get ids for objects of the given class which have a job.
-     *
-     * @param string $class
-     *
-     * @return array
+     * {@inheritdoc}
      */
-    public function getTranslatablesWithJob($class)
+    public function getTranslatablesWithJobAndLocale($class, $locale)
     {
         $result = $this->jobRepository
             ->createQueryBuilder('j')
             ->select('j.translatableId')
             ->where('j.translatableClass = :class')
+            ->andWhere('j.locale = :locale')
             ->setParameter('class', $class)
+            ->setParameter('locale', $locale)
             ->getQuery()
             ->getArrayResult()
         ;

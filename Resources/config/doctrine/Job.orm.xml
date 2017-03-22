@@ -12,6 +12,7 @@
         <field name="documentId" column="document_id" type="string" nullable="false" />
         <field name="projectId" column="project_id" type="string" nullable="false" />
         <field name="status" type="string" nullable="false" />
+        <field name="locale" type="string" nullable="false" />
         <field name="translatableClass" column="translatable_class" type="string" nullable="false" />
         <field name="translatableId" column="translatable_id" type="integer" nullable="false" />
     </entity>

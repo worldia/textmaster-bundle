@@ -41,10 +41,11 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldCreateJob()
     {
-        $job = $this->jobManager->create($this->translatableMock, 'projectId', 'documentId');
+        $job = $this->jobManager->create($this->translatableMock, 'projectId', 'documentId', 'en');
 
         $this->assertTrue(in_array('Worldia\Bundle\TextmasterBundle\Entity\JobInterface', class_implements($job)));
         $this->assertSame(JobInterface::STATUS_CREATED, $job->getStatus());
+        $this->assertSame('en', $job->getLocale());
         $this->assertSame('projectId', $job->getProjectId());
         $this->assertSame('documentId', $job->getDocumentId());
     }
@@ -54,7 +55,7 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldStartJob()
     {
-        $job = new Job($this->translatableMock, 'projectId', 'documentId');
+        $job = new Job($this->translatableMock, 'projectId', 'documentId', 'fr');
         $this->jobManager->start($job);
 
         $this->assertSame(JobInterface::STATUS_STARTED, $job->getStatus());
@@ -65,7 +66,7 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldFinishJob()
     {
-        $job = new Job($this->translatableMock, 'projectId', 'documentId');
+        $job = new Job($this->translatableMock, 'projectId', 'documentId', 'fr');
         $this->jobManager->finish($job);
 
         $this->assertSame(JobInterface::STATUS_FINISHED, $job->getStatus());
@@ -76,7 +77,7 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldValidateJob()
     {
-        $job = new Job($this->translatableMock, 'projectId', 'documentId');
+        $job = new Job($this->translatableMock, 'projectId', 'documentId', 'fr');
         $this->jobManager->validate($job);
 
         $this->assertSame(JobInterface::STATUS_VALIDATED, $job->getStatus());

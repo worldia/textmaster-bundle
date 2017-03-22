@@ -46,7 +46,7 @@ class JobControllerTest extends WebTestCase
     {
         $product = new Product();
         $this->persist($product);
-        $job = new Job($product, 1, 1);
+        $job = new Job($product, 1, 1, 'fr');
         $this->persist($job);
 
         $client = self::createClient();

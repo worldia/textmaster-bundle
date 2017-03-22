@@ -40,18 +40,25 @@ class Job implements JobInterface
     protected $status;
 
     /**
+     * @var string
+     */
+    protected $locale;
+
+    /**
      * Job constructor.
      *
      * @param object $translatable
      * @param string $projectId
      * @param string $documentId
+     * @param string $locale
      */
-    public function __construct($translatable, $projectId, $documentId)
+    public function __construct($translatable, $projectId, $documentId, $locale)
     {
         $this->setTranslatable($translatable);
         $this->projectId = $projectId;
         $this->documentId = $documentId;
         $this->status = self::STATUS_CREATED;
+        $this->locale = $locale;
     }
 
     /**
@@ -138,6 +145,24 @@ class Job implements JobInterface
         }
 
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLocale()
+    {
+        return $this->locale;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
 
         return $this;
     }

@@ -77,6 +77,22 @@ interface JobInterface
     public function setStatus($status);
 
     /**
+     * Get locale.
+     *
+     * @return string
+     */
+    public function getLocale();
+
+    /**
+     * Set locale.
+     *
+     * @param string $locale
+     *
+     * @return JobInterface
+     */
+    public function setLocale($locale);
+
+    /**
      * Get all allowed values for status property.
      *
      * @return array

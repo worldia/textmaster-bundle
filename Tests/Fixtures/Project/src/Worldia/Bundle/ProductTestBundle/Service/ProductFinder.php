@@ -3,23 +3,30 @@
 namespace Worldia\Bundle\ProductTestBundle\Service;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
 use Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface;
 
 class ProductFinder implements TranslatableFinderInterface
 {
     /**
-     * @var ManagerRegistry
+     * @var EntityManagerInterface
      */
-    protected $registry;
+    protected $manager;
 
     /**
-     * ProductFinder constructor.
-     *
-     * @param ManagerRegistry $registry
+     * @var JobManagerInterface
      */
-    public function __construct(ManagerRegistry $registry)
+    protected $jobManager;
+
+    /**
+     * @param EntityManagerInterface $manager
+     * @param JobManagerInterface    $jobManager
+     */
+    public function __construct(EntityManagerInterface $manager, JobManagerInterface $jobManager)
     {
-        $this->registry = $registry;
+        $this->manager = $manager;
+        $this->jobManager = $jobManager;
     }
 
     /**
@@ -35,6 +42,20 @@ class ProductFinder implements TranslatableFinderInterface
      */
     public function find($locale, array $filter = [])
     {
-        return $this->registry->getRepository('WorldiaProductTestBundle:Product')->findAll();
+        $qb = $this->manager->createQueryBuilder();
+        $qb
+            ->select('p')
+            ->from('WorldiaProductTestBundle:Product', 'p')
+        ;
+
+        $ids = $this->jobManager->getTranslatablesWithJobAndLocale('Worldia\Bundle\ProductTestBundle\Entity\Product', $locale);
+        if (0 < count($ids)) {
+            $qb
+                ->andWhere('p.id NOT IN (:ids)')
+                ->setParameter('ids', $ids)
+            ;
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }
