@@ -4,6 +4,7 @@ namespace Worldia\Bundle\TextmasterBundle\Translation;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Textmaster\Manager;
+use Textmaster\Model\Author;
 use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\ProjectInterface;
 use Textmaster\Translator\TranslatorInterface;
@@ -63,7 +64,7 @@ class TranslationManager implements TranslationManagerInterface
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
         $workTemplate = null,
-        $textmasters = []
+        $useMyTextmasters = true
     ) {
         $translationMemory = false;
         if (array_key_exists('translation_memory', $options)) {
@@ -82,10 +83,20 @@ class TranslationManager implements TranslationManagerInterface
             ->setOptions($options)
             ->setWorkTemplate($workTemplate)
             ->setCallback($this->generateProjectCallback())
-            ->setTextmasters($textmasters)
         ;
 
         $project->save();
+
+        if ($useMyTextmasters) {
+            $authors = $project->getPotentialAuthors('my_textmaster');
+
+            $ids = array_map(function ($author) {
+                return $author->getAuthorId();
+            }, $authors);
+
+            $project->setTextmasters($ids);
+        }
+
         $project->addDocuments($this->generateDocuments($project, $translatable));
 
         if ($translationMemory) {

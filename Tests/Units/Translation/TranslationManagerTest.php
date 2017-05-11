@@ -18,6 +18,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
         $translatableMock = $this->getMock('TranslatableInterface', ['getId']);
         $documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
+        $authorMock = $this->getMock('Textmaster\Model\AuthorInterface');
 
         $textmasterManagerMock->expects($this->once())
             ->method('getProject')
@@ -56,6 +57,10 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
         $projectMock->expects($this->once())
             ->method('save')
             ->willReturn($projectMock);
+        $projectMock->expects($this->once())
+            ->method('getPotentialAuthors')
+            ->with('my_textmaster')
+            ->willReturn([$authorMock]);
 
         $routerMock->expects($this->exactly(4))
             ->method('generate')
@@ -75,6 +80,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(in_array('Textmaster\Model\ProjectInterface', class_implements($project)));
         $this->assertSame($projectMock, $project);
     }
+
     /**
      * @test
      */
@@ -87,6 +93,7 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
         $translatableMock = $this->getMock('TranslatableInterface', ['getId']);
         $documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
+        $authorMock = $this->getMock('Textmaster\Model\AuthorInterface');
 
         $textmasterManagerMock->expects($this->once())
             ->method('getProject')
@@ -122,6 +129,10 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
         $projectMock->expects($this->exactly(2))
             ->method('save')
             ->willReturn($projectMock);
+        $projectMock->expects($this->once())
+            ->method('getPotentialAuthors')
+            ->with('my_textmaster')
+            ->willReturn([$authorMock]);
 
         $routerMock->expects($this->exactly(4))
             ->method('generate')

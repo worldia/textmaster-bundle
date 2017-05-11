@@ -12,8 +12,8 @@ Feature: Copywriting management
         | Hello NYC | NYC is the big apple | en     |
      Then I should have "0" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale en
      When I generate a translation batch with the following parameters:
-        | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | textmasters |
-        | product | {}     | PROJECT-1 | en           | C054     | Nothing  | {"language_level": "premium"} | copywriting | []          |
+        | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | useMyTextmasters |
+        | product | {}     | PROJECT-1 | en           | C054     | Nothing  | {"language_level": "premium"} | copywriting | false            |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale en
      When I receive the request '{ "id": "PROJECT-1", "name": "PROJECT-1", "status": "in_progress"}'
      Then I should have the following jobs:
@@ -33,14 +33,14 @@ Feature: Copywriting management
         | title       | description       | locale |
         | Super title | Super description | en     |
      When I generate a translation batch with the following parameters:
-        | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | textmasters |
-        | product | {}     | PROJECT-1 | en           | C054     | Nothing  | {"language_level": "premium"} | copywriting | []          |
+        | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | useMyTextmasters |
+        | product | {}     | PROJECT-1 | en           | C054     | Nothing  | {"language_level": "premium"} | copywriting | false            |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale en
      Then I should have the following jobs:
         | id | translatable | project   | document         | status    | locale |
         | 1  | 1            | PROJECT-1 | en-copywriting-1 | validated | en     |
         | 2  | 2            | PROJECT-1 | en-copywriting-2 | validated | en     |
      When I generate a translation batch with the following parameters:
-        | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | textmasters |
-        | product | {}     | PROJECT-1 | de           | C054     | Nothing  | {"language_level": "premium"} | copywriting | []          |
+        | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | useMyTextmasters |
+        | product | {}     | PROJECT-1 | de           | C054     | Nothing  | {"language_level": "premium"} | copywriting | false            |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale de

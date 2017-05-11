@@ -19,6 +19,7 @@ interface TranslationManagerInterface
      * @param array    $options
      * @param string   $activity
      * @param string   $workTemplate
+     * @param bool     $useMyTextmasters
      *
      * @return ProjectInterface
      */
@@ -32,7 +33,7 @@ interface TranslationManagerInterface
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
         $workTemplate = null,
-        $textmasters = []
+        $useMyTextmasters = true
     );
 
     /**

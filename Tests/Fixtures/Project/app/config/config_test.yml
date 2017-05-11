@@ -30,6 +30,10 @@ services:
         class:  Worldia\Bundle\ProductTestBundle\Service\ProjectApi
         arguments: ['@worldia.textmaster.api.client', '@worldia.textmaster.document.api']
 
+    worldia.textmaster.project_author.api:
+        class:  Worldia\Bundle\ProductTestBundle\Service\Project\AuthorApi
+        arguments: ['@worldia.textmaster.api.client', 1]
+
     worldia.textmaster.document.api:
         class:  Worldia\Bundle\ProductTestBundle\Service\DocumentApi
         arguments: ['@worldia.textmaster.api.client']
