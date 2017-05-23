@@ -4,6 +4,7 @@ namespace Worldia\Bundle\ProductTestBundle\Service;
 
 use Textmaster\Client;
 use Textmaster\Model\Project;
+use Worldia\Bundle\ProductTestBundle\Service\Project\Author as ProjectAuthors;
 
 class ProjectApi
 {
@@ -53,5 +54,10 @@ class ProjectApi
     public function updateProject(array $params)
     {
         $this->projects[$params['id']] = array_merge($this->projects[$params['id']], $params);
+    }
+
+    public function authors($projectId)
+    {
+        return new ProjectAuthors($this->client, $projectId);
     }
 }

@@ -50,7 +50,7 @@ class TranslationGenerator implements TranslationGeneratorInterface
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
         $workTemplate = null,
-        $textmasters = []
+        $useMyTextmasters = true
     ) {
         if (null === $locale = $languageTo) {
             $locale = $languageFrom;
@@ -61,7 +61,7 @@ class TranslationGenerator implements TranslationGeneratorInterface
             return;
         }
 
-        $project = $this->translationManager->create($translatables, $name, $languageFrom, $category, $briefing, $languageTo, $options, $activity, $workTemplate, $textmasters);
+        $project = $this->translationManager->create($translatables, $name, $languageFrom, $category, $briefing, $languageTo, $options, $activity, $workTemplate, $useMyTextmasters);
 
         if (!array_key_exists('translation_memory', $project->getOptions())) {
             $project->launch();

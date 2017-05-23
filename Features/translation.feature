@@ -12,8 +12,8 @@ Feature: Translation management
         | Hello NYC | NYC is the big apple | en     |
      Then I should have "0" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale fr
      When I generate a translation batch with the following parameters:
-        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | textmasters                  |
-        | product | {}     | PROJECT-1 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} | translation | ["55c3763e656462000b000027"] |
+        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | useMyTextmasters |
+        | product | {}     | PROJECT-1 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} | translation | true             |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale fr
      When I receive the request '{ "id": "PROJECT-1", "name": "PROJECT-1", "status": "in_progress"}'
      Then I should have the following jobs:
@@ -35,14 +35,14 @@ Feature: Translation management
         | Hello NYC   | NYC is the big apple    | en     |
         | Bonjour NYC | NYC est la grosse pomme | fr     |
      When I generate a translation batch with the following parameters:
-        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | textmasters                  |
-        | product | {}     | PROJECT-2 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} | translation | ["55c3763e656462000b000027"] |
+        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | useMyTextmasters |
+        | product | {}     | PROJECT-2 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} | translation | true             |
      Then I should have the following jobs:
         | id | translatable | project   | document | status    | locale |
         | 1  | 1            | PROJECT-1 | en-fr-1  | validated | fr     |
         | 2  | 2            | PROJECT-1 | en-fr-2  | validated | fr     |
      When I generate a translation batch with the following parameters:
-        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | textmasters                  |
-        | product | {}     | PROJECT-1 | en           | de         | C054     | Nothing  | {"language_level": "premium"} | translation | ["55c3763e656462000b000027"] |
+        | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | useMyTextmasters |
+        | product | {}     | PROJECT-1 | en           | de         | C054     | Nothing  | {"language_level": "premium"} | translation | true             |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale de
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale fr

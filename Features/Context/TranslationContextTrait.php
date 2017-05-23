@@ -100,7 +100,7 @@ trait TranslationContextTrait
                 json_decode($data['options'], true),
                 isset($data['activity']) ? $data['activity'] : null,
                 isset($data['workTemplate']) ? $data['workTemplate'] : null,
-                json_decode($data['textmasters'], true)
+                json_decode($data['useMyTextmasters'])
             );
 
             if (null !== $project) {
@@ -111,7 +111,6 @@ trait TranslationContextTrait
                 PHPUnit_Framework_Assert::assertSame($data['category'], $project->getCategory());
                 PHPUnit_Framework_Assert::assertSame($data['briefing'], $project->getBriefing());
                 PHPUnit_Framework_Assert::assertSame(json_decode($data['options'], true), $project->getOptions());
-                PHPUnit_Framework_Assert::assertSame(json_decode($data['textmasters'], true), $project->getTextmasters());
             }
         }
     }
