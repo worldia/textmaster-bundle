@@ -44,3 +44,20 @@ Feature: Copywriting management
         | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | useMyTextmasters |
         | product | {}     | PROJECT-1 | de           | C054     | Nothing  | {"language_level": "premium"} | copywriting | false            |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale de
+
+  Scenario: Generate EN copywriting for products with limit
+    Given I have "2" products
+    And I have the following translations for product "1":
+      | title       | description                 | locale |
+      | Hello Paris | Paris is the city of lights | en     |
+    And I have the following translations for product "2":
+      | title     | description          | locale |
+      | Hello NYC | NYC is the big apple | en     |
+    Then I should have "0" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale en
+    When I generate a translation batch with the following parameters:
+      | finder  | filter | name      | languageFrom | category | briefing | options                       | activity    | useMyTextmasters | limit |
+      | product | {}     | PROJECT-1 | en           | C054     | Nothing  | {"language_level": "premium"} | copywriting | false            | 1     |
+    Then I should have "1" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale en
+    Then I should have the following jobs:
+      | id | translatable | project   | document         | status  | locale |
+      | 1  | 1            | PROJECT-1 | en-copywriting-1 | created | en     |

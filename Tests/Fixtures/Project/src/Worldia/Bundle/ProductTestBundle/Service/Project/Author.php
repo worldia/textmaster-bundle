@@ -30,14 +30,14 @@ class Author
                     'status' => 'my_textmaster',
                     'id' => '58f9febce27d6b5dd2b0b4ec',
                     'author_id' => '55c3763e656462000b000027',
-                ]
-            ]
+                ],
+            ],
         ];
     }
 
     public function setPage($page)
     {
-        $this->page = (null === $page ? $page : (int)$page);
+        $this->page = (null === $page ? $page : (int) $page);
 
         return $this;
     }

@@ -100,7 +100,8 @@ trait TranslationContextTrait
                 json_decode($data['options'], true),
                 isset($data['activity']) ? $data['activity'] : null,
                 isset($data['workTemplate']) ? $data['workTemplate'] : null,
-                json_decode($data['useMyTextmasters'])
+                json_decode($data['useMyTextmasters']),
+                isset($data['limit']) ? (int) $data['limit'] : null
             );
 
             if (null !== $project) {

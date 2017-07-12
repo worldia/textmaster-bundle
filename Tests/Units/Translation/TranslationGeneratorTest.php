@@ -2,6 +2,7 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\Translation;
 
+use Textmaster\Model\ProjectInterface;
 use Worldia\Bundle\TextmasterBundle\Translation\TranslationGenerator;
 
 class TranslationGeneratorTest extends \PHPUnit_Framework_TestCase
@@ -37,7 +38,7 @@ class TranslationGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new TranslationGenerator($translationManagerMock);
         $generator->addTranslatableFinder($translatableFinderMock);
 
-        $project = $generator->generate('code', [], 'languageFrom', 'languageTo', 'name', 'category', 'briefing');
+        $project = $generator->generate('code', [], 'languageFrom', 'name', 'category', 'briefing');
 
         $this->assertSame($projectMock, $project);
     }
@@ -70,7 +71,44 @@ class TranslationGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator = new TranslationGenerator($translationManagerMock);
         $generator->addTranslatableFinder($translatableFinderMock);
 
-        $project = $generator->generate('code', [], 'languageFrom', 'languageTo', 'name', 'category', 'briefing');
+        $project = $generator->generate('code', [], 'languageFrom', 'name', 'category', 'briefing');
+
+        $this->assertSame($projectMock, $project);
+    }
+
+    /**
+     * @test
+     */
+    public function shouldGenerateProjectWithLimit()
+    {
+        $translationManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface');
+        $translatableFinderMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface');
+        $translatableMock = $this->getMock('TranslatableInterface');
+        $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
+
+        $translatableFinderMock->expects($this->once())
+            ->method('getCode')
+            ->willReturn('code');
+        $translatableFinderMock->expects($this->once())
+            ->method('find')
+            ->with('languageFrom', [], 5)
+            ->willReturn([$translatableMock]);
+
+        $translationManagerMock->expects($this->once())
+            ->method('create')
+            ->willReturn($projectMock);
+
+        $projectMock->expects($this->once())
+            ->method('getOptions')
+            ->willReturn([]);
+        $projectMock->expects($this->once())
+            ->method('launch')
+            ->willReturn($projectMock);
+
+        $generator = new TranslationGenerator($translationManagerMock);
+        $generator->addTranslatableFinder($translatableFinderMock);
+
+        $project = $generator->generate('code', [], 'languageFrom', 'name', 'category', 'briefing', null, [], ProjectInterface::ACTIVITY_TRANSLATION, null, true, 5);
 
         $this->assertSame($projectMock, $project);
     }

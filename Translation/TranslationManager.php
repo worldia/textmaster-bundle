@@ -4,7 +4,6 @@ namespace Worldia\Bundle\TextmasterBundle\Translation;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Textmaster\Manager;
-use Textmaster\Model\Author;
 use Textmaster\Model\DocumentInterface;
 use Textmaster\Model\ProjectInterface;
 use Textmaster\Translator\TranslatorInterface;

@@ -46,3 +46,20 @@ Feature: Translation management
         | product | {}     | PROJECT-1 | en           | de         | C054     | Nothing  | {"language_level": "premium"} | translation | true             |
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale de
      Then I should have "2" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale fr
+
+  Scenario: Generate FR translations for products with limit
+    Given I have "2" products
+    And I have the following translations for product "1":
+      | title       | description                 | locale |
+      | Hello Paris | Paris is the city of lights | en     |
+    And I have the following translations for product "2":
+      | title     | description          | locale |
+      | Hello NYC | NYC is the big apple | en     |
+    Then I should have "0" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale fr
+    When I generate a translation batch with the following parameters:
+      | finder  | filter | name      | languageFrom | languageTo | category | briefing | options                       | activity    | useMyTextmasters | limit |
+      | product | {}     | PROJECT-1 | en           | fr         | C054     | Nothing  | {"language_level": "premium"} | translation | true             | 1     |
+    Then I should have "1" translatables with job for class "Worldia\Bundle\ProductTestBundle\Entity\Product" and locale fr
+    Then I should have the following jobs:
+      | id | translatable | project   | document | status  | locale |
+      | 1  | 1            | PROJECT-1 | en-fr-1  | created | fr     |

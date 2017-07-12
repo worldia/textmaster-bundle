@@ -40,7 +40,7 @@ class ProductFinder implements TranslatableFinderInterface
     /**
      * {@inheritdoc}
      */
-    public function find($locale, array $filter = [])
+    public function find($locale, array $filter = [], $limit = null)
     {
         $qb = $this->manager->createQueryBuilder();
         $qb
@@ -54,6 +54,10 @@ class ProductFinder implements TranslatableFinderInterface
                 ->andWhere('p.id NOT IN (:ids)')
                 ->setParameter('ids', $ids)
             ;
+        }
+
+        if (null !== $limit) {
+            $qb->setMaxResults($limit);
         }
 
         return $qb->getQuery()->getResult();
