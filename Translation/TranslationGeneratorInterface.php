@@ -20,6 +20,7 @@ interface TranslationGeneratorInterface
      * @param string $activity         textmaster project activity
      * @param string $workTemplate     textmaster project work template
      * @param bool   $useMyTextmasters use my favorite authors for the project
+     * @param int    $limit            limit the number of document in the batch
      *
      * @return ProjectInterface|null
      */
@@ -34,6 +35,7 @@ interface TranslationGeneratorInterface
         array $options = [],
         $activity,
         $workTemplate = null,
-        $useMyTextmasters = true
+        $useMyTextmasters = true,
+        $limit = null
     );
 }

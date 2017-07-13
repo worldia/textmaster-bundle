@@ -50,12 +50,13 @@ class TranslationGenerator implements TranslationGeneratorInterface
         array $options = [],
         $activity = ProjectInterface::ACTIVITY_TRANSLATION,
         $workTemplate = null,
-        $useMyTextmasters = true
+        $useMyTextmasters = true,
+        $limit = null
     ) {
         if (null === $locale = $languageTo) {
             $locale = $languageFrom;
         }
-        $translatables = $this->translatableFinders[$finderCode]->find($locale, $filter);
+        $translatables = $this->translatableFinders[$finderCode]->find($locale, $filter, $limit);
 
         if (!count($translatables)) {
             return;
