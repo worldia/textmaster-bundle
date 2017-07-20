@@ -56,6 +56,13 @@ class ProjectApi
         $this->projects[$params['id']] = array_merge($this->projects[$params['id']], $params);
     }
 
+    public function update($id, array $params)
+    {
+        $this->projects[$id] = array_merge($this->projects[$id], $params);
+
+        return $this->projects[$id];
+    }
+
     public function authors($projectId)
     {
         return new ProjectAuthors($this->client, $projectId);

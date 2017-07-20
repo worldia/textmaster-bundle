@@ -94,6 +94,7 @@ class TranslationManager implements TranslationManagerInterface
             }, $authors);
 
             $project->setTextmasters($ids);
+            $project->save();
         }
 
         $project->addDocuments($this->generateDocuments($project, $translatable));
