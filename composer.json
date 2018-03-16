@@ -4,6 +4,7 @@
     "description": "A Symfony2 bundle integrating textmaster-api",
     "homepage": "https://github.com/worldia/textmaster-bundle",
     "keywords": ["textmaster", "translation", "api", "bundle"],
+    "license": "proprietary",
     "authors": [
         {
             "name": "Pierre Ducoudray",
