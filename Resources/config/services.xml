@@ -27,9 +27,7 @@
 
     <services>
         <service id="worldia.textmaster.api.httpclient" class="%worldia.textmaster.api.httpclient.class%">
-            <argument>%worldia.textmaster.credentials.api_key%</argument>
-            <argument>%worldia.textmaster.credentials.api_secret%</argument>
-            <argument>%worldia.textmaster.httpclient.options%</argument>
+            <argument>%worldia.textmaster.dsn%</argument>
         </service>
 
         <service id="worldia.textmaster.api.client" class="%worldia.textmaster.api.client.class%">

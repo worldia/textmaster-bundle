@@ -20,12 +20,6 @@ class WorldiaTextmasterExtension extends Extension
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
-        if ($config['httpclient_options']['enabled']) {
-            $container->setParameter('worldia.textmaster.httpclient.options', $config['httpclient_options']);
-        }
-
-        $container->setParameter('worldia.textmaster.credentials.api_key', $config['credentials']['api_key']);
-        $container->setParameter('worldia.textmaster.credentials.api_secret', $config['credentials']['api_secret']);
 
         $container->setParameter('worldia.textmaster.templates.project.index', $config['templates']['project']['index']);
         $container->setParameter('worldia.textmaster.templates.project.show', $config['templates']['project']['show']);
@@ -40,6 +34,7 @@ class WorldiaTextmasterExtension extends Extension
         $container->setParameter('worldia.textmaster.templates.job.accept', $config['templates']['job']['accept']);
         $container->setParameter('worldia.textmaster.templates.job.reject', $config['templates']['job']['reject']);
 
+        $container->setParameter('worldia.textmaster.dsn', $config['dsn']);
         $container->setParameter('worldia.textmaster.mapping.properties', $config['mapping_properties']);
         $container->setParameter('worldia.textmaster.copywriting_word_count', $config['copywriting_word_count']);
     }
