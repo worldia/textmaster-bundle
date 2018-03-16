@@ -23,10 +23,7 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
     protected function getMinimalConfiguration()
     {
         return [
-            'credentials' => [
-                'api_key' => 'My API key',
-                'api_secret' => 'My API secret',
-            ],
+            'dsn' => 'http://api-key:api-secret@api.textmaster.com/v1',
             'copywriting_word_count' => 200,
         ];
     }
@@ -38,8 +35,7 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
     {
         $this->load();
 
-        $this->assertContainerBuilderHasParameter('worldia.textmaster.credentials.api_key', 'My API key');
-        $this->assertContainerBuilderHasParameter('worldia.textmaster.credentials.api_secret', 'My API secret');
+        $this->assertContainerBuilderHasParameter('worldia.textmaster.dsn', 'http://api-key:api-secret@api.textmaster.com/v1');
 
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.document.show', 'WorldiaTextmasterBundle:Document:show.html.twig');
         $this->assertContainerBuilderHasParameter('worldia.textmaster.templates.document.index', 'WorldiaTextmasterBundle:Document:list.html.twig');
@@ -62,23 +58,6 @@ class WorldiaTextmasterExtensionTest extends AbstractExtensionTestCase
         $this->load(['mapping_properties' => $mapping]);
 
         $this->assertContainerBuilderHasParameter('worldia.textmaster.mapping.properties', $mapping);
-    }
-
-    /**
-     * @test
-     */
-    public function assertHttpClientOptionsParameters()
-    {
-        $options = [
-            'base_uri' => 'http://my.base.uri',
-            'api_version' => '1',
-        ];
-        $this->load(['httpclient_options' => $options]);
-
-        $this->assertContainerBuilderHasParameter(
-            'worldia.textmaster.httpclient.options',
-            array_merge(['enabled' => true], $options)
-        );
     }
 
     /**

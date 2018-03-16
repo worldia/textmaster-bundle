@@ -30,10 +30,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
                             'show' => 'Template:Project:show.html.twig',
                         ],
                     ],
-                    'credentials' => [
-                        'api_key' => 'My API key',
-                        'api_secret' => 'My API secret',
-                    ],
+                    'dsn' => 'http://api-key:api-secret@api.textmaster.com/v1',
                     'mapping_properties' => [
                         'Worldia\Bundle\ProductTestBundle\Entity\Product' => ['title', 'description'],
                     ],
@@ -51,12 +48,10 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $this->assertConfigurationIsInvalid(
             [
                 [
-                    'credentials' => [
-                        'api_key' => 'My API key',
-                    ],
+                    'dsn' => null,
                 ],
             ],
-            'api_secret'
+            'copywriting_word_count'
         );
     }
 }
