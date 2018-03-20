@@ -4,6 +4,8 @@ namespace Worldia\Bundle\ProductTestBundle\Entity;
 
 interface TranslatableInterface
 {
+    public function getId();
+    
     /**
      * Translation method.
      *

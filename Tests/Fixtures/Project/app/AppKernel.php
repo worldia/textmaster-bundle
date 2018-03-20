@@ -39,8 +39,12 @@ class AppKernel extends Kernel
 
     private function guessTempDirectoryFor($dirname)
     {
-        return is_writable(__DIR__.'/../../../../build/tmp') ?
+        $dir = is_writable(__DIR__.'/../../../../build/tmp') ?
             __DIR__.'/build/tmp/'.$dirname
             : sys_get_temp_dir().'/'.$this->mainBundle.'/'.$dirname;
+            
+            // var_dump($dir);
+            // die;
+            return $dir;
     }
 }

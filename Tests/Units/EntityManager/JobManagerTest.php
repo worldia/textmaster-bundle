@@ -2,11 +2,12 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\EntityManager;
 
+use PHPUnit\Framework\TestCase;
 use Worldia\Bundle\TextmasterBundle\Entity\Job;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
 use Worldia\Bundle\TextmasterBundle\EntityManager\JobManager;
 
-class JobManagerTest extends \PHPUnit_Framework_TestCase
+class JobManagerTest extends TestCase
 {
     protected $entityManagerMock;
     protected $textmasterManagerMock;
@@ -16,7 +17,7 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->entityManagerMock = $this->getMock('Doctrine\ORM\EntityManagerInterface');
+        $this->entityManagerMock = $this->createMock('Doctrine\ORM\EntityManagerInterface');
 
         $this->textmasterManagerMock = $this
             ->getMockBuilder('Textmaster\Manager')
@@ -28,7 +29,7 @@ class JobManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->translatableMock = $this->getMock('TranslatableInterface', array('getId'));
+        $this->translatableMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\TranslatableInterface', array('getId'));
         $this->translatableMock->expects($this->once())
             ->method('getId')
             ->willReturn(1);

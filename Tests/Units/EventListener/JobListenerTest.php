@@ -3,9 +3,10 @@
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\EventListener;
 
 use Doctrine\ORM\Events;
+use PHPUnit\Framework\TestCase;
 use Worldia\Bundle\TextmasterBundle\EventListener\JobListener;
 
-class JobListenerTest extends \PHPUnit_Framework_TestCase
+class JobListenerTest extends TestCase
 {
     /**
      * @var JobListener
@@ -42,10 +43,10 @@ class JobListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldSetTranslatableOnPostLoad()
     {
-        $jobMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
-        $translatableMock = $this->getMock('TranslatableInterface');
-        $objectManagerMock = $this->getMock('Doctrine\Common\Persistence\ObjectManager');
-        $objectRepositoryMock = $this->getMock('Doctrine\Common\Persistence\ObjectRepository');
+        $jobMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
+        $translatableMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\TranslatableInterface');
+        $objectManagerMock = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
+        $objectRepositoryMock = $this->createMock('Doctrine\Common\Persistence\ObjectRepository');
 
         $this->eventMock->expects($this->once())
             ->method('getEntity')

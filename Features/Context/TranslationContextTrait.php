@@ -4,7 +4,7 @@ namespace Worldia\Bundle\TextmasterBundle\Features\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit_Framework_Assert;
+use PHPUnit\Framework\Assert;;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Worldia\Bundle\TextmasterBundle\Entity\JobInterface;
 use Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface;
@@ -75,11 +75,11 @@ trait TranslationContextTrait
         foreach ($table->getHash() as $data) {
             $job = $this->findJob($data['id']);
 
-            PHPUnit_Framework_Assert::assertSame($data['status'], $job->getStatus());
-            PHPUnit_Framework_Assert::assertSame($data['locale'], $job->getLocale());
-            PHPUnit_Framework_Assert::assertSame((int) $data['translatable'], $job->getTranslatable()->getId());
-            PHPUnit_Framework_Assert::assertSame($data['project'], $job->getProjectId());
-            PHPUnit_Framework_Assert::assertSame($data['document'], $job->getDocumentId());
+            Assert::assertSame($data['status'], $job->getStatus());
+            Assert::assertSame($data['locale'], $job->getLocale());
+            Assert::assertSame((int) $data['translatable'], $job->getTranslatable()->getId());
+            Assert::assertSame($data['project'], $job->getProjectId());
+            Assert::assertSame($data['document'], $job->getDocumentId());
         }
     }
 
@@ -105,13 +105,13 @@ trait TranslationContextTrait
             );
 
             if (null !== $project) {
-                PHPUnit_Framework_Assert::assertSame($data['name'], $project->getName());
-                PHPUnit_Framework_Assert::assertSame(isset($data['activity']) ? $data['activity'] : null, $project->getActivity());
-                PHPUnit_Framework_Assert::assertSame($data['languageFrom'], $project->getLanguageFrom());
-                PHPUnit_Framework_Assert::assertSame(isset($data['languageTo']) ? $data['languageTo'] : null, $project->getLanguageTo());
-                PHPUnit_Framework_Assert::assertSame($data['category'], $project->getCategory());
-                PHPUnit_Framework_Assert::assertSame($data['briefing'], $project->getBriefing());
-                PHPUnit_Framework_Assert::assertSame(json_decode($data['options'], true), $project->getOptions());
+                Assert::assertSame($data['name'], $project->getName());
+                Assert::assertSame(isset($data['activity']) ? $data['activity'] : null, $project->getActivity());
+                Assert::assertSame($data['languageFrom'], $project->getLanguageFrom());
+                Assert::assertSame(isset($data['languageTo']) ? $data['languageTo'] : null, $project->getLanguageTo());
+                Assert::assertSame($data['category'], $project->getCategory());
+                Assert::assertSame($data['briefing'], $project->getBriefing());
+                Assert::assertSame(json_decode($data['options'], true), $project->getOptions());
             }
         }
     }
@@ -121,7 +121,7 @@ trait TranslationContextTrait
      */
     public function assertJobStatus(JobInterface $job, $status)
     {
-        PHPUnit_Framework_Assert::assertSame($status, $job->getStatus());
+        Assert::assertSame($status, $job->getStatus());
     }
 
     /**
@@ -131,7 +131,7 @@ trait TranslationContextTrait
     {
         $count = count($this->getJobManager()->getTranslatablesWithJobAndLocale($class, $locale));
 
-        PHPUnit_Framework_Assert::assertSame((int) $number, $count);
+        Assert::assertSame((int) $number, $count);
     }
 
     /**
