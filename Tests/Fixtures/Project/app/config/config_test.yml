@@ -5,7 +5,7 @@ framework:
     secret: test
     test: ~
     router:
-        resource: %kernel.root_dir%/config/routing.yml
+        resource: '%kernel.root_dir%/config/routing.yml'
     session:
         storage_id: session.storage.mock_file
     form:            true
@@ -29,6 +29,7 @@ services:
     worldia.textmaster.project.api:
         class:  Worldia\Bundle\ProductTestBundle\Service\ProjectApi
         arguments: ['@worldia.textmaster.api.client', '@worldia.textmaster.document.api']
+        public: true
 
     worldia.textmaster.project_author.api:
         class:  Worldia\Bundle\ProductTestBundle\Service\Project\AuthorApi

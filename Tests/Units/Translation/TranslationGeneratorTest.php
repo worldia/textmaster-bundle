@@ -2,19 +2,20 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\Translation;
 
+use PHPUnit\Framework\TestCase;
 use Textmaster\Model\ProjectInterface;
 use Worldia\Bundle\TextmasterBundle\Translation\TranslationGenerator;
 
-class TranslationGeneratorTest extends \PHPUnit_Framework_TestCase
+class TranslationGeneratorTest extends TestCase
 {
     /**
      * @test
      */
     public function shouldGenerateProject()
     {
-        $translationManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface');
-        $translatableFinderMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface');
-        $translatableMock = $this->getMock('TranslatableInterface');
+        $translationManagerMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface');
+        $translatableFinderMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface');
+        $translatableMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\TranslatableInterface');
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
 
         $translatableFinderMock->expects($this->once())
@@ -48,9 +49,9 @@ class TranslationGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldGenerateProjectWithTranslationMemory()
     {
-        $translationManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface');
-        $translatableFinderMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface');
-        $translatableMock = $this->getMock('TranslatableInterface');
+        $translationManagerMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface');
+        $translatableFinderMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface');
+        $translatableMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\TranslatableInterface');
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
 
         $translatableFinderMock->expects($this->once())
@@ -81,9 +82,9 @@ class TranslationGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldGenerateProjectWithLimit()
     {
-        $translationManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface');
-        $translatableFinderMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface');
-        $translatableMock = $this->getMock('TranslatableInterface');
+        $translationManagerMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Translation\TranslationManagerInterface');
+        $translatableFinderMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Translation\TranslatableFinderInterface');
+        $translatableMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\TranslatableInterface');
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
 
         $translatableFinderMock->expects($this->once())

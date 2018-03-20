@@ -39,7 +39,7 @@
             <argument type="service" id="worldia.textmaster.api.client" />
         </service>
 
-        <service id="worldia.textmaster.api.handler" class="%worldia.textmaster.api.handler.class%">
+        <service id="worldia.textmaster.api.handler" class="%worldia.textmaster.api.handler.class%" public="true">
             <argument type="service" id="event_dispatcher" />
             <argument type="service" id="worldia.textmaster.api.client" />
         </service>
@@ -57,20 +57,20 @@
             <tag name="textmaster_translator_factory" />
         </service>
 
-        <service id="worldia.textmaster.manager.job" class="%worldia.textmaster.manager.job.class%">
+        <service id="worldia.textmaster.manager.job" class="%worldia.textmaster.manager.job.class%" public="true">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="worldia.textmaster.api.manager" />
             <argument type="service" id="worldia.textmaster.repository.job" />
         </service>
 
-        <service id="worldia.textmaster.manager.translation" class="%worldia.textmaster.manager.translation.class%">
+        <service id="worldia.textmaster.manager.translation" class="%worldia.textmaster.manager.translation.class%" public="true">
             <argument type="service" id="worldia.textmaster.api.manager" />
             <argument type="service" id="worldia.textmaster.api.translator" />
             <argument type="service" id="router" />
             <argument>%worldia.textmaster.copywriting_word_count%</argument>
         </service>
 
-        <service id="worldia.textmaster.generator.translation" class="%worldia.textmaster.generator.translation.class%">
+        <service id="worldia.textmaster.generator.translation" class="%worldia.textmaster.generator.translation.class%" public="true">
             <argument type="service" id="worldia.textmaster.manager.translation" />
         </service>
 
@@ -89,7 +89,7 @@
             <tag name="doctrine.event_subscriber" connection="default" priority="50" />
         </service>
 
-        <service id="worldia.textmaster.repository.job" class="%worldia.textmaster.repository.job.class%">
+        <service id="worldia.textmaster.repository.job" class="%worldia.textmaster.repository.job.class%" public="true">
             <factory service="doctrine" method="getRepository"/>
             <argument>%worldia.textmaster.job.class%</argument>
         </service>

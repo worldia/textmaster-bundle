@@ -2,9 +2,10 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\Translation;
 
+use PHPUnit\Framework\TestCase;
 use Worldia\Bundle\TextmasterBundle\Translation\TranslationManager;
 
-class TranslationManagerTest extends \PHPUnit_Framework_TestCase
+class TranslationManagerTest extends TestCase
 {
     /**
      * @test
@@ -12,13 +13,13 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
     public function shouldCreateProject()
     {
         $textmasterManagerMock = $this->getMockBuilder('Textmaster\Manager')->disableOriginalConstructor()->getMock();
-        $routerMock = $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
+        $routerMock = $this->createMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
         $translatorMock = $this->getMockBuilder('Textmaster\Translator\Translator')->setMethods(['push'])->disableOriginalConstructor()->getMock();
 
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
-        $translatableMock = $this->getMock('TranslatableInterface', ['getId']);
-        $documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
-        $authorMock = $this->getMock('Textmaster\Model\AuthorInterface');
+        $translatableMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\TranslatableInterface', ['getId']);
+        $documentMock = $this->createMock('Textmaster\Model\DocumentInterface');
+        $authorMock = $this->createMock('Textmaster\Model\AuthorInterface');
 
         $textmasterManagerMock->expects($this->once())
             ->method('getProject')
@@ -87,13 +88,13 @@ class TranslationManagerTest extends \PHPUnit_Framework_TestCase
     public function shouldCreateProjectWithTranslationMemory()
     {
         $textmasterManagerMock = $this->getMockBuilder('Textmaster\Manager')->disableOriginalConstructor()->getMock();
-        $routerMock = $this->getMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
+        $routerMock = $this->createMock('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
         $translatorMock = $this->getMockBuilder('Textmaster\Translator\Translator')->setMethods(['push'])->disableOriginalConstructor()->getMock();
 
         $projectMock = $this->getMockBuilder('Textmaster\Model\Project')->disableOriginalConstructor()->getMock();
-        $translatableMock = $this->getMock('TranslatableInterface', ['getId']);
-        $documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
-        $authorMock = $this->getMock('Textmaster\Model\AuthorInterface');
+        $translatableMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\TranslatableInterface', ['getId']);
+        $documentMock = $this->createMock('Textmaster\Model\DocumentInterface');
+        $authorMock = $this->createMock('Textmaster\Model\AuthorInterface');
 
         $textmasterManagerMock->expects($this->once())
             ->method('getProject')

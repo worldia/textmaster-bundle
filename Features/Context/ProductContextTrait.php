@@ -4,7 +4,7 @@ namespace Worldia\Bundle\TextmasterBundle\Features\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit_Framework_Assert;
+use PHPUnit\Framework\Assert;
 use Worldia\Bundle\ProductTestBundle\Entity\Product;
 
 trait ProductContextTrait
@@ -63,8 +63,8 @@ trait ProductContextTrait
     public function assertProductTranslations(Product $product, TableNode $table)
     {
         foreach ($table->getHash() as $data) {
-            PHPUnit_Framework_Assert::assertSame($data['title'], $product->getTranslation($data['locale'])->getTitle());
-            PHPUnit_Framework_Assert::assertSame($data['description'], $product->getTranslation($data['locale'])->getDescription());
+            Assert::assertSame($data['title'], $product->getTranslation($data['locale'])->getTitle());
+            Assert::assertSame($data['description'], $product->getTranslation($data['locale'])->getDescription());
         }
     }
 }

@@ -2,10 +2,11 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\EventListener;
 
+use PHPUnit\Framework\TestCase;
 use Textmaster\Events;
 use Worldia\Bundle\TextmasterBundle\EventListener\ProjectListener;
 
-class ProjectListenerTest extends \PHPUnit_Framework_TestCase
+class ProjectListenerTest extends TestCase
 {
     /**
      * @var ProjectListener
@@ -16,7 +17,7 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->jobManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface');
+        $this->jobManagerMock = $this->createMock('Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface');
         $this->listener = new ProjectListener($this->jobManagerMock);
     }
 
@@ -39,7 +40,7 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
     public function shouldStartJobsWhenProjectInProgress()
     {
         $eventMock = $this->getMockBuilder('Textmaster\Event\CallbackEvent')->disableOriginalConstructor()->getMock();
-        $projectMock = $this->getMock('Textmaster\Model\ProjectInterface');
+        $projectMock = $this->createMock('Textmaster\Model\ProjectInterface');
 
         $eventMock->expects($this->once())
             ->method('getSubject')
@@ -57,7 +58,7 @@ class ProjectListenerTest extends \PHPUnit_Framework_TestCase
     public function shouldLaunchProjectWhenProjectMemoryCompleted()
     {
         $eventMock = $this->getMockBuilder('Textmaster\Event\CallbackEvent')->disableOriginalConstructor()->getMock();
-        $projectMock = $this->getMock('Textmaster\Model\ProjectInterface');
+        $projectMock = $this->createMock('Textmaster\Model\ProjectInterface');
 
         $eventMock->expects($this->once())
             ->method('getSubject')

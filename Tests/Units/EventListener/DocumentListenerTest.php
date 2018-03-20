@@ -2,11 +2,12 @@
 
 namespace Worldia\Bundle\TextmasterBundle\Tests\Units\EventListener;
 
+use PHPUnit\Framework\TestCase;
 use Textmaster\Events;
 use Textmaster\Model\Project;
 use Worldia\Bundle\TextmasterBundle\EventListener\DocumentListener;
 
-class DocumentListenerTest extends \PHPUnit_Framework_TestCase
+class DocumentListenerTest extends TestCase
 {
     /**
      * @var DocumentListener
@@ -20,11 +21,11 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->jobManagerMock = $this->getMock('Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface');
-        $this->translatorMock = $this->getMock('Textmaster\Translator\TranslatorInterface');
+        $this->jobManagerMock = $this->createMock('Worldia\Bundle\TextmasterBundle\EntityManager\JobManagerInterface');
+        $this->translatorMock = $this->createMock('Textmaster\Translator\TranslatorInterface');
 
-        $this->eventMock = $this->getMock('Symfony\Component\EventDispatcher\GenericEvent');
-        $this->documentMock = $this->getMock('Textmaster\Model\DocumentInterface');
+        $this->eventMock = $this->createMock('Symfony\Component\EventDispatcher\GenericEvent');
+        $this->documentMock = $this->createMock('Textmaster\Model\DocumentInterface');
 
         $this->listener = new DocumentListener($this->jobManagerMock, $this->translatorMock);
     }
@@ -49,8 +50,8 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldCreateJobWhenDocumentInCreation()
     {
-        $objectMock = $this->getMock('ObjectInterface');
-        $projectMock = $this->getMock('Textmaster\Model\ProjectInterface');
+        $objectMock = $this->createMock('Worldia\Bundle\ProductTestBundle\Entity\Product');
+        $projectMock = $this->createMock('Textmaster\Model\ProjectInterface');
 
         $this->eventMock->expects($this->once())
             ->method('getSubject')
@@ -83,7 +84,7 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
     public function shouldFinishJobWhenDocumentInReview()
     {
         $eventMock = $this->getMockBuilder('Textmaster\Event\CallbackEvent')->disableOriginalConstructor()->getMock();
-        $jobMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
+        $jobMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
 
         $eventMock->expects($this->once())
             ->method('getSubject')
@@ -104,7 +105,7 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldValidateJobWhenDocumentCompleted()
     {
-        $jobMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
+        $jobMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
 
         $this->eventMock->expects($this->once())
             ->method('getSubject')
@@ -125,7 +126,7 @@ class DocumentListenerTest extends \PHPUnit_Framework_TestCase
      */
     public function shouldStartJobWhenDocumentIncomplete()
     {
-        $jobMock = $this->getMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
+        $jobMock = $this->createMock('Worldia\Bundle\TextmasterBundle\Entity\JobInterface');
 
         $this->eventMock->expects($this->once())
             ->method('getSubject')
