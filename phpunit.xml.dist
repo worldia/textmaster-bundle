@@ -10,6 +10,7 @@
 
     <php>
         <server name="KERNEL_DIR" value="/Tests/Fixtures/Project/app/" />
+        <server name="KERNEL_CLASS" value="Worldia\Bundle\TextmasterBundle\Tests\Fixtures\Project\app\AppKernel" />
     </php>
 
     <filter>

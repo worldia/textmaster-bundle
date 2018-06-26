@@ -1,9 +1,17 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Config\Loader\LoaderInterface;
+namespace Worldia\Bundle\TextmasterBundle\Tests\Fixtures\Project\app;
 
-class AppKernel extends Kernel
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle;
+use Worldia\Bundle\ProductTestBundle\WorldiaProductTestBundle;
+use Worldia\Bundle\TextmasterBundle\WorldiaTextmasterBundle;
+
+class AppKernel extends BaseKernel
 {
     private $mainBundle = 'WorldiaTextmasterBundle';
 
@@ -13,12 +21,12 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return array(
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new Worldia\Bundle\ProductTestBundle\WorldiaProductTestBundle(),
-            new Worldia\Bundle\TextmasterBundle\WorldiaTextmasterBundle(),
+            new DoctrineBundle(),
+            new FrameworkBundle(),
+            new TwigBundle(),
+            new WhiteOctoberPagerfantaBundle(),
+            new WorldiaProductTestBundle(),
+            new WorldiaTextmasterBundle(),
         );
     }
 
@@ -43,8 +51,6 @@ class AppKernel extends Kernel
             __DIR__.'/build/tmp/'.$dirname
             : sys_get_temp_dir().'/'.$this->mainBundle.'/'.$dirname;
             
-            // var_dump($dir);
-            // die;
             return $dir;
     }
 }
