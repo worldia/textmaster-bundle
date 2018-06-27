@@ -14,5 +14,6 @@ default:
       kernel:
         env: test
         debug: true
+        class: Worldia\Bundle\TextmasterBundle\Tests\Fixtures\Project\app\AppKernel
         path: Tests/Fixtures/Project/app/AppKernel.php
         bootstrap: Tests/Fixtures/Project/app/bootstrap.php
